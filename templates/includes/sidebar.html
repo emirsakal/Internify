@@ -1,0 +1,172 @@
+<!DOCTYPE html>
+{% load static %}
+<html lang="en" dir="ltr">
+  <head>
+    <meta charset="UTF-8">
+    <link rel="stylesheet" href="style.css">
+    <link href='https://unpkg.com/boxicons@2.0.7/css/boxicons.min.css' rel='stylesheet'>
+    <link rel="stylesheet" href="{% static 'css/sidebar.css' %}">
+    <link href="https://cdn.jsdelivr.net/npm/bootstrap@5.3.0-alpha3/dist/css/bootstrap.min.css" rel="stylesheet" integrity="sha384-KK94CHFLLe+nY2dmCWGMq91rCGa5gtU4mk92HdvYe+M/SXH301p5ILy+dN9+nJOZ" crossorigin="anonymous">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+   </head>
+<body style = "background-color: #E4E9F7;">
+  <div class="sidebar open">
+    <div class="logo-details">
+      <i class='bx bx-menu' ></i>
+      <a href="/home" style ="text-decoration: none;"><span class="logo_name">Internify</span></a>
+    </div>
+    <ul class="nav-links">
+      <li>
+        <a href="/internship-application-form">
+          <i class='bx bx-book-open' ></i>
+          <span class="link_name">Internship Form</span>
+        </a>
+        <ul class="sub-menu blank">
+          <li><a class="link_name" href="/internship-application-form">Internship Application Form</a></li>
+        </ul>
+      </li>
+      <li>
+        <a href="/official-letter">
+          <i class='bx bx-book-content' ></i>
+          <span class="link_name">Official Letter</span>
+        </a>
+        <ul class="sub-menu blank">
+          <li><a class="link_name" href="/official-letter">Official Letter</a></li>
+        </ul>
+      </li>
+      <li>
+        <a href="/internship-opportunities">
+          <i class='bx bx-news' ></i>
+          <span class="link_name">Internship Opportunities</span>
+        </a>
+        <ul class="sub-menu blank">
+          <li><a class="link_name" href="/internship-opportunities">Internship Opportunities</a></li>
+        </ul>
+      </li>
+      <li>
+        <div class="iocn-link">
+          <a href="/inbox">
+            <i class='bx bx-chat' ></i>
+            <span class="link_name">Inbox</span>
+          </a>
+          <i class='bx bxs-chevron-down arrow' ></i>
+        </div>
+        <ul class="sub-menu">
+          <li><a class="link_name" href="/inbox">Inbox</a></li>
+          <li><a href="/inbox">Incoming Message</a></li>
+          <li><a href="/inbox/send-message">Send Message</a></li>
+        </ul>
+      </li>
+      <hr style="position: relative; border: none; height: 10px; background-color: white;">
+
+      <!-- CAREER CENTER SPECIALS -->
+      {% with isCC="Yes" %}
+      {% if isCC == "Yes" %}
+        <li>
+          <a href="/sgk-ef">
+            <i class='bx bx-printer' ></i>
+            <span class="link_name">SGK E.F</span>
+          </a>
+          <ul class="sub-menu blank">
+            <li><a class="link_name" href="/sgk-ef">SGK E.F</a></li>
+          </ul>
+        </li>
+      {% endif %}
+      {% endwith %}
+
+      <hr style="position: relative; border: none; height: 10px; background-color: white;">
+
+      {% with isTeacher="Yes" %}
+      {% if isTeacher == "Yes" %}
+        <li>
+          <a href="/teacher/internship-application-form">
+            <i class='bx bx-printer' ></i>
+            <span class="link_name">(T) Internship Application Form</span>
+          </a>
+          <ul class="sub-menu blank">
+            <li><a class="link_name" href="/teacher/internship-application-form">(T) Internship Application Form</a></li>
+          </ul>
+        </li>
+      {% endif %}
+      {% endwith %}
+
+      {% with isTeacher="Yes" %}
+      {% if isTeacher == "Yes" %}
+        <li>
+          <a href="/official-letters">
+            <i class='bx bx-printer' ></i>
+            <span class="link_name">(T) Official Letters</span>
+          </a>
+          <ul class="sub-menu blank">
+            <li><a class="link_name" href="/official-letters">(T) Official Letters</a></li>
+          </ul>
+        </li>
+      {% endif %}
+      {% endwith %}
+
+      <!-- PROFILE -->
+      <li>
+        <div class="profile-details">
+        <div class="profile-content">
+          <img src="{% static 'assets/img/avatars/default.png' %}" alt="user-avatar" class="d-block rounded" height="100" width="100" id="uploadedAvatar" />
+        </div>
+        <div class="name-job">
+          <div class="profile_name"><a href="/profile">Emir Sakal</a></div>
+          <div class="job">Student</div>
+        </div>
+        <i class='bx bx-log-out' ></i>
+      </div>
+    </li>
+  </ul>
+  </div>
+
+  <!-- Page Content
+
+  <section class="home-section">
+    <div class="home-content offset-md-1 mt-lg-5">
+      <i class='bx bx-home' style="font-size: 2em" ></i>
+      <span class="text">Homepage</span>
+    </div>
+  </section>
+
+  -->
+
+  <script>
+  let arrow = document.querySelectorAll(".arrow");
+  for (var i = 0; i < arrow.length; i++) {
+    arrow[i].addEventListener("click", (e)=>{
+   let arrowParent = e.target.parentElement.parentElement;//selecting main parent of arrow
+   arrowParent.classList.toggle("showMenu");
+    });
+  }
+  let sidebar = document.querySelector(".sidebar");
+  let sidebarBtn = document.querySelector(".bx-menu");
+  console.log(sidebarBtn);
+  sidebarBtn.addEventListener("click", ()=>{
+    sidebar.classList.toggle("close");
+  });
+  </script>
+  <script src="https://cdn.jsdelivr.net/npm/bootstrap@5.3.0-alpha3/dist/js/bootstrap.bundle.min.js" integrity="sha384-ENjdO4Dr2bkBIFxQpeoTz1HIcje39Wm4jDKdf19U8gI4ddQ3GYNS7NTKfAdVQSZe" crossorigin="anonymous"></script>
+  <script src="{% static 'css/sidebar.js' %}"></script>
+</body>
+</html>
+
+
+<!-- Categorized Section -->
+<!--
+    <li>
+        <div class="iocn-link">
+          <a href="#">
+            <i class='bx bx-collection' ></i>
+            <span class="link_name">Category</span>
+          </a>
+          <i class='bx bxs-chevron-down arrow' ></i>
+        </div>
+        <ul class="sub-menu">
+          <li><a class="link_name" href="#">Category</a></li>
+          <li><a href="#">HTML & CSS</a></li>
+          <li><a href="#">JavaScript</a></li>
+          <li><a href="#">PHP & MySQL</a></li>
+        </ul>
+    </li>
+-->

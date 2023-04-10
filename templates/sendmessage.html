@@ -1,0 +1,73 @@
+{% extends "layout.html" %}
+{% load static %}
+
+{% block body %}
+    <head></head>
+    <body style="background-color:#E4E9F7;">
+      <section class = "home-section">
+        <div class="home-content offset-md-1 mt-lg-5" style="position: relative; top:5%;">
+          <link href="https://maxcdn.bootstrapcdn.com/font-awesome/4.3.0/css/font-awesome.min.css" rel="stylesheet">
+          <div class="wraper bootstrap snippets bootdeys bootdey">
+          <div class="row">
+            <!-- Left sidebar -->
+            <div class="col-md-3">
+              <a href="/inbox/send-message" class="btn btn-success btn-block"><i class="fa fa-pencil-square-o"></i> New Message</a>
+              <br><br>
+              <div class="panel panel-default p-0 m-t-20">
+                <div class="panel-body p-0">
+                  <div class="list-group no-border mail-list">
+                    <a href="/inbox" class="list-group-item active"><i class="fa fa-inbox"></i> Incoming Messages <b>(8)</b></a>
+                    <a href="#" class="list-group-item"><i class="fa fa-envelope"></i> Unread <b>(2)</b></a>
+                    <a href="#" class="list-group-item"><i class="fa fa-paper-plane-o"></i> Outgoing Messages <b>(20)</b></a>
+                  </div>
+                </div>
+              </div>
+            </div>
+            <!-- End Left sidebar -->
+    
+            <!-- Right Sidebar -->
+            <div class="col-md-9">
+              <div class="row">
+                <div class="col-lg-12">
+                  <div class="btn-toolbar" role="toolbar">
+                    <div div class="btn-group">
+                      <div class="row"><h3 class="title" style="float:left"><i class="fa fa-envelope-o"></i> Send Message</h3></div>
+                    </div>
+                    <div class="btn-group">
+                  </div>
+                </div>
+              </div>
+            </div>
+            <br>
+            <div class="panel panel-default m-t-20">
+              <div class="panel-body">
+                  <form>
+                    <div class="card p-4" style="background:rgba(211, 211, 211, 0.615)">
+                      <div class="mb-3">
+                        <label for="exampleFormControlInput1" class="form-label" style="font-weight: 500;">Receiver</label>
+                        <input type="email" class="form-control" id="exampleFormControlInput1" placeholder="name@hotmail.com">
+                      </div>
+                      <div class="mb-3">
+                        <label for="exampleFormControlInput1" class="form-label" style="font-weight: 500;">Subject</label>
+                        <input type="email" class="form-control" id="exampleFormControlInput1">
+                      </div>
+                      <div class="mb-3">
+                        <label for="exampleFormControlTextarea1" class="form-label" style="font-weight: 500;">Message</label>
+                        <textarea class="form-control" id="exampleFormControlTextarea1" rows="10"></textarea>
+                      </div>
+                    </div>
+                    <br>
+                    <a href="/inbox" class="btn btn-success btn-block" style="float:right;"><i class="fa fa-pencil-square-o"></i> SEND MESSAGE</a>
+                  </form>
+              </div>
+            </div>
+          </div>
+        </div>
+      </section>
+    </body>
+
+    <!-- Page Content -->
+{% endblock body %}
+
+<!-- style="margin-left:auto; margin-right:auto; margin-top:auto; margin-bottom:auto; width:100%" -->
+<!-- INCOMING kısmı için receiver'ın ben olan blogları sırala diyebilirim, OUTGOING içinde sender kısmında benim olanları gösterebilirim. -->

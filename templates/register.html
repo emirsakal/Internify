@@ -1,0 +1,12 @@
+{% include 'layout.html' %}
+{% load static %}
+
+{% block body %}
+
+    <form method = "post" style="position: relative; left: 20%; margin-top: 10%;">
+        {% csrf_token %}
+        {{form.as_p}}
+        <button type = "submit" class = "btn btn-danger">Register</button>
+    </form>
+
+{% endblock body %}
