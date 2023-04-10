@@ -1,6 +1,10 @@
 from django import forms
 from django.contrib.auth.models import User
 
+class LoginForm(forms.Form):
+    username = forms.CharField(label='ID', widget=forms.TextInput(attrs={'placeholder':'ID'}))
+    password = forms.CharField(label = 'Password', widget=forms.PasswordInput(attrs={'placeholder':'Password'}))
+
 class RegisterForm(forms.Form):
     PROFESSION_CHOICES = [('Student','Student'),('Teacher','Teacher'),('CareerCenter','CareerCenter')]
     CLASS_CHOICES = [('Non-Student','Non-Student'),('1.Class','1.Class'),('2.Class','2.Class'),('3.Class','3.Class'),('4.Class', '4.Class')]

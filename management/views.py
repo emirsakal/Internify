@@ -1,8 +1,9 @@
 from django.shortcuts import render, HttpResponse, redirect
-from .forms import RegisterForm
+from .forms import RegisterForm, LoginForm
 from django.contrib import messages
 from django.contrib.auth.models import User, Group
-from django.contrib.auth import login
+from django.contrib.auth import login, authenticate
+from django.contrib import messages
 
 def index(request):
     return render(request, "index.html")
@@ -51,7 +52,7 @@ def detail(request):
 
 def register(request):
     if request.method == "POST":
-        form = RegisterForm(request.POST)
+        form = RegisterForm(request.POST or None)
         if form.is_valid():
             firstName = form.cleaned_data.get("firstName")
             lastName = form.cleaned_data.get("lastName")
@@ -109,7 +110,25 @@ def register(request):
         return render(request, "register.html", context)
 
 def loginUser(request):
-    pass
+    form = LoginForm(request.POST or None)
+
+    context = {
+        "form" : form
+    }
+
+    if form.is_valid():
+        username = form.cleaned_data.get("username")
+        password = form.cleaned_data.get("password")
+
+        user = authenticate(username = username, password = password)
+
+        if user is None:
+            messages.info(request,"Username or Password is wrong.")
+            return render(request,"login.html",context)
+        messages.success(request,"You successfully logged in.")
+        login(request,user)
+        return redirect("index")
+    return render(request,"login.html", context)
 
 def logoutUser(request):
     pass
