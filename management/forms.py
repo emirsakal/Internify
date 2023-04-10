@@ -2,8 +2,8 @@ from django import forms
 from django.contrib.auth.models import User
 
 class LoginForm(forms.Form):
-    username = forms.CharField(label='ID', widget=forms.TextInput(attrs={'placeholder':'ID'}))
-    password = forms.CharField(label = 'Password', widget=forms.PasswordInput(attrs={'placeholder':'Password'}))
+    username = forms.CharField(label='', widget=forms.TextInput(attrs={'placeholder':'ID'}))
+    password = forms.CharField(label = '', widget=forms.PasswordInput(attrs={'placeholder':'Password'}))
 
 class RegisterForm(forms.Form):
     PROFESSION_CHOICES = [('Student','Student'),('Teacher','Teacher'),('CareerCenter','CareerCenter')]

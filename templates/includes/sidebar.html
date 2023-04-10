@@ -89,34 +89,39 @@
         {% endif %}
       {% endfor %}
 
-      <li>
-        <div class="iocn-link">
-          <a href="/inbox">
-            <i class='bx bx-chat' ></i>
-            <span class="link_name">Inbox</span>
-          </a>
-          <i class='bx bxs-chevron-down arrow' ></i>
-        </div>
-        <ul class="sub-menu">
-          <li><a class="link_name" href="/inbox">Inbox</a></li>
-          <li><a href="/inbox">Incoming Message</a></li>
-          <li><a href="/inbox/send-message">Send Message</a></li>
-        </ul>
-      </li>
+      {% for group in request.user.groups.all %}
+        {% if group.name == 'CareerCenter' or group.name == 'Student' or group.name == 'Teacher'%}
+          <!-- Inbox -->
+          <li>
+            <div class="iocn-link">
+              <a href="/inbox">
+                <i class='bx bx-chat' ></i>
+                <span class="link_name">Inbox</span>
+              </a>
+              <i class='bx bxs-chevron-down arrow' ></i>
+            </div>
+            <ul class="sub-menu">
+              <li><a class="link_name" href="/inbox">Inbox</a></li>
+              <li><a href="/inbox">Incoming Message</a></li>
+              <li><a href="/inbox/send-message">Send Message</a></li>
+            </ul>
+          </li>
 
-      <!-- PROFILE -->
-      <li>
-        <div class="profile-details">
-        <div class="profile-content">
-          <img src="{% static 'assets/img/avatars/default.png' %}" alt="user-avatar" class="d-block rounded" height="100" width="100" id="uploadedAvatar" />
-        </div>
-        <div class="name-job">
-          <div class="profile_name"><a href="/profile">Emir Sakal</a></div>
-          <div class="job">Student</div>
-        </div>
-        <i class='bx bx-log-out' ></i>
-      </div>
-    </li>
+          <!-- PROFILE -->
+          <li>
+            <div class="profile-details">
+            <div class="profile-content">
+              <img src="{% static 'assets/img/avatars/default.png' %}" alt="user-avatar" class="d-block rounded" height="100" width="100" id="uploadedAvatar" />
+            </div>
+            <div class="name-job">
+              <div class="profile_name"><a href="/profile">Emir Sakal</a></div>
+              <div class="job">Student</div>
+            </div>
+            <a href="/logout"><i class='bx bx-log-out' ></i></a>
+            </div>
+          </li>
+        {% endif %}
+      {% endfor %}
   </ul>
   </div>
 

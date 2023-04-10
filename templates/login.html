@@ -20,7 +20,7 @@
             align-items: center;
             flex-direction: column;
             font-family: 'Montserrat', sans-serif;
-            height: 100vh;
+            height: 90vh;
             margin: -20px 0 50px;
         }
 
@@ -260,24 +260,33 @@
     </style>
 </head>
 <body>
-    <h2>Login</h2>
+    {% if messages %}
+            {% for message in messages %}
+                {% if message.tags == "info" %}
+                <div class="alert alert-danger" style="position: relative; bottom:10%;">{{ message }}</div>
+                {% else %}
+                <div class="alert alert-{{ message.tags }}" style="position: relative; bottom:10%;">{{ message }}</div>
+                {% endif %}
+            {% endfor %}
+    {% endif %}
+    <h1 style="position:relative; bottom:30px">SIGN IN</h1>
 <div class="container" id="container">
 	<div class="form-container sign-up-container">
 		<form method="post">
-            <h1>Staff</h1>
+            <h1 style="position:relative; bottom:30px">Staff</h1>
 			{% csrf_token %}
-            {{form|crispy}}
-			<button>Sign In</button>
+            {{form|crispy}} 
+			<button style="position:relative; top:30px">Sign In</button>
+            <a href="/register" style="position:relative; top:30px">Not a member? Sign up</a>
 		</form>
 	</div>
 	<div class="form-container sign-in-container">
 		<form method="post">
-            <h1>Student</h1>
-            <br>
+            <h1 style="position:relative; bottom:30px">Student</h1>
 			{% csrf_token %}
             {{form|crispy}}
-            <br>
-			<button>Sign In</button>
+			<button style="position:relative; top:30px">Sign In</button>
+            <a href="/register" style="position:relative; top:30px">Not a member? Sign up</a>
 		</form>
 	</div>
 	<div class="overlay-container">
@@ -298,12 +307,10 @@
 
 <footer>
 	<p>
-		Created with <i class="fa fa-heart"></i> by
-		<a target="_blank" href="https://florin-pop.com">Florin Pop</a>
-		- Read how I created this and how you can join the challenge
-		<a target="_blank" href="https://www.florin-pop.com/blog/2019/03/double-slider-sign-in-up-form/">here</a>.
+		Created <i class="fa fa-heart"></i> by
+		<a target="_blank" href="https://github.com/emirsakal">Emir Sakal</a>
 	</p>
-</footer> -->
+</footer>
 <script>
     const signUpButton = document.getElementById('signUp');
     const signInButton = document.getElementById('signIn');

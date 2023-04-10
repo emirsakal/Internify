@@ -8,13 +8,13 @@
         <div class="home-content offset-md-1 mt-lg-5">
           {% if messages %}
             {% for message in messages %}
-            {% if message.tags == "info" %}
-            <div{% if message.tags %} class="alert alert-danger"{% endif %} style="width: 95%;">{{ message }}</div>
-            {% else %}
-            <div{% if message.tags %} class="alert alert-{{ message.tags }}"{% endif %} style="width: 95%;">{{ message }}</div>
-            {% endif %}
+                {% if message.tags == "info" %}
+                <div class="alert alert-danger" style="position: relative; bottom:10%;">{{ message }}</div>
+                {% else %}
+                <div class="alert alert-{{ message.tags }}" style="position: relative; bottom:10%;">{{ message }}</div>
+                {% endif %}
             {% endfor %}
-          {% endif %}
+        {% endif %}
           <i class='bx bx-home' style="font-size: 2em" ></i>
           <span class="text">Homepage</span>
         </div>

@@ -2,8 +2,7 @@ from django.shortcuts import render, HttpResponse, redirect
 from .forms import RegisterForm, LoginForm
 from django.contrib import messages
 from django.contrib.auth.models import User, Group
-from django.contrib.auth import login, authenticate
-from django.contrib import messages
+from django.contrib.auth import login, authenticate, logout
 
 def index(request):
     return render(request, "index.html")
@@ -131,6 +130,6 @@ def loginUser(request):
     return render(request,"login.html", context)
 
 def logoutUser(request):
-    pass
-
-#
+    logout(request)
+    messages.success(request,"You logged out succesfully.")
+    return redirect("login")
