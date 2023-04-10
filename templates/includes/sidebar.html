@@ -15,34 +15,80 @@
       <i class='bx bx-menu' ></i>
       <a href="/home" style ="text-decoration: none;"><span class="logo_name">Internify</span></a>
     </div>
+    <hr style="position: relative; border: none; height: 3px; background-color: white;">
     <ul class="nav-links">
-      <li>
-        <a href="/internship-application-form">
-          <i class='bx bx-book-open' ></i>
-          <span class="link_name">Internship Form</span>
-        </a>
-        <ul class="sub-menu blank">
-          <li><a class="link_name" href="/internship-application-form">Internship Application Form</a></li>
-        </ul>
-      </li>
-      <li>
-        <a href="/official-letter">
-          <i class='bx bx-book-content' ></i>
-          <span class="link_name">Official Letter</span>
-        </a>
-        <ul class="sub-menu blank">
-          <li><a class="link_name" href="/official-letter">Official Letter</a></li>
-        </ul>
-      </li>
-      <li>
-        <a href="/internship-opportunities">
-          <i class='bx bx-news' ></i>
-          <span class="link_name">Internship Opportunities</span>
-        </a>
-        <ul class="sub-menu blank">
-          <li><a class="link_name" href="/internship-opportunities">Internship Opportunities</a></li>
-        </ul>
-      </li>
+      {% for group in request.user.groups.all %}
+        {% if group.name == 'Student' %}
+          <li>
+            <a href="/internship-application-form">
+              <i class='bx bx-book-open' ></i>
+              <span class="link_name">Internship Form</span>
+            </a>
+            <ul class="sub-menu blank">
+              <li><a class="link_name" href="/internship-application-form">Internship Application Form</a></li>
+            </ul>
+          </li>
+          <li>
+            <a href="/official-letter">
+              <i class='bx bx-book-content' ></i>
+              <span class="link_name">Official Letter</span>
+            </a>
+            <ul class="sub-menu blank">
+              <li><a class="link_name" href="/official-letter">Official Letter</a></li>
+            </ul>
+          </li>
+        {% endif %}
+      {% endfor %}
+      {% for group in request.user.groups.all %}
+        {% if group.name == 'Teacher' %}
+          <li>
+            <a href="/teacher/internship-application-form">
+              <i class='bx bx-book-open' ></i>
+              <span class="link_name">Internship Application Form</span>
+            </a>
+            <ul class="sub-menu blank">
+              <li><a class="link_name" href="/teacher/internship-application-form">Internship Application Form</a></li>
+            </ul>
+          </li>
+          <li>
+            <a href="/official-letters">
+              <i class='bx bx-book-content' ></i>
+              <span class="link_name">Official Letters</span>
+            </a>
+            <ul class="sub-menu blank">
+              <li><a class="link_name" href="/official-letters">Official Letters</a></li>
+            </ul>
+          </li>
+        {% endif %}
+      {% endfor %}
+      {% for group in request.user.groups.all %}
+        {% if group.name == 'CareerCenter' %}
+          <li>
+            <a href="/sgk-ef">
+              <i class='bx bx-printer' ></i>
+              <span class="link_name">SGK E.F</span>
+            </a>
+            <ul class="sub-menu blank">
+              <li><a class="link_name" href="/sgk-ef">SGK E.F</a></li>
+            </ul>
+          </li>
+        {% endif %}
+      {% endfor %}
+      {% for group in request.user.groups.all %}
+        {% if group.name == 'CareerCenter' or group.name == 'Student' %}
+          <li>
+            <a href="/internship-opportunities">
+              <i class='bx bx-news' ></i>
+              <span class="link_name">Internship Opportunities</span>
+            </a>
+            <ul class="sub-menu blank">
+              <li><a class="link_name" href="/internship-opportunities">Internship Opportunities</a></li>
+            </ul>
+          </li>
+          <li>
+        {% endif %}
+      {% endfor %}
+
       <li>
         <div class="iocn-link">
           <a href="/inbox">
@@ -57,52 +103,6 @@
           <li><a href="/inbox/send-message">Send Message</a></li>
         </ul>
       </li>
-      <hr style="position: relative; border: none; height: 10px; background-color: white;">
-
-      <!-- CAREER CENTER SPECIALS -->
-      {% with isCC="Yes" %}
-      {% if isCC == "Yes" %}
-        <li>
-          <a href="/sgk-ef">
-            <i class='bx bx-printer' ></i>
-            <span class="link_name">SGK E.F</span>
-          </a>
-          <ul class="sub-menu blank">
-            <li><a class="link_name" href="/sgk-ef">SGK E.F</a></li>
-          </ul>
-        </li>
-      {% endif %}
-      {% endwith %}
-
-      <hr style="position: relative; border: none; height: 10px; background-color: white;">
-
-      {% with isTeacher="Yes" %}
-      {% if isTeacher == "Yes" %}
-        <li>
-          <a href="/teacher/internship-application-form">
-            <i class='bx bx-printer' ></i>
-            <span class="link_name">(T) Internship Application Form</span>
-          </a>
-          <ul class="sub-menu blank">
-            <li><a class="link_name" href="/teacher/internship-application-form">(T) Internship Application Form</a></li>
-          </ul>
-        </li>
-      {% endif %}
-      {% endwith %}
-
-      {% with isTeacher="Yes" %}
-      {% if isTeacher == "Yes" %}
-        <li>
-          <a href="/official-letters">
-            <i class='bx bx-printer' ></i>
-            <span class="link_name">(T) Official Letters</span>
-          </a>
-          <ul class="sub-menu blank">
-            <li><a class="link_name" href="/official-letters">(T) Official Letters</a></li>
-          </ul>
-        </li>
-      {% endif %}
-      {% endwith %}
 
       <!-- PROFILE -->
       <li>

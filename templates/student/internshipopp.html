@@ -12,11 +12,11 @@
             <!-- Left sidebar -->
             <div class="col-md-11">
               <h3 class="title" style="float:left"><i class="fa fa-envelope-o"></i> Internship Opportunities</h3>
-              {% with isCC="Yes" %}
-                {% if isCC == "Yes" %}
+              {% for group in request.user.groups.all %}
+                {% if group.name == 'CareerCenter' %}
                   <a href="/cc-internship-opportunities/add-internship" class="btn btn-success btn-block" style="float:right;"><i class="fa fa-pencil-square-o"></i> ADD INTERNSHIP</a>
                 {% endif %}
-              {% endwith %}
+              {% endfor %}
               <br><br>
               <table class="table table-bordered" style="width:100%; font-family:Arial, Helvetica, sans-serif; background-color: white; border:1px solid black; margin-left:auto;margin-right:auto; margin-top: auto; margin-bottom: auto;">
                 <thead style="font-size: 1.5rem;">

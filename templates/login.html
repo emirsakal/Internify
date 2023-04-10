@@ -266,15 +266,17 @@
 		<form method="post">
             <h1>Staff</h1>
 			{% csrf_token %}
-            {{form.as_p}}
+            {{form|crispy}}
 			<button>Sign In</button>
 		</form>
 	</div>
 	<div class="form-container sign-in-container">
 		<form method="post">
             <h1>Student</h1>
+            <br>
 			{% csrf_token %}
-            {{form.as_p}}
+            {{form|crispy}}
+            <br>
 			<button>Sign In</button>
 		</form>
 	</div>
