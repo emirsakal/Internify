@@ -111,11 +111,20 @@
           <li>
             <div class="profile-details">
             <div class="profile-content">
-              <img src="{% static 'assets/img/avatars/default.png' %}" alt="user-avatar" class="d-block rounded" height="100" width="100" id="uploadedAvatar" />
+              {% for group in request.user.groups.all %}
+                {% if group.name == 'Male' %}<a href="/profile"><img src="{% static 'assets/img/avatars/male_avatar.png' %}" alt="user-avatar" class="d-block rounded" height="100" width="100" id="uploadedAvatar" /></a>{% endif %}
+                {% if group.name == 'Female' %}<a href="/profile"><img src="{% static 'assets/img/avatars/female_avatar.png' %}" alt="user-avatar" class="d-block rounded" height="100" width="100" id="uploadedAvatar" /></a>{% endif %}
+              {% endfor %}
             </div>
             <div class="name-job">
-              <div class="profile_name"><a href="/profile">{{user.first_name}}</a></div>
-              <div class="job">Student</div>
+              <div class="profile_name"><a href="/profile">{{user.username}}</a></div>
+              <div class="job">
+                {% for group in request.user.groups.all %}
+                  {% if group.name == 'Student' %}Student{% endif %}
+                  {% if group.name == 'Teacher' %}Teacher{% endif %}
+                  {% if group.name == 'CareerCenter' %}Career Center{% endif %}
+                {% endfor %}
+              </div>
             </div>
             <a href="/logout"><i class='bx bx-log-out' ></i></a>
             </div>

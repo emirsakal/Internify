@@ -1,7 +1,11 @@
 from django import forms
 from django.contrib.auth.models import User
 
-class LoginForm(forms.Form):
+class StudentLoginForm(forms.Form):
+    username = forms.CharField(label='', widget=forms.TextInput(attrs={'placeholder':'ID'}))
+    password = forms.CharField(label = '', widget=forms.PasswordInput(attrs={'placeholder':'Password'}))
+
+class StaffLoginForm(forms.Form):
     username = forms.CharField(label='', widget=forms.TextInput(attrs={'placeholder':'ID'}))
     password = forms.CharField(label = '', widget=forms.PasswordInput(attrs={'placeholder':'Password'}))
 

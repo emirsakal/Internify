@@ -1,4 +1,3 @@
-
 <!DOCTYPE html>
 {% load crispy_forms_tags %}
 <html lang="en">
@@ -261,6 +260,7 @@
     </style>
 </head>
 <body>
+    
     {% if messages %}
             {% for message in messages %}
                 {% if message.tags == "info" %}
@@ -276,7 +276,7 @@
 		<form method="post">
             <h1 style="position:relative; bottom:20px">SIGN IN</h1>
 			{% csrf_token %}
-            {{StudentForm|crispy}} 
+            {{StaffForm|crispy}} 
 			<button style="position:relative; top:30px">Submit</button>
             <a href="/register" style="position:relative; top:30px">Not a member? Sign up</a>
 		</form>
@@ -285,7 +285,7 @@
 		<form method="post">
             <h1 style="position:relative; bottom:20px">SIGN IN</h1>
 			{% csrf_token %}
-            {{StudentForm|crispy}}
+            {{StaffForm|crispy}}
 			<button style="position:relative; top:30px">Submit</button>
             <a href="/register" style="position:relative; top:30px">Not a member? Sign up</a>
 		</form>
@@ -316,22 +316,23 @@
     const signUpButton = document.getElementById('signUp');
     const signInButton = document.getElementById('signIn');
     const container = document.getElementById('container');
+    container.classList.add("right-panel-active");
 
     let time = 0.5;
-
+    
     signUpButton.addEventListener('click', () => {
         container.classList.add("right-panel-active");
-        setInterval(() => {
-            time --;
-
-            if (time < 0) {
-                location.href="/login/staff"
-            }
-            }, 1000);
     });
 
     signInButton.addEventListener('click', () => {
         container.classList.remove("right-panel-active");
+        setInterval(() => {
+        time --;
+
+        if (time < 0) {
+            location.href="/login"
+        }
+    }, 1000);
     });
 </script>
 </body>

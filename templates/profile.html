@@ -18,7 +18,10 @@
                     
                     <div class="card-body">
                       <div class="d-flex align-items-start align-items-sm-center gap-4">
-                        <img src="{% static 'assets/img/avatars/default.png' %}" alt="user-avatar" class="d-block rounded" height="100" width="100" id="uploadedAvatar" />
+                        {% for group in request.user.groups.all %}
+                          {% if group.name == 'Male' %}<img src="{% static 'assets/img/avatars/male_avatar.png' %}" alt="user-avatar" class="d-block rounded" height="100" width="100" id="uploadedAvatar" />{% endif %}
+                          {% if group.name == 'Female' %}<img src="{% static 'assets/img/avatars/female_avatar.png' %}" alt="user-avatar" class="d-block rounded" height="100" width="100" id="uploadedAvatar" />{% endif %}
+                        {% endfor %}
                       
                         <div class="button-wrapper">
                             <label for="upload" class="btn btn-primary me-2 mb-4" tabindex="0">
