@@ -1,8 +1,10 @@
 from django.shortcuts import render, HttpResponse, redirect
 from .forms import RegisterForm, StudentLoginForm, StaffLoginForm
 from django.contrib import messages
-from django.contrib.auth.models import User, Group
 from django.contrib.auth import login, authenticate, logout
+from django.contrib.auth.models import Group
+
+from .models import User
 
 def index(request):
     return render(request, "index.html")
@@ -53,46 +55,29 @@ def register(request):
     if request.method == "POST":
         form = RegisterForm(request.POST or None)
         if form.is_valid():
-            firstName = form.cleaned_data.get("firstName")
-            lastName = form.cleaned_data.get("lastName")
-            schoolID = form.cleaned_data.get("schoolID")
-            profession = form.cleaned_data.get("profession")
-            classes = form.cleaned_data.get("classes")
+            first_name = form.cleaned_data.get("first_name")
+            last_name = form.cleaned_data.get("last_name")
             email = form.cleaned_data.get("email")
             password = form.cleaned_data.get("password")
+            gender = form.cleaned_data.get("gender")
+            type = form.cleaned_data.get("type")
+            
+            new_user = User(first_name=first_name, last_name=last_name, email=email, password=password, gender=gender)
+            new_user.set_password(password)
 
-            newUser = User(first_name=firstName, last_name=lastName, username = schoolID , email=email)
-            newUser.set_password(password)
-
-            newUser.save()
-
-            if profession == 'Student':
+            new_user.save()
+            
+            if type == 'Student':
                 group = Group.objects.get(name='Student')
-                newUser.groups.add(group)
-            elif profession == 'Teacher':
-                group = Group.objects.get(name='Teacher')
-                newUser.groups.add(group)
-            elif profession == 'CareerCenter':
-                group = Group.objects.get(name='CareerCenter')
-                newUser.groups.add(group)
-
-            if classes == 'Non-Student':
-                group = Group.objects.get(name='Non-Student')
-                newUser.groups.add(group)
-            elif classes == '1.Class':
-                group = Group.objects.get(name='1.Class')
-                newUser.groups.add(group)
-            elif classes == '2.Class':
-                group = Group.objects.get(name='2.Class')
-                newUser.groups.add(group)
-            elif classes == '3.Class':
-                group = Group.objects.get(name='3.Class')
-                newUser.groups.add(group)
-            elif classes == '4.Class':
-                group = Group.objects.get(name='4.Class')
-                newUser.groups.add(group)
-
-            login(request, newUser)
+                new_user.groups.add(group)
+            elif type == 'Coordinator':
+                group = Group.objects.get(name='Coordinator')
+                new_user.groups.add(group)
+            else:
+                group = Group.objects.get(name='Staff')
+                new_user.groups.add(group)
+            
+            login(request, new_user)
             messages.success(request,"You have succesfully registered.")
 
             return redirect("index")
@@ -109,24 +94,25 @@ def register(request):
         return render(request, "register.html", context)
 
 def loginUser(request):
-    StudentForm = StudentLoginForm(request.POST or None)
+    form = StudentLoginForm(request.POST or None)
 
     context = {
-        "StudentForm" : StudentForm
+        "StudentForm" : form
     }
     
-    if StudentForm.is_valid():
-        StudentUsername = StudentForm.cleaned_data.get("username")
-        StudentPassword = StudentForm.cleaned_data.get("password")
-        StudentUser = authenticate(username = StudentUsername, password = StudentPassword)
+    if form.is_valid():
+        email = form.cleaned_data.get("email")
+        password = form.cleaned_data.get("password")
+        user = authenticate(email=email, password=password)
 
-        if StudentUser is None:
-            messages.info(request,"Username or Password is wrong.")
+        if user is None:
+            messages.info(request,"Email or password is wrong.")
             return render(request,"login.html",context)
-        if StudentUser.groups.filter(name = 'Teacher').exists() or StudentUser.groups.filter(name = 'CareerCenter').exists():
+        
+        if user.groups.filter(name = 'Teacher').exists() or StudentUser.groups.filter(name = 'CareerCenter').exists():
             messages.info(request,"Please switch to the other login page.")
             return render(request,"login.html",context)
-        if StudentUser.groups.filter(name = 'Student').exists():
+        if user.groups.filter(name = 'Student').exists():
             messages.success(request,"You successfully logged in.")
             login(request,StudentUser)
             return redirect("index")
