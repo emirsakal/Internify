@@ -27,7 +27,7 @@ urlpatterns = [
     path('inbox/send-message', views.sendmessage, name = "sendmessage"),
     path('inbox/message', views.message, name = "message"), 
     path('profile/', views.profile, name = "profile"),
-    path('user/', include("user.urls")),
+    #path('user/', include("user.urls")),
 
     # STUDENT URLS
     
