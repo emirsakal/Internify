@@ -21,8 +21,8 @@ from management import views
 
 urlpatterns = [
     path("admin/", admin.site.urls),
-    path('', views.index, name = "index"),
-    path('home/', views.index, name = "index"),
+    path('', views.index, name="index"),
+    path('home/', views.index, name="index"),
     path('inbox/', views.inbox, name = "inbox"),
     path('inbox/send-message', views.sendmessage, name = "sendmessage"),
     path('inbox/message', views.message, name = "message"), 
@@ -31,7 +31,7 @@ urlpatterns = [
 
     # STUDENT URLS
     
-    path('internship-application-form/', views.internshipform, name = "internshipform"),
+    path('application-form/', views.internshipform, name = "internshipform"),
     path('official-letter/', views.officialletter, name = "officialletter"),
     path('internship-opportunities/', views.internshipopp, name = "internshipopp"),
 

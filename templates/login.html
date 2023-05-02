@@ -278,7 +278,7 @@
 			{% csrf_token %}
             {{StudentForm|crispy}} 
 			<button style="position:relative; top:30px">Submit</button>
-            <a href="/register" style="position:relative; top:30px">Not a member? Sign up</a>
+            {% comment %}<a href="/register" style="position:relative; top:30px">Not a member? Sign up</a>{% endcomment %}
 		</form>
 	</div>
 	<div class="form-container sign-in-container">
@@ -287,7 +287,7 @@
 			{% csrf_token %}
             {{StudentForm|crispy}}
 			<button style="position:relative; top:30px">Submit</button>
-            <a href="/register" style="position:relative; top:30px">Not a member? Sign up</a>
+            {% comment %}<a href="/register" style="position:relative; top:30px">Not a member? Sign up</a>{% endcomment %}
 		</form>
 	</div>
 	<div class="overlay-container">

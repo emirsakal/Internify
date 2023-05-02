@@ -103,18 +103,21 @@ def loginUser(request):
     if form.is_valid():
         email = form.cleaned_data.get("email")
         password = form.cleaned_data.get("password")
-        user = authenticate(email=email, password=password)
-
+        user = authenticate(username=email, password=password)
+        
+        print(user, email, password)
+        
         if user is None:
             messages.info(request,"Email or password is wrong.")
             return render(request,"login.html",context)
         
-        if user.groups.filter(name = 'Teacher').exists() or StudentUser.groups.filter(name = 'CareerCenter').exists():
+        if user.groups.filter(name='Coordinator').exists() or user.groups.filter(name='Staff').exists():
             messages.info(request,"Please switch to the other login page.")
             return render(request,"login.html",context)
+        
         if user.groups.filter(name = 'Student').exists():
             messages.success(request,"You successfully logged in.")
-            login(request,StudentUser)
+            login(request,user)
             return redirect("index")
     
     return render(request,"login.html", context)
@@ -149,4 +152,5 @@ def loginStaff(request):
 def logoutUser(request):
     logout(request)
     messages.success(request,"You logged out succesfully.")
+    
     return redirect("login")

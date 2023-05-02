@@ -5,7 +5,7 @@ class StudentLoginForm(forms.Form):
     password = forms.CharField(label = '', widget=forms.PasswordInput(attrs={'placeholder':'Password'}))
 
 class StaffLoginForm(forms.Form):
-    username = forms.CharField(label='', widget=forms.TextInput(attrs={'placeholder':'ID'}))
+    email = forms.CharField(label='', widget=forms.TextInput(attrs={'placeholder':'Email'}))
     password = forms.CharField(label = '', widget=forms.PasswordInput(attrs={'placeholder':'Password'}))
 
 class RegisterForm(forms.Form):
