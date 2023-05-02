@@ -1,5 +1,5 @@
-from django.shortcuts import render, HttpResponse, redirect
-from .forms import RegisterForm, StudentLoginForm, StaffLoginForm
+from django.shortcuts import render, redirect
+from .forms import StudentLoginForm, StaffLoginForm
 from django.contrib import messages
 from django.contrib.auth import login, authenticate, logout
 from django.contrib.auth.models import Group
@@ -51,48 +51,6 @@ def detail(request):
 
 # USER
 
-def register(request):
-    if request.method == "POST":
-        form = RegisterForm(request.POST or None)
-        if form.is_valid():
-            first_name = form.cleaned_data.get("first_name")
-            last_name = form.cleaned_data.get("last_name")
-            email = form.cleaned_data.get("email")
-            password = form.cleaned_data.get("password")
-            gender = form.cleaned_data.get("gender")
-            type = form.cleaned_data.get("type")
-            
-            new_user = User(first_name=first_name, last_name=last_name, email=email, password=password, gender=gender)
-            new_user.set_password(password)
-
-            new_user.save()
-            
-            if type == 'Student':
-                group = Group.objects.get(name='Student')
-                new_user.groups.add(group)
-            elif type == 'Coordinator':
-                group = Group.objects.get(name='Coordinator')
-                new_user.groups.add(group)
-            else:
-                group = Group.objects.get(name='Staff')
-                new_user.groups.add(group)
-            
-            login(request, new_user)
-            messages.success(request,"You have succesfully registered.")
-
-            return redirect("index")
-        
-        context = {
-                "form" : form
-            }
-        return render(request,"register.html",context)
-    else:
-        form = RegisterForm()
-        context = {
-        "form" : form
-        }
-        return render(request, "register.html", context)
-
 def loginUser(request):
     form = StudentLoginForm(request.POST or None)
 
@@ -130,21 +88,22 @@ def loginStaff(request):
     }
 
     if StaffForm.is_valid():
-        StaffUsername = StaffForm.cleaned_data.get("username")
-        StaffPassword = StaffForm.cleaned_data.get("password")
-        StaffUser = authenticate(username = StaffUsername, password = StaffPassword)
+        email = StaffForm.cleaned_data.get("email")
+        password = StaffForm.cleaned_data.get("password")
+        
+        user = authenticate(username=email, password=password)
 
-        if StaffUser is None:
+        if user is None:
             messages.info(request,"Username or Password is wrong.")
             return render(request,"loginStaff.html",context)
         
-        if StaffUser.groups.filter(name = 'Student').exists():
+        if user.groups.filter(name='Student').exists():
             messages.info(request,"Please switch to the other login page.")
             return render(request,"loginStaff.html",context)
         
-        if StaffUser.groups.filter(name = 'Teacher').exists() or StaffUser.groups.filter(name = 'CareerCenter').exists():
+        if user.groups.filter(name = 'Coordinator').exists() or user.groups.filter(name = 'Staff').exists():
             messages.success(request,"You successfully logged in.")
-            login(request,StaffUser)
+            login(request, user)
             return redirect("index")
 
     return render(request,"loginStaff.html", context)
