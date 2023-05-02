@@ -1,0 +1,154 @@
+{% extends "layout.html" %}
+{% load static %}
+
+{% block body %}
+    <style>
+      .container {
+        display: flex;
+        flex-wrap: wrap;
+      }
+      .box {
+        flex: 1 0 20%;
+        height: 250px;
+        margin-top: 10px;
+        font-size: 24px;
+        display: flex;
+        align-items: center;
+        justify-content: center;
+        box-sizing: border-box;
+        padding: 10px;
+        overflow: hidden;
+        word-wrap: break-word;
+        text-align: center;
+        max-width: 100%;
+		  }
+
+      .float-child-left {
+          width: 75%;
+          float: left;
+          padding: 20px;
+      }
+      
+      .float-child-right {
+        float: right;
+        width: 25%;
+      }
+
+      .card {
+        box-shadow: 0 14px 28px rgba(0,0,0,0.25), 0 10px 10px rgba(0,0,0,0.22);
+      }
+    </style>
+    <link rel="stylesheet" href="{% static 'css/sidebar.css' %}">
+    <body style="background-color:#E4E9F7;">
+      <section class="home-section" style="background-color: white;">
+        <div class="home-content offset-md-1 mt-lg-5">
+          {% if messages %}
+            {% for message in messages %}
+                {% if message.tags == "info" %}
+                <div class="alert alert-danger" style="position: relative; bottom:10%;">{{ message }}</div>
+                {% else %}
+                <div class="alert alert-{{ message.tags }}" style="position: relative; bottom:10%;">{{ message }}</div>
+                {% endif %}
+            {% endfor %}
+          {% endif %}
+          <div class="float-container">
+            <div class="float-child-left">
+              <div class="col-lg-12">
+                <div class="card p-4">
+                  <header class = "mb-3" style="text-align: start;">
+                    <h2 class="fw-bold" style="text-align: center;">Welcome to <p style="color:#696CFF">Internify!</p></h2>
+                    <h5>Internify is an all-in-one platform for managing your university internships! Our user-friendly platform allows you to track your progress, receive feedback, and communicate with your supervisors directly through the platform.</h5>
+                    <h5>With Internify, you can easily connect with your internship supervisors and complete all your internship tasks in one place. Our user-friendly platform allows you to track your progress, receive feedback, and communicate with your supervisors directly through the platform.</h5>
+                    <h5>No more scrambling to find important documents or strugglingto contact your supervisors – Internfy streamlines the entire internship proces whether you’re a student looking for an internship, or a supervisor managing multiple interns, Internfy has everything you need to make the most of your internship experience.</h5>
+                  </header>
+                </div>
+                <div class="container">
+                  <div class="box">
+                    <div class="card p-4" style="border: 2px solid #1d1b31; box-shadow: 5px 5px #1d1b31;"> 
+                      <a data-bs-toggle="modal" data-bs-target="#pdfModal" style="text-decoration: none;"><h2 class="fw-bolder mb-1" style="color : black;">Application Form</h2></a>
+                      <p style="font-size:20px">Text will come here.</p>
+                    </div>
+                  </div>
+                  <div class="box">
+                    <div class="card p-4" style="border: 2px solid #1d1b31; box-shadow: 5px 5px #1d1b31;"> 
+                      <a data-bs-toggle="modal" data-bs-target="#pdfModal" style="text-decoration: none;"><h2 class="fw-bolder mb-1" style="color : black;">Official Letter</h2></a>
+                      <p style="font-size:20px">Text will come here.</p>
+                    </div>
+                  </div>
+                  <div class="box">
+                    <div class="card p-4" style="border: 2px solid #1d1b31; box-shadow: 5px 5px #1d1b31;">
+                      <header class = "mb-0" style="text-align: center;">
+                        <a data-bs-toggle="modal" data-bs-target="#pdfModal" style="text-decoration: none;"><h2 class="fw-bolder mb-1" style="color : black;">Internship Book</h2></a>
+                        <p style="font-size:20px">Text will come here.</p>
+                      </header>
+                    </div>
+                  </div>
+                  <div class="box">
+                    <div class="card p-4" style="border: 2px solid #1d1b31; box-shadow: 5px 5px #1d1b31;">
+                      <header class = "mb-0" style="text-align: center;">
+                        <a data-bs-toggle="modal" data-bs-target="#pdfModal" style="text-decoration: none;"><h2 class="fw-bolder mb-1" style="color : black;">Document Rejection</h2></a>
+                        <p style="font-size:20px">Text will come here.</p>
+                      </header>
+                    </div>
+                  </div>
+                </div>
+                <div class="card p-4" style="margin-top:10px">
+                  <header class = "mb-0" style="text-align: start;">
+                    <h3 class="fw-light" style="color:#1d1b31; text-align:center">You have <span style="color:red">3</span> unread messages!</h3>
+                  </header>
+                </div>
+              </div>
+            </div>
+            <div class="float-child-right" style="margin-top:20px;">
+              <div class="col-lg-11">
+                <div class="card p-4" style="margin-bottom:10px">
+                  <header class = "mb-0" style="text-align: start;">
+                    <h3 class="fw-bold" style="color:#1d1b31; text-align:center">Internship Book</h3>
+                    <button class="btn" style="width:100%; border: 2px solid #696CFF; background-color: white; font-size: 20px;"><i class="bx bx-download" style="color:#696CFF;"></i><span style="color:#696CFF;"> Download</span></button>
+                  </header>
+                </div>
+                <div class="card p-4">
+                  <h3 class="fw-bold" style="color:#696CFF; text-align: center; ">Duyurular</h3>
+                  <hr style="box-shadow: 0px 5px;">
+                  <div class="card p-4" style="margin-top:10px; border: 1px solid #1d1b31; box-shadow: 5px 5px #1d1b31;">
+                    <h4>Header</h4>
+                    <p>Announcements Text</p>
+                    <p class="text-muted fst-italic mb-2" style="text-align: end;">20.02.2023</p>
+                  </div>
+                  <div class="card p-4" style="margin-top:15px; border: 1px solid #1d1b31; box-shadow: 5px 5px #1d1b31;">
+                    <h4>Header</h4>
+                    <p>Announcements Text</p>
+                    <p class="text-muted fst-italic mb-2" style="text-align: end;">20.02.2023</p>
+                  </div>
+                  <div class="card p-4" style="margin-top:15px; border: 1px solid #1d1b31; box-shadow: 5px 5px #1d1b31;">
+                    <h4>Header</h4>
+                    <p>Announcements Text</p>
+                    <p class="text-muted fst-italic mb-2" style="text-align: end;">18.02.2023</p>
+                  </div>
+                </div>
+              </div>
+            </div>
+          </div>
+        </div>
+        <div class="modal fade" id="pdfModal" aria-hidden="true" aria-labelledby="pdfModalLabel" tabindex="-1">
+          <div class="modal-dialog modal-xl modal-dialog-centered">
+            <div class="modal-content">
+              <div class="modal-header">
+                <h5 class="modal-title" id="exampleModalToggleLabel">Internship Application Form</h5>
+                <button type="button" class="btn-close" data-bs-dismiss="modal" aria-label="Close"></button>
+              </div>
+              <div class="modal-body">
+                <iframe src="{% static 'dbms_project.pdf' %}" width="100%" height="600"></iframe>
+              </div>
+              <div class="modal-footer">
+                <button type="button" class="btn btn-secondary" data-bs-dismiss="modal">Close</button>
+              </div>
+            </div>
+          </div>
+        </div>
+      </section>
+    </body>
+    <!-- Page Content -->
+{% endblock body %}
+
+<script src="{% static 'js/sidebar.js' %}"></script>
