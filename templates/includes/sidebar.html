@@ -5,11 +5,11 @@
 		<i class='bx bx-menu'></i>
         
 		<a href="{% url 'index' %}" class="text-decoration-none">
-            <span class="logo_name">Internify</span>
+            <span class="logo_name">internify</span>
         </a>
 	</div>
     
-	<hr style="position: relative; border: none; height: 3px; background-color: white;">
+	<hr class='position-relative border border-0 bg-light' style="height: 1px;">
 	
     <ul class="nav-links">
 		{% for group in request.user.groups.all %}
@@ -48,12 +48,14 @@
                 </li>
             {% endif %}
             
-            <li>
-                <a href="{% url 'internshipopp' %}">
-                    <i class='bx bx-news'></i>
-                    <span class="link_name">Opportunities</span>
-                </a>
-            </li>
+            {% if group.name != 'Coordinator' %}
+                <li>
+                    <a href="{% url 'internshipopp' %}">
+                        <i class='bx bx-news'></i>
+                        <span class="link_name">Opportunities</span>
+                    </a>
+                </li>
+            {% endif %}
             
             <li>
                 <div class="iocn-link">
@@ -75,7 +77,9 @@
                     <div class="profile-content">
                         <a href="{% url 'profile' %}">
                             <img src="
-                                {% if request.user.gender == 'M' %}
+                                {% if request.user.photo%}
+                                    {{ request.user.photo.url }}
+                                {% elif request.user.gender == 'M' %}
                                     {% static 'assets/img/avatars/male_avatar.png' %}
                                 {% else %}
                                     {% static 'assets/img/avatars/female_avatar.png' %}
