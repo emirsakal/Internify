@@ -1,24 +1,19 @@
 {% extends "layout.html" %}
 {% load static %}
 
-{% block body %}
-    <link rel="stylesheet" href="{% static 'css/sidebar.css' %}">
-    <head>
-    </head>
-    <body style="background-color:#E4E9F7;">
-        <link href="https://maxcdn.bootstrapcdn.com/font-awesome/4.3.0/css/font-awesome.min.css" rel="stylesheet">
-        <section class="home-section">
-            <div class="home-content offset-md-1 mt-lg-5" style="position: relative; top:5%;">
+{% block content %}
+      <section class="home-section">
+            <div class="home-content offset-md-1" style="position: relative; top:5%;">
                 <div class="wraper bootstrap snippets bootdeys bootdey">
                     <div class="row">
                     <!-- Left sidebar -->
                     <div class="col-md-3">
-                        <a href="/inbox/send-message" class="btn btn-success btn-block"><i class="fa fa-pencil-square-o"></i> New Message</a>
+                        <a href="{% url 'sendmessage' %}" class="btn btn-success btn-block"><i class="fa fa-pencil-square-o"></i> New Message</a>
                         <br><br>
                         <div class="panel panel-default p-0 m-t-20">
                             <div class="panel-body p-0">
                                 <div class="list-group no-border mail-list">
-                                    <a href="/inbox" class="list-group-item active"><i class="fa fa-inbox"></i> Incoming Messages <b>(8)</b></a>
+                                    <a href="{% url 'inbox' %}" class="list-group-item active"><i class="fa fa-inbox"></i> Incoming Messages <b>(8)</b></a>
                                     <a href="#" class="list-group-item"><i class="fa fa-envelope"></i> Unread <b>(2)</b></a>
                                     <a href="#" class="list-group-item"><i class="fa fa-paper-plane-o"></i> Outgoing Messages <b>(20)</b></a>
                                 </div>
@@ -47,10 +42,6 @@
                                     <a><h2 class="fw-bolder mb-1" style="color : black;">Job Opportunuties</h2></a>
                                     <p class ="lead">by Kristin Surhupi Benli</p>
                                     <hr>
-                                    <p class="lead">Lorem ipsum dolor sit amet, consectetur adipiscing elit. Curabitur non mi molestie, vehicula metus sit amet, elementum tortor. Vestibulum ante ipsum primis in faucibus orci luctus et ultrices posuere cubilia curae; Nunc laoreet mollis vehicula. Praesent sagittis est ac nisi ultrices posuere. Phasellus felis magna, pharetra vitae varius eu, iaculis et elit. Mauris sollicitudin vulputate sapien, nec accumsan turpis feugiat quis. Sed vitae tincidunt dolor. Mauris maximus metus ut arcu elementum sagittis. Suspendisse sit amet erat hendrerit, maximus sem vel, pharetra nisl. Donec porta odio in enim accumsan, in ultricies neque venenatis. In consectetur varius augue, ut mattis justo iaculis nec.</p>
-                                    <p class="lead">Lorem ipsum dolor sit amet, consectetur adipiscing elit. Curabitur non mi molestie, vehicula metus sit amet, elementum tortor. Vestibulum ante ipsum primis in faucibus orci luctus et ultrices posuere cubilia curae; Nunc laoreet mollis vehicula. Praesent sagittis est ac nisi ultrices posuere. Phasellus felis magna, pharetra vitae varius eu, iaculis et elit. Mauris sollicitudin vulputate sapien, nec accumsan turpis feugiat quis. Sed vitae tincidunt dolor. Mauris maximus metus ut arcu elementum sagittis. Suspendisse sit amet erat hendrerit, maximus sem vel, pharetra nisl. Donec porta odio in enim accumsan, in ultricies neque venenatis. In consectetur varius augue, ut mattis justo iaculis nec.</p>
-                                    <p class="lead">Lorem ipsum dolor sit amet, consectetur adipiscing elit. Curabitur non mi molestie, vehicula metus sit amet, elementum tortor. Vestibulum ante ipsum primis in faucibus orci luctus et ultrices posuere cubilia curae; Nunc laoreet mollis vehicula. Praesent sagittis est ac nisi ultrices posuere. Phasellus felis magna, pharetra vitae varius eu, iaculis et elit. Mauris sollicitudin vulputate sapien, nec accumsan turpis feugiat quis. Sed vitae tincidunt dolor. Mauris maximus metus ut arcu elementum sagittis. Suspendisse sit amet erat hendrerit, maximus sem vel, pharetra nisl. Donec porta odio in enim accumsan, in ultricies neque venenatis. In consectetur varius augue, ut mattis justo iaculis nec.</p>
-                                    <p class="lead">Lorem ipsum dolor sit amet, consectetur adipiscing elit. Curabitur non mi molestie, vehicula metus sit amet, elementum tortor. Vestibulum ante ipsum primis in faucibus orci luctus et ultrices posuere cubilia curae; Nunc laoreet mollis vehicula. Praesent sagittis est ac nisi ultrices posuere. Phasellus felis magna, pharetra vitae varius eu, iaculis et elit. Mauris sollicitudin vulputate sapien, nec accumsan turpis feugiat quis. Sed vitae tincidunt dolor. Mauris maximus metus ut arcu elementum sagittis. Suspendisse sit amet erat hendrerit, maximus sem vel, pharetra nisl. Donec porta odio in enim accumsan, in ultricies neque venenatis. In consectetur varius augue, ut mattis justo iaculis nec.</p>
                                     <p class="lead">Lorem ipsum dolor sit amet, consectetur adipiscing elit. Curabitur non mi molestie, vehicula metus sit amet, elementum tortor. Vestibulum ante ipsum primis in faucibus orci luctus et ultrices posuere cubilia curae; Nunc laoreet mollis vehicula. Praesent sagittis est ac nisi ultrices posuere. Phasellus felis magna, pharetra vitae varius eu, iaculis et elit. Mauris sollicitudin vulputate sapien, nec accumsan turpis feugiat quis. Sed vitae tincidunt dolor. Mauris maximus metus ut arcu elementum sagittis. Suspendisse sit amet erat hendrerit, maximus sem vel, pharetra nisl. Donec porta odio in enim accumsan, in ultricies neque venenatis. In consectetur varius augue, ut mattis justo iaculis nec.</p>
                                     <a href="#" class="btn btn-danger" style="float: right;"><i class='bx bx-upload'></i> Answer</a>
                                 </header>
@@ -82,10 +73,5 @@
                 </div>
             </div>
         </div>
-    </body>
-    
-{% endblock body %}
-
-<script src="{% static 'js/sidebar.js' %}"></script>
-
-<!-- style="margin-left:auto; margin-right:auto; margin-top:auto; margin-bottom:auto; width:100%" -->
+    </section>
+{% endblock content %}

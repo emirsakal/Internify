@@ -1,11 +1,9 @@
 {% extends "layout.html" %}
 {% load static %}
 
-{% block body %}
-    <link rel="stylesheet" href="{% static 'css/sidebar.css' %}">
-    <body style="background-color:#E4E9F7;"></body>
-    <!-- Page Content -->
+{% block page_title %}Internship Application{% endblock page_title %}
 
+{% block content %}
     <section class="home-section">
       <div class="home-content">
         <div class="container mt-lg-5" style="margin: auto; padding: 0px; width: 100%;">
@@ -15,7 +13,7 @@
                 <header class = "mb-2" style="text-align: center;">
                   <a><h2 class="fw-bolder mb-1" style="color : black;">Internship Application Form</h2></a>
                   <i class="bx bx-detail" style="font-size: 10em;"></i><br>
-                  <a href="#" class="btn btn-danger""><i class='bx bx-download'></i> Download</a>
+                  <a href="#" class="btn btn-danger"><i class='bx bx-download'></i> Download</a>
                 </header>
               </div>
             </div>
@@ -61,6 +59,4 @@
       </div>
     </div>
   </section>
-{% endblock body %}
-
-<script src="{% static 'js/sidebar.js' %}"></script>
+{% endblock content %}
