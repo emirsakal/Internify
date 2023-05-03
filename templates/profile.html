@@ -1,145 +1,161 @@
 {% extends "layout.html" %}
 {% load static %}
 
-{% block body %}
-  <head>
-    <link rel="stylesheet" href="{% static 'css/sidebar.css' %}">
-  </head>
-  <body style="background-color:#E4E9F7;">
-    <section class = "home-section">
-      <div class="home-content offset-md-1 mt-lg-5" style="position:relative; top:10%">
-        <div class="content-wrapper">
-          <div class="container-xxl flex-grow-1 container-p-y">
-            <div class="row">
-              <div class="col-md-12">
-      
-                <div class="card mb-4">
-                    <h4 class="card-header">Profile Details</h4>
-                    
-                    <div class="card-body">
-                      <div class="d-flex align-items-start align-items-sm-center gap-4">
-                        {% for group in request.user.groups.all %}
-                          {% if group.name == 'Male' %}<img src="{% static 'assets/img/avatars/male_avatar.png' %}" alt="user-avatar" class="d-block rounded" height="100" width="100" id="uploadedAvatar" />{% endif %}
-                          {% if group.name == 'Female' %}<img src="{% static 'assets/img/avatars/female_avatar.png' %}" alt="user-avatar" class="d-block rounded" height="100" width="100" id="uploadedAvatar" />{% endif %}
-                        {% endfor %}
-                      
-                        <div class="button-wrapper">
-                            <label for="upload" class="btn btn-primary me-2 mb-4" tabindex="0">
-                              <span class="d-none d-sm-block">Upload new photo</span>
-                              <i class="bx bx-upload d-block d-sm-none"></i>
-                              <input type="file" id="upload" class="account-file-input" hidden accept="image/png, image/jpeg" name='photo' />
-                            </label>
-                            
-                          <p class="text-muted mb-0">Allowed JPG or PNG. Max size of 800K</p>
-                        </div>
-                      </div>
-                    </div>
-                    
-                    <hr class="my-0" />
-                    
-                    <div class="card-body">
-                        <div class="row">
-                          
-                          <div class="mb-3 col-md-6">
-                            <label for="firstName" class="form-label">First Name</label>
-                            <div class="input-group input-group-merge">
-                              <span class="input-group-text"><i class="bx bx-user"></i></span>
-                              <input class="form-control" type="text" id="first_name" name="first_name" disabled value="{{user.first_name}}" autofocus/>
-                            </div>
-                          </div>
-                          
-                          <div class="mb-3 col-md-6">
-                            <label for="lastName" class="form-label">Last Name</label>
-                            <div class="input-group input-group-merge">
-                              <span class="input-group-text"><i class="bx bx-user"></i></span>
-                              <input class="form-control" type="text" name="last_name" id="first_name" disabled value="{{user.last_name}}" />
-                            </div>
-                          </div>
-                          
-                          <div class="mb-3 col-md-6">
-                            <label for="studentID" class="form-label">School ID</label>
-                            <div class="input-group input-group-merge">
-                              <span class="input-group-text"><i class="bx bxs-graduation"></i></span>
-                              <input class="form-control" type="text" id="studentID" name="studentID" disabled value="{{user.username}}" autofocus/>
-                            </div>
-                          </div>
-                          
-                          <div class="mb-3 col-md-6">
-                            <label for="email" class="form-label">E-mail</label>
-                            <div class="input-group input-group-merge">
-                              <span class="input-group-text"><i class="bx bx-envelope"></i></span>
-                              <input class="form-control" type="text" id="email" name="email" disabled value="{{user.email}}"/>
-                            </div>
-                          </div>            
-                          
-                          <div class="mb-3 col-md-6">
-                            <label for="email" class="form-label">University</label>
-                            <div class="input-group input-group-merge">
-                              <span class="input-group-text"><i class="bx bx-envelope"></i></span>
-                              <input class="form-control" type="text" id="email" name="email" disabled value="Uskudar University"/>
-                            </div>
-                          </div>
-                          
-                          <div class="mb-3 col-md-6">
-                            <label for="studentID" class="form-label">Person Type</label>
-                            <div class="input-group input-group-merge">
-                              <span class="input-group-text"><i class="bx bxs-graduation"></i></span>
-                              {% for group in request.user.groups.all %}
-                                {% if group.name == 'Student' %}<input class="form-control" type="text" id="email" name="email" disabled value="Student"/>{% endif %}
-                                {% if group.name == 'Teacher' %}<input class="form-control" type="text" id="email" name="email" disabled value="Teacher"/>{% endif %}
-                                {% if group.name == 'CareerCenter' %}<input class="form-control" type="text" id="email" name="email" disabled value="Career Center"/>{% endif %}
-                              {% endfor %}
-                            </div>
-                          </div>
-                          
-                          <!-- WON'T BE IN THE WEBSITE PROBABLY.
+{% block content %}
+<section class="home-section">
+	<div class="home-content offset-md-1" style="position:relative; top:10%">
+		<div class="content-wrapper">
+			<div class="container-xxl flex-grow-1 container-p-y">
+				<div class="row">
+					<div class="col-md-12">
 
-                          <div class="mb-3 col-md-6">
-                            <label class="form-label" for="country">Faculty</label>
-                            <div class="input-group input-group-merge">
-                              <span class="input-group-text"><i class="bx bx-buildings"></i></span>
-                              <select id="faculty" class="select2 form-select">
-                                <option value="">Select</option>
-                                <option value="Communication">Communication</option>
-                                <option value="Dentistry">Dentistry</option>
-                                <option value="Medicine">Medicine</option>
-                                <option value="Health Science">Health Science</option>
-                                <option selected value="Engineering">Engineering</option>
-                                <option value="Social Science">Social Science</option>
-                              </select>
-                            </div>
-                          </div>
-                          -->
-                          
-                          <div class="mb-3 col-md-6">
-                            <label for="class" class="form-label">Class</label>
-                            <div class="input-group input-group-merge">
-                              <span class="input-group-text"><i class="bx bx-group"></i></span>
-                              {% for group in request.user.groups.all %}
-                                {% if group.name == 'Non-Student' %}<input class="form-control" type="text" id="email" name="email" disabled value="Non-Student"/>{% endif %}
-                                {% if group.name == '1.Class' %}<input class="form-control" type="text" id="email" name="email" disabled value="1.Class"/>{% endif %}
-                                {% if group.name == '2.Class' %}<input class="form-control" type="text" id="email" name="email" disabled value="2.Class"/>{% endif %}
-                                {% if group.name == '3.Class' %}<input class="form-control" type="text" id="email" name="email" disabled value="3.Class"/>{% endif %}
-                                {% if group.name == '4.Class' %}<input class="form-control" type="text" id="email" name="email" disabled value="4.Class"/>{% endif %}
-                              {% endfor %}
-                            </div>
-                          </div>
-                        </div>
-                        
-                        <div class="mt-2">
-                          <button type="submit" class="btn btn-primary me-2" style="float:right;">Save changes</button>
-                        </div>
-                    </div>
-                  </form>
-                </div>
-              </div>
-            </div>
-          </div>
-          <div class="content-backdrop fade"></div>
-        </div>
-      </div>
-    </section>
-  </body>
-{% endblock body %}
+						<div class="card mb-4">
+							<h4 class="card-header">Profile Details</h4>
 
-<script src="{% static 'js/sidebar.js' %}"></script>
+							<div class="card-body">
+								<div class="d-flex align-items-start align-items-sm-center gap-4">
+									<img src="
+                                {% if user.photo %}
+                                    {{ user.photo.url }}
+                                {% elif user.gender == 'M' %}
+                                    {% static 'assets/img/avatars/male_avatar.png' %}
+                                {% else %}
+                                    {% static 'assets/img/avatars/female_avatar.png' %}
+                                {% endif %}
+                                " alt="user-avatar" class="d-block rounded" height="100" width="100"
+										id="uploadedAvatar" />
+									<div class="button-wrapper">
+										<label for="upload" class="btn btn-primary me-2 mb-4" tabindex="0">
+											<span class="d-none d-sm-block">Upload new photo</span>
+											<i class="bx bx-upload d-block d-sm-none"></i>
+											<input type="file" id="upload" class="account-file-input" hidden
+												accept="image/png, image/jpeg" name='photo' />
+										</label>
+
+										<p class="text-muted mb-0">Allowed JPG or PNG. Max size of 800K</p>
+									</div>
+								</div>
+							</div>
+
+							<hr class="my-0" />
+
+							<div class="card-body">
+								<div class="row">
+
+									<div class="mb-3 col-md-6">
+										<label for="firstName" class="form-label">First Name</label>
+										<div class="input-group input-group-merge">
+											<span class="input-group-text"><i class="bx bx-user"></i></span>
+											<input class="form-control" type="text" id="first_name" name="first_name"
+												disabled value="{{user.first_name}}" autofocus />
+										</div>
+									</div>
+
+									<div class="mb-3 col-md-6">
+										<label for="lastName" class="form-label">Last Name</label>
+										<div class="input-group input-group-merge">
+											<span class="input-group-text"><i class="bx bx-user"></i></span>
+											<input class="form-control" type="text" name="last_name" id="first_name"
+												disabled value="{{user.last_name}}" />
+										</div>
+									</div>
+
+									<div class="mb-3 col-md-6">
+										<label for="email" class="form-label">E-mail</label>
+										<div class="input-group input-group-merge">
+											<span class="input-group-text"><i class="bx bx-envelope"></i></span>
+											<input class="form-control" type="text" id="email" name="email" disabled
+												value="{{user.email}}" />
+										</div>
+									</div>
+
+                            {% for group in user.groups.all %}
+                                {% if group.name == 'Student' %}
+                                    
+                                    <div class="mb-3 col-md-6">
+                                        <label class="form-label" for="country">Student ID</label>
+                                        <div class="input-group input-group-merge">
+                                            <span class="input-group-text">
+                                                <i class="bx bx-buildings"></i>
+                                            </span>
+                                            <input class="form-control" type="text" id="faculty" name="student_id" disabled value="{{ student.student_id }}" />
+                                        </div>
+                                    </div>
+                                    
+                                    <div class="mb-3 col-md-6">
+                                        <label for="email" class="form-label">University</label>
+                                        <div class="input-group input-group-merge">
+                                            <span class="input-group-text"><i class="bx bx-envelope"></i></span>
+                                            <input class="form-control" type="text" id="email" name="email"
+                                                disabled value="Uskudar University" />
+                                        </div>
+                                    </div>
+                                    
+                                    <div class="mb-3 col-md-6">
+                                        <label class="form-label" for="country">Faculty</label>
+                                        <div class="input-group input-group-merge">
+                                            <span class="input-group-text">
+                                                <i class="bx bx-buildings"></i>
+                                            </span>
+                                            <input class="form-control" type="text" id="faculty" name="faculty" disabled value="{{ student.faculty.name }}" />
+                                        </div>
+                                    </div>
+                                    
+                                    
+                                    <div class="mb-3 col-md-6">
+                                        <label class="form-label" for="country">Department</label>
+                                        <div class="input-group input-group-merge">
+                                            <span class="input-group-text">
+                                                <i class="bx bx-buildings"></i>
+                                            </span>
+                                            <input class="form-control" type="text" id="department" name="department" disabled value="{{ student.department.name }}" />
+                                        </div>
+                                    </div>
+                                    
+                                    <div class="mb-3 col-md-6">
+                                        <label class="form-label" for="country">Class</label>
+                                        <div class="input-group input-group-merge">
+                                            <span class="input-group-text">
+                                                <i class="bx bx-buildings"></i>
+                                            </span>
+                                            <input class="form-control" type="text" id="class" name="class" disabled value="{{ student.class_room.name }}" />
+                                        </div>
+                                    </div>
+                                {% elif group.name == 'Coordinator'%}
+                                    <div class="mb-3 col-md-6">
+                                        <label class="form-label" for="country">Faculty</label>
+                                        <div class="input-group input-group-merge">
+                                            <span class="input-group-text">
+                                                <i class="bx bx-buildings"></i>
+                                            </span>
+                                            <input class="form-control" type="text" id="faculty" name="faculty" disabled value="{{ coordinator.faculty.name }}" />
+                                        </div>
+                                    </div>
+                                    
+                                    <div class="mb-3 col-md-6">
+                                        <label class="form-label" for="country">Department</label>
+                                        <div class="input-group input-group-merge">
+                                            <span class="input-group-text">
+                                                <i class="bx bx-buildings"></i>
+                                            </span>
+                                            <input class="form-control" type="text" id="department" name="department" disabled value="{{ coordinator.department.name }}" />
+                                        </div>
+                                    </div>
+                                {% endif %}
+                            {% endfor %}
+
+								<div class="mt-2">
+									<button type="submit" class="btn btn-primary me-2" style="float:right;">Save
+										changes</button>
+								</div>
+							</div>
+							</form>
+						</div>
+					</div>
+				</div>
+			</div>
+			<div class="content-backdrop fade"></div>
+		</div>
+	</div>
+</section>
+{% endblock content %}

@@ -4,7 +4,7 @@ from django.contrib import messages
 from django.contrib.auth import login, authenticate, logout
 from django.contrib.auth.models import Group
 
-from .models import User
+from .models import User, Student, InternshipCoordinator, CareerCenterEmployee
 
 def index(request):
     return render(request, "index.html")
@@ -19,6 +19,23 @@ def message(request):
     return render(request, "message.html")
 
 def profile(request):
+    user = request.user
+    context = {}
+    
+    if user.groups.filter(name='Student').exists():
+        student = Student.objects.get(user=user)
+        
+        if student:
+            context['student'] = student
+        return render(request, "profile.html", context)
+    elif user.groups.filter(name='Coordinator').exists():
+        print(user)
+        coordinator = InternshipCoordinator.objects.get(user=user)
+        print(coordinator)
+        if coordinator:
+            context['coordinator'] = coordinator
+        return render(request, "profile.html", context)
+
     return render(request, "profile.html")
 
 # STUDENT
