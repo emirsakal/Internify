@@ -27,7 +27,6 @@ urlpatterns = [
     path('inbox/send-message', views.sendmessage, name = "sendmessage"),
     path('inbox/message', views.message, name = "message"), 
     path('profile/', views.profile, name = "profile"),
-    #path('user/', include("user.urls")),
 
     # STUDENT URLS
     
@@ -39,9 +38,9 @@ urlpatterns = [
     path('sgk-ef/', views.sgkef, name = "sgkef"),
 
     # TEACHER URLS
-    path('teacher/internship-application-form', views.applicationform, name="applicationform"),
+    path('staff/application-form', views.applicationform, name="applicationform"),
     path('official-letters/', views.offletters, name="offletters"),
-    path('teacher/internship-application-form/detail', views.detail, name = "detail"),
+    path('staff/application-form/detail', views.detail, name = "detail"),
     path('official-letters/detail', views.detail, name = "detail"),
 
     # USER URLS

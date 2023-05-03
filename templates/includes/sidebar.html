@@ -38,103 +38,61 @@
                         <span class="link_name">Official Letter</span>
                     </a>
                 </li>
-            {% endif %}
-            {% if group.name == 'Teacher' %}
+            
+            {% elif group.name == 'Staff' %}
                 <li>
-                    <a href="/teacher/internship-application-form">
-                        <i class='bx bx-book-open'></i>
-                        <span class="link_name">Internship Application Form</span>
+                    <a href="{% url 'sgkef' %}">
+                        <i class='bx bx-printer'></i>
+                        <span class="link_name">SGK E.F</span>
                     </a>
-                    <ul class="sub-menu blank">
-                        <li><a class="link_name" href="/teacher/internship-application-form">Internship Application Form</a>
-                        </li>
-                    </ul>
-                </li>
-                <li>
-                    <a href="/official-letters">
-                        <i class='bx bx-book-content'></i>
-                        <span class="link_name">Official Letters</span>
-                    </a>
-                    <ul class="sub-menu blank">
-                        <li><a class="link_name" href="/official-letters">Official Letters</a></li>
-                    </ul>
                 </li>
             {% endif %}
-		{% endfor %}
-        
-		{% for group in request.user.groups.all %}
-		{% if group.name == 'CareerCenter' %}
-		<li>
-			<a href="/sgk-ef">
-				<i class='bx bx-printer'></i>
-				<span class="link_name">SGK E.F</span>
-			</a>
-			<ul class="sub-menu blank">
-				<li><a class="link_name" href="/sgk-ef">SGK E.F</a></li>
-			</ul>
-		</li>
-		{% endif %}
-		{% endfor %}
-		{% for group in request.user.groups.all %}
-		{% if group.name == 'CareerCenter' or group.name == 'Student' %}
-		<li>
-			<a href="/internship-opportunities">
-				<i class='bx bx-news'></i>
-				<span class="link_name">Internship Opportunities</span>
-			</a>
-			<ul class="sub-menu blank">
-				<li><a class="link_name" href="/internship-opportunities">Internship Opportunities</a></li>
-			</ul>
-		</li>
-		<li>
-			{% endif %}
-			{% endfor %}
-
-			{% for group in request.user.groups.all %}
-			{% if group.name == 'CareerCenter' or group.name == 'Student' or group.name == 'Teacher'%}
-			<!-- Inbox -->
-		<li>
-			<div class="iocn-link">
-				<a href="/inbox">
-					<i class='bx bx-chat'></i>
-					<span class="link_name">Inbox</span>
-				</a>
-				<i class='bx bxs-chevron-down arrow'></i>
-			</div>
-			<ul class="sub-menu">
-				<li><a class="link_name" href="/inbox">Inbox</a></li>
-				<li><a href="/inbox">Incoming Message</a></li>
-				<li><a href="/inbox/send-message">Send Message</a></li>
-			</ul>
-		</li>
-
-		<!-- PROFILE -->
-		<li>
-			<div class="profile-details">
-				<div class="profile-content">
-					{% for group in request.user.groups.all %}
-					{% if group.name == 'Male' %}<a href="/profile"><img
-							src="{% static 'assets/img/avatars/male_avatar.png' %}" alt="user-avatar"
-							class="d-block rounded" height="100" width="100" id="uploadedAvatar" /></a>{% endif %}
-					{% if group.name == 'Female' %}<a href="/profile"><img
-							src="{% static 'assets/img/avatars/female_avatar.png' %}" alt="user-avatar"
-							class="d-block rounded" height="100" width="100" id="uploadedAvatar" /></a>{% endif %}
-					{% endfor %}
-				</div>
-				<div class="name-job">
-					<div class="profile_name"><a href="/profile">{{user.username}}</a></div>
-					<div class="job">
-						{% for group in request.user.groups.all %}
-						{% if group.name == 'Student' %}Student{% endif %}
-						{% if group.name == 'Teacher' %}Teacher{% endif %}
-						{% if group.name == 'CareerCenter' %}Career Center{% endif %}
-						{% endfor %}
-					</div>
-				</div>
-				<a href="/logout"><i class='bx bx-log-out'></i></a>
-			</div>
-		</li>
-		{% endif %}
+            
+            <li>
+                <a href="{% url 'internshipopp' %}">
+                    <i class='bx bx-news'></i>
+                    <span class="link_name">Opportunities</span>
+                </a>
+            </li>
+            
+            <li>
+                <div class="iocn-link">
+                    <a href="{% url 'inbox' %}">
+                        <i class='bx bx-chat'></i>
+                        <span class="link_name">Inbox</span>
+                    </a>
+                    <i class='bx bxs-chevron-down arrow'></i>
+                </div>
+                
+                <ul class="sub-menu">
+                    <li><a href="{% url 'inbox' %}">Incoming Message</a></li>
+                    <li><a href="{% url 'sendmessage' %}">Send Message</a></li>
+                </ul>
+            </li>
+            
+            <li>
+                <div class="profile-details">
+                    <div class="profile-content">
+                        <a href="{% url 'profile' %}">
+                            <img src="
+                                {% if request.user.gender == 'M' %}
+                                    {% static 'assets/img/avatars/male_avatar.png' %}
+                                {% else %}
+                                    {% static 'assets/img/avatars/female_avatar.png' %}
+                                {% endif %}
+                                "
+                                alt="user-avatar"
+                            class="d-block rounded" height="100" width="100" id="uploadedAvatar" /></a>
+                    </div>
+                    <div class="name-job">
+                        <div class="profile_name">
+                            <a href="{%url 'profile' %}">{{request.user.first_name}}</a>
+                        </div>
+                        <div class="job">{{group.name}}</div>
+                    </div>
+                    <a href="{% url 'logout' %}"><i class='bx bx-log-out'></i></a>
+                </div>
+            </li>
 		{% endfor %}
 	</ul>
 </div>
