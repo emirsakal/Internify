@@ -1,11 +1,17 @@
-<!DOCTYPE html>
+{% load static %}
 {% load crispy_forms_tags %}
+
+<!DOCTYPE html>
 <html lang="en">
 <head>
     <meta charset="UTF-8">
     <meta http-equiv="X-UA-Compatible" content="IE=edge">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>Document</title>
+    
+    <link rel="shortcut icon" href="{% static 'assets/img/favicon.ico' %}" type="image/x-icon">
+    <link rel="icon" href="{% static 'assets/img/favicon.ico' %}" type="image/x-icon">
+    
+    <title>Login | internify</title>
     <style> 
         @import url('https://fonts.googleapis.com/css?family=Montserrat:400,800');
 
@@ -270,68 +276,68 @@
                 {% endif %}
             {% endfor %}
     {% endif %}
-    <h1 style="position:relative; bottom:30px">WELCOME!</h1>
-<div class="container" id="container">
-	<div class="form-container sign-up-container">
-		<form method="post">
-            <h1 style="position:relative; bottom:20px">SIGN IN</h1>
-			{% csrf_token %}
-            {{StaffForm|crispy}} 
-			<button style="position:relative; top:30px">Submit</button>
-		</form>
-	</div>
-	<div class="form-container sign-in-container">
-		<form method="post">
-            <h1 style="position:relative; bottom:20px">SIGN IN</h1>
-			{% csrf_token %}
-            {{StaffForm|crispy}}
-			<button style="position:relative; top:30px">Submit</button>
-		</form>
-	</div>
-	<div class="overlay-container">
-		<div class="overlay">
-			<div class="overlay-panel overlay-left">
-				<h1>Staff</h1>
-				<p>Hello! This is the staff sign in page. If you can't enter, please try student's sign in page!</p>
-				<button class="ghost" id="signIn">Student Login</button>
-			</div>
-			<div class="overlay-panel overlay-right">
-				<h1>Student</h1>
-				<p>Hello! This is the student sign in page. If you can't enter, please try staff's sign in page!</p>
-				<button class="ghost" id="signUp">Staff Login</button>
-			</div>
-		</div>
-	</div>
-</div>
+    <h1 style="position:relative; bottom:10px">WELCOME!</h1>
+    <div class="container" id="container">
+        <div class="form-container sign-up-container">
+            <form method="post">
+                <h1 style="position:relative; bottom:20px">SIGN IN</h1>
+                {% csrf_token %}
+                {{StaffForm|crispy}} 
+                <button style="position:relative; top:30px">Submit</button>
+            </form>
+        </div>
+        <div class="form-container sign-in-container">
+            <form method="post">
+                <h1 style="position:relative; bottom:20px">SIGN IN</h1>
+                {% csrf_token %}
+                {{StaffForm|crispy}}
+                <button style="position:relative; top:30px">Submit</button>
+            </form>
+        </div>
+        <div class="overlay-container">
+            <div class="overlay">
+                <div class="overlay-panel overlay-left">
+                    <h1>Staff</h1>
+                    <p>Hello! This is the staff sign in page. If you can't enter, please try student's sign in page!</p>
+                    <button class="ghost" id="signIn">Student Login</button>
+                </div>
+                <div class="overlay-panel overlay-right">
+                    <h1>Student</h1>
+                    <p>Hello! This is the student sign in page. If you can't enter, please try staff's sign in page!</p>
+                    <button class="ghost" id="signUp">Staff Login</button>
+                </div>
+            </div>
+        </div>
+    </div>
 
-<footer>
-	<p>
-		Created <i class="fa fa-heart"></i> by
-		<a target="_blank" href="https://github.com/emirsakal">Emir Sakal</a>
-	</p>
-</footer>
-<script>
-    const signUpButton = document.getElementById('signUp');
-    const signInButton = document.getElementById('signIn');
-    const container = document.getElementById('container');
-    container.classList.add("right-panel-active");
-
-    let time = 0.5;
-    
-    signUpButton.addEventListener('click', () => {
+    <footer>
+        <p>
+            Created <i class="fa fa-heart"></i> by
+            <a target="_blank" href="https://github.com/emirsakal">Emir Sakal</a>
+        </p>
+    </footer>
+    <script>
+        const signUpButton = document.getElementById('signUp');
+        const signInButton = document.getElementById('signIn');
+        const container = document.getElementById('container');
         container.classList.add("right-panel-active");
-    });
 
-    signInButton.addEventListener('click', () => {
-        container.classList.remove("right-panel-active");
-        setInterval(() => {
-        time --;
+        let time = 0.5;
+        
+        signUpButton.addEventListener('click', () => {
+            container.classList.add("right-panel-active");
+        });
 
-        if (time < 0) {
-            location.href="/login"
-        }
-    }, 1000);
-    });
-</script>
+        signInButton.addEventListener('click', () => {
+            container.classList.remove("right-panel-active");
+            setInterval(() => {
+            time --;
+
+            if (time < 0) {
+                location.href="/login"
+            }
+        }, 1000);
+        });
+    </script>
 </body>
 </html>
