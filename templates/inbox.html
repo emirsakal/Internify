@@ -2,92 +2,129 @@
 {% load static %}
 
 {% block content %}
-      <section class = "home-section">
-        <div class="home-content offset-md-1" style="position: relative; top:5%;">
-          
-          <div class="wraper bootstrap snippets bootdeys bootdey">
-          <div class="row">
-            <div class="col-md-3">
-              <a href="{% url 'sendmessage' %}" class="btn btn-success btn-block"><i class="fa fa-pencil-square-o"></i> New Message</a>
-              <div class="panel panel-default p-0 mt-4">
-                <div class="panel-body p-0">
-                  <div class="list-group no-border mail-list">
-                    <a href="{% url 'inbox' %}" class="list-group-item active"><i class="fa fa-inbox"></i> Incoming Messages <b>(8)</b></a>
-                    <a href="#" class="list-group-item"><i class="fa fa-envelope"></i> Unread <b>(2)</b></a>
-                    <a href="#" class="list-group-item"><i class="fa fa-paper-plane-o"></i> Outgoing Messages <b>(20)</b></a>
-                  </div>
-                </div>
-              </div>
-            </div>
-
-            <div class="col-md-9">
-              <div class="row">
-                <div class="col-lg-12">
-                  <div class="btn-toolbar" role="toolbar">
-                    <div div class="btn-group" >
-                      <h3 class="title"><i class="fa fa-envelope-o"></i> Incoming Messages</h3>
-                    </div>
-                    <div class="btn-group">
-                  </div>
-                </div>
-              </div>
-            </div>
-            <br>
-            <div class="panel panel-default m-t-20">
-              <div class="panel-body">
-                <table class="table table-hover mails" style="background-color: white;">
-                  <thead>
-                    <th></th>
-                    <th>NAME</th>
-                    <th>SUBJECT</th>
-                    <th>DATE</th>
-                  </thead>
-                  <tbody>
-                    <tr>
-                      <td class="mail-select">
-                        <label class="cr-styled">
-                        <input type="checkbox"><i class="fa"></i>
-                        </label>
-                      </td>
-                      <td><a href="{% url 'message' %}">Kristin Surhupi Benli</a></td>
-                      <td>Job Opportunuties</td>
-                      <td class="text-right">07:23 AM</td>
-                    </tr>
-                    <tr>
-                      <td class="mail-select">
-                        <label class="cr-styled">
-                        <input type="checkbox"><i class="fa"></i>
-                        </label>
-                      </td>
-                      <td><a href="{% url 'message' %}">Kristin Surhupi Benli</a></td>
-                      <td>Internship Application Form</td>
-                      <td class="text-right">08:37 PM</td>
-                    </tr>
-                    <tr>
-                      <td class="mail-select">
-                        <label class="cr-styled">
-                        <input type="checkbox"><i class="fa"></i>
-                        </label>
-                      </td>
-                      <td><a href="{% url 'message' %}">Kristin Surhupi Benli</a></td>
-                      <td>SGK E.F</td>
-                      <td class="text-right">12:33 PM</td>
-                    </tr>
-                    <tr>
-                      <td class="mail-select">
-                        <label class="cr-styled">
-                        <input type="checkbox"><i class="fa"></i>
-                        </label>
-                      </td>
-                      <td><a href="{% url 'message' %}">Kristin Surhupi Benli</a></td>
-                      <td>Official Letter</td>
-                      <td class="text-right">09:34 AM</td>
-                    </tr>
-                  </tbody>
-                </table>
-              </div>
-            </div>
-          </div>
-        </div>
-      </section>
+<style>
+  body
+  {
+    overflow:hidden;
+  }
+</style>
+<div class="home offset-md-1" style="margin-top:4%;">
+  <link href="https://maxcdn.bootstrapcdn.com/font-awesome/4.3.0/css/font-awesome.min.css" rel="stylesheet">
+  <div class="row">
+    <div class="col-md-5">
+      <h1 class="title text"><i class="fa fa-envelope-o"></i> Incoming Messages</h1>
+    </div>
+    <div class="col-md-5">
+      <a href="/inbox/send-message" class="btn btn-success btn-block" style="font-size: 20px; width:40%; float:right;"><i class='fa fa-pencil-square-o'></i> New Message</a>
+    </div>
+  </div>
+  <div class="col-md-10" style="margin-top:2%;">
+    <table class="table table-hover mails" style="background-color: var(--primary-color-light);">
+      <thead class="text">
+        <td>#</td>
+        <th>NAME</th>
+        <th>SUBJECT</th>
+        <th>DATE</th>
+      </thead>
+      <tbody class="text">
+        <tr>
+          <td>1</td>
+          <td><a href="/inbox/message" style="text-decoration: none; color: var(--text-color)">Kristin Surhupi Benli</a></td>
+          <td>Job Opportunuties</td>
+          <td class="text-right fst-italic">07:23 AM</td>
+        </tr>
+        <tr>
+          <td>2</td>
+          <td><a href="/inbox/message" style="text-decoration: none; color: var(--text-color)">Kristin Surhupi Benli</a></td>
+          <td>Internship Application Form</td>
+          <td class="text-right fst-italic">08:37 PM</td>
+        </tr>
+        <tr>
+          <td>3</td>
+          <td><a href="/inbox/message" style="text-decoration: none; color: var(--text-color)">Kristin Surhupi Benli</a></td>
+          <td>SGK E.F</td>
+          <td class="text-right fst-italic">12:33 PM</td>
+        </tr>
+        <tr>
+          <td>4</td>
+          <td><a href="/inbox/message" style="text-decoration: none; color: var(--text-color)">Kristin Surhupi Benli</a></td>
+          <td>Meals</td>
+          <td class="text-right fst-italic">05:34 AM</td>
+        </tr>
+        <tr>
+          <td>5</td>
+          <td><a href="/inbox/message" style="text-decoration: none; color: var(--text-color)">Kristin Surhupi Benli</a></td>
+          <td>Meeting</td>
+          <td class="text-right fst-italic">01:38 AM</td>
+        </tr>
+        <tr>
+          <td>6</td>
+          <td><a href="/inbox/message" style="text-decoration: none; color: var(--text-color)">Kristin Surhupi Benli</a></td>
+          <td>Student</td>
+          <td class="text-right fst-italic">09:38 AM</td>
+        </tr>
+        <tr>
+          <td>7</td>
+          <td><a href="/inbox/message" style="text-decoration: none; color: var(--text-color)">Kristin Surhupi Benli</a></td>
+          <td>Finals</td>
+          <td class="text-right fst-italic">07:34 PM</td>
+        </tr>
+        <tr>
+          <td>8</td>
+          <td><a href="/inbox/message" style="text-decoration: none; color: var(--text-color)">Kristin Surhupi Benli</a></td>
+          <td>Letter</td>
+          <td class="text-right fst-italic">10:21 AM</td>
+        </tr>
+        <tr>
+          <td>9</td>
+          <td><a href="/inbox/message" style="text-decoration: none; color: var(--text-color)">Kristin Surhupi Benli</a></td>
+          <td>Notes</td>
+          <td class="text-right fst-italic">11:55 AM</td>
+        </tr>
+        <tr>
+          <td>10</td>
+          <td><a href="/inbox/message" style="text-decoration: none; color: var(--text-color)">Kristin Surhupi Benli</a></td>
+          <td>Midterm</td>
+          <td class="text-right fst-italic">09:34 AM</td>
+        </tr>
+        <tr>
+          <td>11</td>
+          <td><a href="/inbox/message" style="text-decoration: none; color: var(--text-color)">Kristin Surhupi Benli</a></td>
+          <td>Lectures</td>
+          <td class="text-right fst-italic">17:34 PM</td>
+        </tr>
+        <tr>
+          <td>12</td>
+          <td><a href="/inbox/message" style="text-decoration: none; color: var(--text-color)">Kristin Surhupi Benli</a></td>
+          <td>Message</td>
+          <td class="text-right fst-italic">12:14 AM</td>
+        </tr>
+        <tr>
+          <td>13</td>
+          <td><a href="/inbox/message" style="text-decoration: none; color: var(--text-color)">Kristin Surhupi Benli</a></td>
+          <td>About Internship</td>
+          <td class="text-right fst-italic">23:11 PM</td>
+        </tr>
+        <tr>
+          <td>14</td>
+          <td><a href="/inbox/message" style="text-decoration: none; color: var(--text-color)">Kristin Surhupi Benli</a></td>
+          <td>Salary</td>
+          <td class="text-right fst-italic">15:17 PM</td>
+        </tr>
+        <tr>
+          <td>15</td>
+          <td><a href="/inbox/message" style="text-decoration: none; color: var(--text-color)">Kristin Surhupi Benli</a></td>
+          <td>Student Meeting</td>
+          <td class="text-right fst-italic">01:24 PM</td>
+        </tr>
+        <tr>
+          <td>16</td>
+          <td><a href="/inbox/message" style="text-decoration: none; color: var(--text-color)">Kristin Surhupi Benli</a></td>
+          <td>Work Hours</td>
+          <td class="text-right fst-italic">07:12 PM</td>
+        </tr>
+      </tbody>
+    </table>
+  </div>
+</div>
 {% endblock content %}

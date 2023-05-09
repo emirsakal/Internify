@@ -1,62 +1,112 @@
 {% extends "layout.html" %}
 {% load static %}
+{% load l10n %}
 
 {% block page_title %}Internship Application{% endblock page_title %}
 
 {% block content %}
-    <section class="home-section">
-      <div class="home-content">
-        <div class="container mt-lg-5" style="margin: auto; padding: 0px; width: 100%;">
-          <div class="row mt-lg-5">
-            <div class="col-lg-4">
-              <div class="card p-4">
-                <header class = "mb-2" style="text-align: center;">
-                  <a><h2 class="fw-bolder mb-1" style="color : black;">Internship Application Form</h2></a>
-                  <i class="bx bx-detail" style="font-size: 10em;"></i><br>
-                  <a href="#" class="btn btn-danger"><i class='bx bx-download'></i> Download</a>
-                </header>
-              </div>
-            </div>
-            <div class = "col-md-8 offset-md-0">
-              <div class="col-lg-10">
-                <div class="card p-4">
-                  <header class = "mb-4" style="text-align: start;">
-                    <a><h2 class="fw-bolder mb-1" style="color : black;">Internship Application Form</h2></a>
-                    <p class="lead">Download the document and upload it by filling in all the required fields. If the information is missing, your document will not be approved.</p>
-                    <a href="#" class="btn btn-danger" style="float: right;">Apply</a>
-                    <a href="#" class="btn btn-danger me-2" style="float: right;"><i class='bx bx-upload'></i> Upload Documentation</a>
-                  </header>
-                </div>
-              </div>
-              <br>
-              <div class = "col-lg-10">
-                <div class="col-lg-12">
-                  <div class="card p-4">
-                    <header class = "mb-2" style="text-align: start;">
-                      <table id="example" class="table table-striped" style="width:100%; margin-left:auto; margin-right:auto; margin-top: auto; margin-bottom: auto;">
-                        <thead>
-                          <tr>
-                            <th>Date</th>
-                            <th>Internship Coordinator</th>
-                            <th>Order Status</th>
-                          </tr>
-                        </thead>
-                        <tbody>
-                          <tr>
-                            <td style="font-weight: bold; font-family:Arial, Helvetica, sans-serif;">20.08.2022</td>
-                            <td style="font-weight: bold; font-family:Arial, Helvetica, sans-serif;">Kristin Surhupi Benli</td>
-                            <td><span style="color: blue; font-weight: bold; font-family: Arial, Helvetica, sans-serif;">WAITING</span></td>
-                          </tr>
-                        </tbody>
-                      </table>
-                    </header>
-                  </div>
-                </div>
-              </div>
+<style>
+  body {
+    overflow:hidden;
+  }
+  .float-child-left {
+    width: 59%;
+    float: left;
+    padding: 20px;
+  }
+  
+  .float-child-right {
+    margin-top:20px;
+    margin-left:1%;
+    float: left;
+    width: 40%;
+  }
+</style>
+<!-- Page Content -->
+
+  <div class="home" style="margin-left:11%; margin-top:5%;">
+    <div class="float-container">
+      <div class="float-child-left">
+        <div class="col-lg-12">
+          <div class="card p-4">
+            <header class = "mb-4" style="text-align: start;">
+              <form enctype="multipart/form-data" action="{% url 'internshipform' %}" method="POST">
+              {% csrf_token %}
+              <a>
+                <h3 class="fw-bolder mb-1 text">Internship Application Form</h3>
+              </a>
+              <p class="text lead">Download the document and upload it by filling in all the required fields. If the information is missing, your document will not be approved.</p>
+              <button type="submit" class="btn btn-danger" style="border: 2px solid var(--purple-text-color); background-color: var(--primary-color-light); font-size: 20px; float:right;">
+                <span style="color:var(--purple-text-color)"> Apply</span>
+              </button>
+              
+                <label for="upload" class="btn btn-outline-primary me-2" tabindex="0" style="border: 2px solid var(--purple-text-color); background-color: var(--primary-color-light); font-size: 20px; float:right; color: var(--purple-text-color);">
+                  <span class="d-none d-sm-block">Upload Documentation</span>
+                  <i class="bx bx-upload d-block d-sm-none"></i>
+                  <input type="file" id="upload" class="account-file-input" required hidden name='internship_form' style="border: 2px solid var(--purple-text-color); background-color: var(--primary-color-light); font-size: 20px; float:right;" />
+                </label>
+              </form>
+             </header>
+          </div>
+          <div class="col-lg-12">
+            <div class="card p-4" style="margin-top:40px;">
+              <header class = "mb-2" style="text-align: start;">
+                <table id="example" class="table table-striped" style="width:100%; margin-bottom: auto;">
+                  {% if applications.count > 0 %}
+                  <thead>
+                    <tr>
+                      <th class="text" style="font-weight: bold;">Date</th>
+                      <th class="text" style="font-weight: bold;">Internship Coordinator</th>
+                      <th class="text" style="font-weight: bold;">Order Status</th>
+                    </tr>
+                  </thead>
+                  <tbody> 
+                      {% for application in applications %}
+                        <tr>
+                          <td class="text" style="font-weight: bold; font-family:Arial, Helvetica, sans-serif;">{{application.date_created|date:"d-m-Y" }}</td>
+                          <td class="text" style="font-weight: bold; font-family:Arial, Helvetica, sans-serif;">{{application.coordinator.user.first_name}} {{application.coordinator.user.last_name}}</td>
+                          {% if application.status == 'W' %}
+                            <td>
+                              <span style="color: lightskyblue; font-weight: bold; font-family: Arial, Helvetica, sans-serif;">
+                                WAITING
+                              </span>
+                            </td>
+                          {% elif application.status == 'A' %}
+                            <td>
+                              <span style="color: lightgreen; font-weight: bold; font-family: Arial, Helvetica, sans-serif;">
+                                ACCEPTED
+                              </span>
+                            </td>
+                          {% else %}
+                            <td>
+                              <span style="color: lightcoral; font-weight: bold; font-family: Arial, Helvetica, sans-serif;">
+                                REJECTED
+                              </span>
+                            </td>
+                          {% endif %}
+                        </tr>
+                      {% endfor %}
+                    {% else %}
+                      <p class='text-center'>No records!</p>
+                    </tbody>
+                    {% endif %}
+                </table>
+              </header>
             </div>
           </div>
         </div>
       </div>
+      <div class="float-child-right">
+        <div class="col-lg-5">
+          <div class="card p-4">
+            <header class = "mb-2" style="text-align: center;">
+              <a><h3 class="fw-bolder mb-1 text" >Internship Application Form</h3></a>
+              <i class="bx bx-detail text" style="font-size: 15em;"></i>
+              <a href="/static/assets/internship-form.pdf" class="btn btn-danger" style="width:100%; border: 2px solid var(--purple-text-color); background-color: var(--primary-color-light); font-size: 20px; margin-bottom:20px; margin-top:18px;"><i class="bx bx-download" style="color:var(--purple-text-color);"></i><span style="color:var(--purple-text-color);"> Download</span></a>
+            </header>
+          </div>
+        </div>
+      </div>
     </div>
-  </section>
+  </div>
 {% endblock content %}

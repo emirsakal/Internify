@@ -56,7 +56,7 @@ class User(AbstractBaseUser, PermissionsMixin):
     last_name = models.CharField(max_length=100)
     email = models.EmailField(unique=True)
     gender = models.CharField(max_length=1, choices=GENDER_CHOICES)
-    photo = models.ImageField(upload_to='users', null=True)
+    photo = models.ImageField(upload_to='users', null=True, blank=True)
 
     last_login = models.DateTimeField(auto_now=True)
     is_active = models.BooleanField(default=True)

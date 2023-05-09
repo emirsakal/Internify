@@ -2,78 +2,80 @@
 {% load static %}
 
 {% block content %}
-<section class="home-section">
-	<div class="home-content">
-		{% for group in user.groups.all %}
-            {% if group.name == 'Student' %}
-                <div class="container mt-lg-5" style="margin: auto; padding: 0px; width: 100%;">
-                    <div class="row mt-lg-5">
-                        <div class="col-lg-4">
-                            <div class="card p-4">
-                                <header class="mb-2" style="text-align: center;">
-                                    <a>
-                                        <h3 class="fw-bolder mb-1" style="color : black;">Official Letter</h3>
-                                    </a>
-                                    <i class="bx bx-detail" style="font-size: 10em;"></i><br>
-                                    <a href="#" class="btn btn-danger"><i class='bx bx-download'></i> Download</a>
-                                </header>
-                            </div>
-                        </div>
-                        <div class="col-md-8 offset-md-0">
-                            <div class="col-lg-10">
-                                <div class="card p-4">
-                                    <header class="mb-4" style="text-align: start;">
-                                        <a>
-                                            <h2 class="fw-bolder mb-1" style="color : black;">Official Letter</h2>
-                                        </a>
-                                        <p class="lead">Download the document and upload it by filling in all the required
-                                            fields. If the information is missing, your document will not be approved.</p>
-                                        <a href="#" class="btn btn-danger" style="float: right;">Apply</a>
-                                        <a href="#" class="btn btn-danger me-2" style="float: right;"><i
-                                                class='bx bx-upload'></i> Upload Documentation</a>
-                                    </header>
-                                </div>
-                            </div>
-                            <br>
-                            <div class="col-lg-10">
-                                <div class="col-lg-12">
-                                    <div class="card p-4">
-                                        <header class="mb-2" style="text-align: start;">
-                                            <table id="example" class="table table-striped"
-                                                style="width:100%; margin-left:auto; margin-right:auto; margin-top: auto; margin-bottom: auto;">
-                                                <thead>
-                                                    <tr>
-                                                        <th>Date</th>
-                                                        <th>Internship Coordinator</th>
-                                                        <th>Order Status</th>
-                                                    </tr>
-                                                </thead>
-                                                <tbody>
-                                                    <tr>
-                                                        <td style="font-weight: bold;">20.08.2022</td>
-                                                        <td style="font-weight: bold;">Kristin Surhupi Benli</td>
-                                                        <td><span style="color: blue;">WAITING</span></td>
-                                                    </tr>
-                                                </tbody>
-                                            </table>
-                                        </header>
-                                    </div>
-                                </div>
-                            </div>
-                        </div>
-                    </div>
-                </div>
-            {% elif group.name == 'Coordinator' %}
-                <div class="home-content offset-md-1 mt-lg-5">
-                    <i class='bx bx-home' style="font-size: 2em"></i>
-                    <span class="text">OFFICIAL LETTER FOR TEACHER</span>
-                </div>
-            {% else %}
-                <div class="home-content offset-md-1 mt-lg-5">
-                    <div class="alert alert-danger"> You don't have permission to see this page.</div>
-                </div>
-            {% endif %}
-		{% endfor %}
-	</div>
-</section>
+
+<style>
+    body {
+      overflow:hidden;
+    }
+    .float-child-left {
+      width: 59%;
+      float: left;
+      padding: 20px;
+    }
+      
+    .float-child-right {
+      margin-left:1%;
+      float: right;
+      width: 40%;
+    }
+  </style>
+  <!-- Page Content -->
+  <div class="home" style="margin-left:11%; margin-top:5%;">
+    <div class="float-container">
+      <div class="float-child-left">
+        <div class="col-lg-12">
+          <div class="card p-4">
+            <header class = "mb-4" style="text-align: start;">
+              <a><h2 class="fw-bolder mb-1 text">Official Letter</h2></a>
+              <p class="text lead">Upload the transcript and the staff will upload it by filling in all the required fields. If the information is missing, your document will not be approved.</p>
+              <a href="#" class="btn btn-danger" style="border: 2px solid var(--purple-text-color); background-color: var(--primary-text-color); font-size: 20px; float:right;"><span style="color:var(--purple-text-color)"> Apply</span></a>
+              <a href="#" class="btn btn-danger me-2" style="border: 2px solid var(--purple-text-color); background-color: var(--primary-text-color); font-size: 20px; float:right;"><i class='bx bx-upload' style="color:var(--purple-text-color)"></i><span style="color:var(--purple-text-color);"> Upload Documentation</span></a>
+            </header>
+          </div>
+          <div class="col-lg-12">
+            <div class="card p-4" style="margin-top:40px;">
+              <header class = "mb-2" style="text-align: start;">
+                <table id="example" class="table table-striped" style="width:100%; margin-bottom: auto;">
+                  <thead>
+                    <tr>
+                      <th class="text" style="font-weight: bold;">Date</th>
+                      <th class="text" style="font-weight: bold;">Internship Coordinator</th>
+                      <th class="text" style="font-weight: bold;">Order Status</th>
+                    </tr>
+                  </thead>
+                  <tbody>
+                    <tr>
+                      <td class="text" style="font-weight: bold; font-family:Arial, Helvetica, sans-serif;">24.08.2022</td>
+                      <td class="text" style="font-weight: bold; font-family:Arial, Helvetica, sans-serif;">Kristin Surpuhi Benli</td>
+                      <td><span style="color: lightskyblue; font-weight: bold; font-family: Arial, Helvetica, sans-serif;">WAITING</span></td>
+                    </tr>
+                    <tr>
+                      <td class="text" style="font-weight: bold; font-family:Arial, Helvetica, sans-serif;">22.08.2022</td>
+                      <td class="text" style="font-weight: bold; font-family:Arial, Helvetica, sans-serif;">Kristin Surpuhi Benli</td>
+                      <td><span style="color: lightgreen; font-weight: bold; font-family: Arial, Helvetica, sans-serif;">ACCEPTED</span></td>
+                    </tr>
+                    <tr>
+                      <td class="text" style="font-weight: bold; font-family:Arial, Helvetica, sans-serif;">20.08.2022</td>
+                      <td class="text" style="font-weight: bold; font-family:Arial, Helvetica, sans-serif;">Kristin Surpuhi Benli</td>
+                      <td><span style="color: lightcoral; font-weight: bold; font-family: Arial, Helvetica, sans-serif;">DENIED</span></td>
+                    </tr>
+                  </tbody>
+                </table>
+              </header>
+            </div>
+          </div>
+        </div>
+      </div>
+      <div class="float-child-right" style="margin-top:20px;">
+        <div class="col-lg-5">
+          <div class="card p-4">
+            <header class = "mb-2" style="text-align: center;">
+              <a><h2 class="fw-bolder mb-1 text" style="margin-top:50px;">Official Letter</h2></a>
+              <i class="bx bx-detail text" style="font-size: 15em; margin-top:23%; margin-bottom:23%;"></i>
+            </header>
+          </div>
+        </div>
+      </div>
+    </div>
+  </div>
 {% endblock content %}

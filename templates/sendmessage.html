@@ -2,61 +2,42 @@
 {% load static %}
 
 {% block content %}
-      <section class = "home-section">
-        <div class="home-content offset-md-1" style="position: relative; top:5%;">
-          <div class="wraper bootstrap snippets bootdeys bootdey">
-          <div class="row">
-            <!-- Left sidebar -->
-            <div class="col-md-3">
-              <a href="{% url 'sendmessage' %}" class="btn btn-success btn-block"><i class="fa fa-pencil-square-o"></i> New Message</a>
-              <br><br>
-              <div class="panel panel-default p-0 m-t-20">
-                <div class="panel-body p-0">
-                  <div class="list-group no-border mail-list">
-                    <a href="{% url 'inbox' %}" class="list-group-item active"><i class="fa fa-inbox"></i> Incoming Messages <b>(8)</b></a>
-                    <a href="#" class="list-group-item"><i class="fa fa-envelope"></i> Unread <b>(2)</b></a>
-                    <a href="#" class="list-group-item"><i class="fa fa-paper-plane-o"></i> Outgoing Messages <b>(20)</b></a>
-                  </div>
-                </div>
-              </div>
+<style>
+  body {
+    overflow: hidden;
+    margin-top:9%;
+  }
+</style>
+<div class="home offset-md-1" style="margin-top:4%;">
+  <link href="https://maxcdn.bootstrapcdn.com/font-awesome/4.3.0/css/font-awesome.min.css" rel="stylesheet">
+  <div class="row">
+    <div class="col-md-5">
+      <h1 class="title text"><i class="fa fa-envelope-o"></i> Send Message</h1>
+    </div>
+    <div class="col-md-5">
+      <a href="/inbox/send-message" class="btn btn-success btn-block" style="font-size: 20px; width:40%; float:right;"><i class='fa fa-pencil-square-o'></i> New Message</a>
+    </div>
+  </div>
+  <div class="col-md-10" style="margin-top:2%">
+    <div class="panel-body">
+        <form>
+          <div class="card p-4 text">
+            <div class="mb-3">
+              <label for="exampleFormControlInput1" class="form-label" style="font-weight: 500;">Receiver</label>
+              <input type="email" class="form-control text" id="exampleFormControlInput1" placeholder="name@hotmail.com" style="background-color: var(--primary-color-light); ">
             </div>
-            
-            <div class="col-md-9">
-              <div class="row">
-                <div class="col-lg-12">
-                  <div class="btn-toolbar" role="toolbar">
-                    <div div class="btn-group">
-                      <div class="row"><h3 class="title" style="float:left"><i class="fa fa-envelope-o"></i> Send Message</h3></div>
-                    </div>
-                    <div class="btn-group">
-                  </div>
-                </div>
-              </div>
+            <div class="mb-3">
+              <label for="exampleFormControlInput1" class="form-label" style="font-weight: 500;">Subject</label>
+              <input type="email" class="form-control text" id="exampleFormControlInput1" style="background-color: var(--primary-color-light);">
             </div>
-            <br>
-            <div class="panel panel-default">
-              <div class="panel-body">
-                  <form>
-                    <div class="card p-4" style="background:rgba(211, 211, 211, 0.615)">
-                      <div class="mb-3">
-                        <label for="exampleFormControlInput1" class="form-label" style="font-weight: 500;">Receiver</label>
-                        <input type="email" class="form-control" id="exampleFormControlInput1" placeholder="name@hotmail.com">
-                      </div>
-                      <div class="mb-3">
-                        <label for="exampleFormControlInput1" class="form-label" style="font-weight: 500;">Subject</label>
-                        <input type="email" class="form-control" id="exampleFormControlInput1">
-                      </div>
-                      <div class="mb-3">
-                        <label for="exampleFormControlTextarea1" class="form-label" style="font-weight: 500;">Message</label>
-                        <textarea class="form-control" id="exampleFormControlTextarea1" rows="10"></textarea>
-                      </div>
-                    </div>
-                    <br>
-                    <a href="{%url 'inbox' %}" class="btn btn-success btn-block mb-3" style="float:right;"><i class="fa fa-pencil-square-o"></i> SEND MESSAGE</a>
-                  </form>
-              </div>
+            <div class="mb-3">
+              <label for="exampleFormControlTextarea1" class="form-label" style="font-weight: 500;">Message</label>
+              <textarea class="form-control text" id="exampleFormControlTextarea1" rows="14" style="background-color: var(--primary-color-light);"></textarea>
             </div>
+            <a href="/inbox" class="btn btn-success btn-block" style="font-size: 20px; width: 100%;"><i class='fa fa-pencil-square-o'></i> Send Message</a>
           </div>
-        </div>
-      </section>
+        </form>
+    </div>
+  </div>
+</div>
 {% endblock content %}

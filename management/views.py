@@ -1,11 +1,16 @@
 from django.shortcuts import render, redirect
+from django.urls import reverse
 from .forms import StudentLoginForm, StaffLoginForm
 from django.contrib import messages
 from django.contrib.auth import login, authenticate, logout
 from django.contrib.auth.models import Group
+from django.contrib.auth.decorators import login_required
+from .models import User, Student, InternshipCoordinator, CareerCenterEmployee, Application, Document
+from django.http import HttpResponse
 
-from .models import User, Student, InternshipCoordinator, CareerCenterEmployee
+import os
 
+@login_required
 def index(request):
     return render(request, "index.html")
 
@@ -20,6 +25,12 @@ def message(request):
 
 def profile(request):
     user = request.user
+    if request.method == "POST":
+        if 'photo' in request.FILES:
+            user.photo = request.FILES['photo']
+            user.save()
+        return redirect(reverse('profile'))
+    
     context = {}
     
     if user.groups.filter(name='Student').exists():
@@ -29,7 +40,6 @@ def profile(request):
             context['student'] = student
         return render(request, "profile.html", context)
     elif user.groups.filter(name='Coordinator').exists():
-        print(user)
         coordinator = InternshipCoordinator.objects.get(user=user)
         print(coordinator)
         if coordinator:
@@ -41,7 +51,28 @@ def profile(request):
 # STUDENT
 
 def internshipform(request):
-    return render(request, "student/internshipform.html")
+    user = request.user
+    student = Student.objects.get(user=user)
+    
+    if request.method == 'POST':
+        if 'internship_form' in request.FILES:
+            coordinator = InternshipCoordinator.objects.filter(department=student.department)
+            staff = CareerCenterEmployee.objects.get(employee_id=1)
+            if len(coordinator) > 0:
+                application = Application.objects.create(coordinator=coordinator[0], student=student, employee=staff, status='W')
+                application.save()
+                
+                document = Document.objects.create(document=request.FILES['internship_form'], application=application)
+                document.save()
+                return redirect(reverse('internshipform'))
+    
+    applications = Application.objects.filter(student=student).order_by('-date_created')
+    
+    context = {
+        'applications': applications
+    }
+    
+    return render(request, "student/internshipform.html", context)
 
 def officialletter(request):
     return render(request, "student/officialletter.html")

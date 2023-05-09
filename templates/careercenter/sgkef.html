@@ -28,177 +28,233 @@ Dashboard
 {% endblock css_files %}
 
 {% block content %}
-  <section class = "home-section">
-      <div class="home-content offset-md-1" style="position:relative; top:10%">
-        <div class="m-lg-5">
-            <a name="top" id="top"></a>
-            <div class="fw-container">
-            <div class="fw-body">
-                <div class="content">
-                <h1 class="page_title">SGK-EF</h1>
-                <div class="demo-html">
-                    <table id="example" class="table table-striped" style="width:100%; background-color: white; border:1px solid black; margin-left:auto;margin-right:auto; margin-top: auto; margin-bottom: auto;">
-                    <thead>
-                        <tr>
-                        <th>ID</th>
-                        <th>Name</th>
-                        <th>Date</th>
-                        <th>File</th>
-                        </tr>
-                    </thead>
-                    <tbody>
-                        <tr>
-                        <td>190000001</td>
-                        <td>Michael Bruce</td>
-                        <td>2011-04-25</td>
-                        <td><a type="button" class="btn btn-outline-primary btn-sm" style="background-color: #e7e7ff;" href = "{% url 'detail' %}"><span style="color: #696CFF;">Review</span></a></td>
-                        </tr>
-                        <tr>
-                        <td>190000002</td>
-                        <td>Shad Decker</td>
-                        <td>2012-05-28</td>
-                        <td><a type="button" class="btn btn-outline-primary btn-sm" style="background-color: #e7e7ff;" href = "{% url 'detail' %}"><span style="color: #696CFF;">Review</span></a></td>
-                        </tr>
-                        <tr>
-                        <td>190000003</td>
-                        <td>Jonas Alexander</td>
-                        <td>2013-07-21</td>
-                        <td><a type="button" class="btn btn-outline-primary btn-sm" style="background-color: #e7e7ff;" href = "{% url 'detail' %}"><span style="color: #696CFF;">Review</span></a></td>
-                        </tr>
-                        <tr>
-                        <td>190000004</td>
-                        <td>Lael Greer</td>
-                        <td>2013-07-23</td>
-                        <td><a type="button" class="btn btn-outline-primary btn-sm" style="background-color: #e7e7ff;" href = "{% url 'detail' %}"><span style="color: #696CFF;">Review</span></a></td>
-                        </tr>
-                        <tr>
-                        <td>190000005</td>
-                        <td>Hermione Butler</td>
-                        <td>2013-07-21</td>
-                        <td><a type="button" class="btn btn-outline-primary btn-sm" style="background-color: #e7e7ff;" href = "{% url 'detail' %}"><span style="color: #696CFF;">Review</span></a></td>
-                        </tr>
-                        <tr>
-                        <td>190000006</td>
-                        <td>Cara Stevens</td>
-                        <td>2017-02-24</td>
-                        <td><a type="button" class="btn btn-outline-primary btn-sm" style="background-color: #e7e7ff;" href = "{% url 'detail' %}"><span style="color: #696CFF;">Review</span></a></td>
-                        </tr>
-                        <tr>
-                        <td>190000007</td>
-                        <td>Zorita Serrano</td>
-                        <td>2020-04-22</td>
-                        <td><a type="button" class="btn btn-outline-primary btn-sm" style="background-color: #e7e7ff;" href = "{% url 'detail' %}"><span style="color: #696CFF;">Review</span></a></td>
-                        </tr>
-                        <tr>
-                        <td>190000008</td>
-                        <td>Zenaida Frank</td>
-                        <td>2015-01-22</td>
-                        <td><a type="button" class="btn btn-outline-primary btn-sm" style="background-color: #e7e7ff;" href = "{% url 'detail' %}"><span style="color: #696CFF;">Review</span></a></td>
-                        </tr>
-                        <tr>
-                        <td>190000009</td>
-                        <td>Serge Baldwin</td>
-                        <td>2013-04-27</td>
-                        <td><a type="button" class="btn btn-outline-primary btn-sm" style="background-color: #e7e7ff;" href = "{% url 'detail' %}"><span style="color: #696CFF;">Review</span></a></td>
-                        </tr>
-                        <tr>
-                        <td>190000010</td>
-                        <td>Thor Walton</td>
-                        <td>2011-01-11</td>
-                        <td><a type="button" class="btn btn-outline-primary btn-sm" style="background-color: #e7e7ff;" href = "{% url 'detail' %}"><span style="color: #696CFF;">Review</span></a></td>
-                        </tr>
-                        <tr>
-                        <td>190000011</td>
-                        <td>Sakura Yamamoto</td>
-                        <td>2018-01-22</td>
-                        <td><a type="button" class="btn btn-outline-primary btn-sm" style="background-color: #e7e7ff;" href = "{% url 'detail' %}"><span style="color: #696CFF;">Review</span></a></td>
-                        </tr>
-                        <tr>
-                        <td>190000012</td>
-                        <td>Bruno Nash</td>
-                        <td>2022-09-29</td>
-                        <td><a type="button" class="btn btn-outline-primary btn-sm" style="background-color: #e7e7ff;" href = "{% url 'detail' %}"><span style="color: #696CFF;">Review</span></a></td>
-                        </tr>
-                        <tr>
-                        <td>190000013</td>
-                        <td>Olivia Liang</td>
-                        <td>2009-05-22</td>
-                        <td><a type="button" class="btn btn-outline-primary btn-sm" style="background-color: #e7e7ff;" href = "{% url 'detail' %}"><span style="color: #696CFF;">Review</span></a></td>
-                        </tr>
-                        <tr>
-                        <td>190000014</td>
-                        <td>Jackson Bradshaw</td>
-                        <td>2022-06-19</td>
-                        <td><a type="button" class="btn btn-outline-primary btn-sm" style="background-color: #e7e7ff;" href = "{% url 'detail' %}"><span style="color: #696CFF;">Review</span></a></td>
-                        </tr>
-                        <tr>
-                        <td>190000015</td>
-                        <td>Timothy Mooney</td>
-                        <td>2012-06-12</td>
-                        <td><a type="button" class="btn btn-outline-primary btn-sm" style="background-color: #e7e7ff;" href = "{% url 'detail' %}"><span style="color: #696CFF;">Review</span></a></td>
-                        </tr>
-                        <tr>
-                        <td>190000016</td>
-                        <td>Vivian Harrell</td>
-                        <td>2020-02-12</td>
-                        <td><a type="button" class="btn btn-outline-primary btn-sm" style="background-color: #e7e7ff;" href = "{% url 'detail' %}"><span style="color: #696CFF;">Review</span></a></td>
-                        </tr>
-                        <tr>
-                        <td>190000017</td>
-                        <td>Hope Fuentes</td>
-                        <td>2018-03-20</td>
-                        <td><a type="button" class="btn btn-outline-primary btn-sm" style="background-color: #e7e7ff;" href = "{% url 'detail' %}"><span style="color: #696CFF;">Review</span></a></td>
-                        </tr>
-                        <tr>
-                        <td>190000018</td>
-                        <td>Howard Hatfield</td>
-                        <td>2015-02-23</td>
-                        <td><a type="button" class="btn btn-outline-primary btn-sm" style="background-color: #e7e7ff;" href = "{% url 'detail' %}"><span style="color: #696CFF;">Review</span></a></td>
-                        </tr>
-                        <tr>
-                        <td>190000019</td>
-                        <td>Bella Ramsey</td>
-                        <td>2012-01-15</td>
-                        <td><a type="button" class="btn btn-outline-primary btn-sm" style="background-color: #e7e7ff;" href = "{% url 'detail' %}"><span style="color: #696CFF;">Review</span></a></td>
-                        </tr>
-                        <tr>
-                        <td>190000020</td>
-                        <td>Gavin Cortez</td>
-                        <td>2019-02-25</td>
-                        <td><a type="button" class="btn btn-outline-primary btn-sm" style="background-color: #e7e7ff;" href = "{% url 'detail' %}"><span style="color: #696CFF;">Review</span></a></td>
-                        </tr>
-                        <tr>
-                        <td>190000021</td>
-                        <td>Prescott Bartlett</td>
-                        <td>2015-02-24</td>
-                        <td><a type="button" class="btn btn-outline-primary btn-sm" style="background-color: #e7e7ff;" href = "{% url 'detail' %}"><span style="color: #696CFF;">Review</span></a></td>
-                        </tr>
-                        <tr>
-                        <td>190000022</td>
-                        <td>Suki Burks</td>
-                        <td>2015-07-15</td>
-                        <td><a type="button" class="btn btn-outline-primary btn-sm" style="background-color: #e7e7ff;" href = "{% url 'detail' %}"><span style="color: #696CFF;">Review</span></a></td>
-                        </tr>
-                        <tr>
-                        <td>190000023</td>
-                        <td>Michelle House</td>
-                        <td>2013-02-21</td>
-                        <td><a type="button" class="btn btn-outline-primary btn-sm" style="background-color: #e7e7ff;" href = "{% url 'detail' %}"><span style="color: #696CFF;">Review</span></a></td>
-                        </tr>
-                        <tr>
-                        <td>190000024</td>
-                        <td>Shou Itou</td>
-                        <td>2017-01-24</td>
-                        <td><a type="button" class="btn btn-outline-primary btn-sm" style="background-color: #e7e7ff;" href = "{% url 'detail' %}"><span style="color: #696CFF;">Review</span></a></td>
-                        </tr>
-                    </tbody>
-                    </table>
-                </div>
-                </div>
+  <div class="home offset-md-1" style="overflow:hidden;">
+    <div class="col-md-10" style="margin-top:6%;">
+        <div class="fw-container">
+        <div class="fw-body">
+            <div class="content">
+              <div class="row">
+                <header class = "mb-4" style="text-align: start;">
+                    <h1 class="page_title text" style="float: left;">SGK-EF</h1>
+                </header>
+              </div>
+            </div>
+            <div class="demo-html text">
+                <table id="example" class="table" style="width:100%; background-color: var(--primary-color-light); box-shadow: rgba(0, 0, 0, 0.15) 1.95px 1.95px 2.6px;">
+                <thead class="text">
+                    <tr>
+                    <th>ID</th>
+                    <th>Name</th>
+                    <th>Date</th>
+                    <th>File</th>
+                    </tr>
+                </thead>
+                <tbody class="text">
+                    <tr>
+                    <td>190000001</td>
+                    <td>Michael Bruce</td>
+                    <td>2011-04-25</td>
+                    <td><a type="button" class="btn btn-outline-primary btn-sm" data-bs-toggle="modal" data-bs-target="#pdfModal" style="background-color: #e7e7ff;"><span style="color: #696CFF;">Review</span></a></td>
+                    </tr>
+                    <tr>
+                    <td>190000002</td>
+                    <td>Shad Decker</td>
+                    <td>2012-05-28</td>
+                    <td><a type="button" class="btn btn-outline-primary btn-sm" data-bs-toggle="modal" data-bs-target="#pdfModal" style="background-color: #e7e7ff;"><span style="color: #696CFF;">Review</span></a></td>
+                  </tr>
+                    <tr>
+                    <td>190000003</td>
+                    <td>Jonas Alexander</td>
+                    <td>2013-07-21</td>
+                    <td><a type="button" class="btn btn-outline-primary btn-sm" data-bs-toggle="modal" data-bs-target="#pdfModal" style="background-color: #e7e7ff;"><span style="color: #696CFF;">Review</span></a></td>
+                    </tr>
+                    <tr>
+                    <td>190000004</td>
+                    <td>Lael Greer</td>
+                    <td>2013-07-23</td>
+                    <td><a type="button" class="btn btn-outline-primary btn-sm" data-bs-toggle="modal" data-bs-target="#pdfModal" style="background-color: #e7e7ff;"><span style="color: #696CFF;">Review</span></a></td>
+                    </tr>
+                    <tr>
+                    <td>190000005</td>
+                    <td>Hermione Butler</td>
+                    <td>2013-07-21</td>
+                    <td><a type="button" class="btn btn-outline-primary btn-sm" data-bs-toggle="modal" data-bs-target="#pdfModal" style="background-color: #e7e7ff;"><span style="color: #696CFF;">Review</span></a></td>
+                    </tr>
+                    <tr>
+                    <td>190000006</td>
+                    <td>Cara Stevens</td>
+                    <td>2017-02-24</td>
+                    <td><a type="button" class="btn btn-outline-primary btn-sm" data-bs-toggle="modal" data-bs-target="#pdfModal" style="background-color: #e7e7ff;"><span style="color: #696CFF;">Review</span></a></td>
+                    </tr>
+                    <tr>
+                    <td>190000007</td>
+                    <td>Zorita Serrano</td>
+                    <td>2020-04-22</td>
+                    <td><a type="button" class="btn btn-outline-primary btn-sm" data-bs-toggle="modal" data-bs-target="#pdfModal" style="background-color: #e7e7ff;"><span style="color: #696CFF;">Review</span></a></td>
+                    </tr>
+                    <tr>
+                    <td>190000008</td>
+                    <td>Zenaida Frank</td>
+                    <td>2015-01-22</td>
+                    <td><a type="button" class="btn btn-outline-primary btn-sm" data-bs-toggle="modal" data-bs-target="#pdfModal" style="background-color: #e7e7ff;"><span style="color: #696CFF;">Review</span></a></td>
+                    </tr>
+                    <tr>
+                    <td>190000009</td>
+                    <td>Serge Baldwin</td>
+                    <td>2013-04-27</td>
+                    <td><a type="button" class="btn btn-outline-primary btn-sm" data-bs-toggle="modal" data-bs-target="#pdfModal" style="background-color: #e7e7ff;"><span style="color: #696CFF;">Review</span></a></td>
+                    </tr>
+                    <tr>
+                    <td>190000010</td>
+                    <td>Thor Walton</td>
+                    <td>2011-01-11</td>
+                    <td><a type="button" class="btn btn-outline-primary btn-sm" data-bs-toggle="modal" data-bs-target="#pdfModal" style="background-color: #e7e7ff;"><span style="color: #696CFF;">Review</span></a></td>
+                    </tr>
+                    <tr>
+                    <td>190000011</td>
+                    <td>Sakura Yamamoto</td>
+                    <td>2018-01-22</td>
+                    <td><a type="button" class="btn btn-outline-primary btn-sm" data-bs-toggle="modal" data-bs-target="#pdfModal" style="background-color: #e7e7ff;"><span style="color: #696CFF;">Review</span></a></td>
+                    </tr>
+                    <tr>
+                    <td>190000012</td>
+                    <td>Bruno Nash</td>
+                    <td>2022-09-29</td>
+                    <td><a type="button" class="btn btn-outline-primary btn-sm" data-bs-toggle="modal" data-bs-target="#pdfModal" style="background-color: #e7e7ff;"><span style="color: #696CFF;">Review</span></a></td>
+                    </tr>
+                    <tr>
+                    <td>190000013</td>
+                    <td>Olivia Liang</td>
+                    <td>2009-05-22</td>
+                    <td><a type="button" class="btn btn-outline-primary btn-sm" data-bs-toggle="modal" data-bs-target="#pdfModal" style="background-color: #e7e7ff;"><span style="color: #696CFF;">Review</span></a></td>
+                    </tr>
+                    <tr>
+                    <td>190000014</td>
+                    <td>Jackson Bradshaw</td>
+                    <td>2022-06-19</td>
+                    <td><a type="button" class="btn btn-outline-primary btn-sm" data-bs-toggle="modal" data-bs-target="#pdfModal" style="background-color: #e7e7ff;"><span style="color: #696CFF;">Review</span></a></td>
+                    </tr>
+                    <tr>
+                    <td>190000015</td>
+                    <td>Timothy Mooney</td>
+                    <td>2012-06-12</td>
+                    <td><a type="button" class="btn btn-outline-primary btn-sm" data-bs-toggle="modal" data-bs-target="#pdfModal" style="background-color: #e7e7ff;"><span style="color: #696CFF;">Review</span></a></td>
+                    </tr>
+                    <tr>
+                    <td>190000016</td>
+                    <td>Vivian Harrell</td>
+                    <td>2020-02-12</td>
+                    <td><a type="button" class="btn btn-outline-primary btn-sm" data-bs-toggle="modal" data-bs-target="#pdfModal" style="background-color: #e7e7ff;"><span style="color: #696CFF;">Review</span></a></td>
+                    </tr>
+                    <tr>
+                    <td>190000017</td>
+                    <td>Hope Fuentes</td>
+                    <td>2018-03-20</td>
+                    <td><a type="button" class="btn btn-outline-primary btn-sm" data-bs-toggle="modal" data-bs-target="#pdfModal" style="background-color: #e7e7ff;"><span style="color: #696CFF;">Review</span></a></td>
+                    </tr>
+                    <tr>
+                    <td>190000018</td>
+                    <td>Howard Hatfield</td>
+                    <td>2015-02-23</td>
+                    <td><a type="button" class="btn btn-outline-primary btn-sm" style="background-color: #e7e7ff;" href = "/teacher/internship-application-form/detail"<span style="color: #696CFF;">Review</span></a></td>
+                    </tr>
+                    <tr>
+                    <td>190000019</td>
+                    <td>Bella Ramsey</td>
+                    <td>2012-01-15</td>
+                    <td><a type="button" class="btn btn-outline-primary btn-sm" data-bs-toggle="modal" data-bs-target="#pdfModal" style="background-color: #e7e7ff;"><span style="color: #696CFF;">Review</span></a></td>
+                    </tr>
+                    <tr>
+                    <td>190000020</td>
+                    <td>Gavin Cortez</td>
+                    <td>2019-02-25</td>
+                    <td><a type="button" class="btn btn-outline-primary btn-sm" data-bs-toggle="modal" data-bs-target="#pdfModal" style="background-color: #e7e7ff;"><span style="color: #696CFF;">Review</span></a></td>
+                    </tr>
+                    <tr>
+                    <td>190000021</td>
+                    <td>Prescott Bartlett</td>
+                    <td>2015-02-24</td>
+                    <td><a type="button" class="btn btn-outline-primary btn-sm" data-bs-toggle="modal" data-bs-target="#pdfModal" style="background-color: #e7e7ff;"><span style="color: #696CFF;">Review</span></a></td>
+                    </tr>
+                    <tr>
+                    <td>190000022</td>
+                    <td>Suki Burks</td>
+                    <td>2015-07-15</td>
+                    <td><a type="button" class="btn btn-outline-primary btn-sm" data-bs-toggle="modal" data-bs-target="#pdfModal" style="background-color: #e7e7ff;"><span style="color: #696CFF;">Review</span></a></td>
+                    </tr>
+                    <tr>
+                    <td>190000023</td>
+                    <td>Michelle House</td>
+                    <td>2013-02-21</td>
+                    <td><a type="button" class="btn btn-outline-primary btn-sm" data-bs-toggle="modal" data-bs-target="#pdfModal" style="background-color: #e7e7ff;"><span style="color: #696CFF;">Review</span></a></td>
+                    </tr>
+                    <tr>
+                    <td>190000024</td>
+                    <td>Shou Itou</td>
+                    <td>2017-01-24</td>
+                    <td><a type="button" class="btn btn-outline-primary btn-sm" data-bs-toggle="modal" data-bs-target="#pdfModal" style="background-color: #e7e7ff;"><span style="color: #696CFF;">Review</span></a></td>
+                    </tr>
+                </tbody>
+                </table>
+            </div>
             </div>
         </div>
+        <!-- Modal -->
+        <div class="modal fade" id="pdfModal" aria-hidden="true" aria-labelledby="pdfModalLabel" tabindex="-1">
+          <div class="modal-dialog modal-xl modal-dialog-centered">
+            <div class="modal-content">
+              <div class="modal-header">
+                <h5 class="modal-title" id="exampleModalToggleLabel">Internship Application Form</h5>
+                <button type="button" class="btn-close" data-bs-dismiss="modal" aria-label="Close"></button>
+              </div>
+              <div class="modal-body">
+                <iframe src="{% static 'dbms_project.pdf' %}" width="100%" height="600"></iframe>
+              </div>
+              <div class="modal-footer">
+                <button type="button" class="btn btn-secondary" data-bs-dismiss="modal">Close</button>
+                <button type="button" class="btn btn-success" data-bs-dismiss="modal">Apply</button>
+                <button class="btn btn-danger" data-bs-toggle="modal" data-bs-dismiss="modal" data-bs-target="#answerModal">Deny</button>
+              </div>
+            </div>
+          </div>
+        </div>
+        <div class="modal fade" id="answerModal" aria-hidden="true" aria-labelledby="answerModal" tabindex="-1">
+          <div class="modal-dialog modal-xl modal-dialog-centered">
+            <div class="modal-content">
+              <div class="modal-header">
+                <h5 class="modal-title" id="pdfModalLabel">Answer</h5>
+                <button type="button" class="btn-close" data-bs-dismiss="modal" aria-label="Close"></button>
+              </div>
+              <div class="modal-body">
+                <div class="panel panel-default col-md-12 mt-4">
+                  <div class="panel-body">
+                      <form>
+                        <div class="card p-4" style="background:rgba(229, 229, 229, 0.615)">
+                          <div class="mb-3">
+                            <label for="exampleFormControlInput1" class="form-label" style="font-weight: 500;">Receiver</label>
+                            <input class="form-control" type="text" value="Kristin Surhupi Benli" readonly> <!-- Buraya database'den sender'ın bilgisi gelmeli. -->
+                          </div>
+                          <div class="mb-3">
+                            <label for="exampleFormControlInput1" class="form-label" style="font-weight: 500;">Subject</label>
+                            <input class="form-control" type="text" value="r/ Job Opportunuties" readonly> <!-- Buraya database'den gönderilen mesajın subject'i gelmeli. -->
+                          </div>
+                          <div class="mb-3">
+                            <label for="exampleFormControlTextarea1" class="form-label" style="font-weight: 500;">Message</label>
+                            <textarea class="form-control" id="exampleFormControlTextarea1" rows="10"></textarea>
+                          </div>
+                      </form>
+                  </div>
+                </div>
+              </div>
+              <div class="modal-footer">
+                <a class="btn btn-primary" href="/sgk-ef">Send Message</a>
+              </div>
+            </div>
+          </div>
+        </div>
       </div>
-     </section>
+    </div>
+  </div>
     <script>
       $(document).ready(function () {
         $('#example').DataTable();
@@ -212,5 +268,5 @@ Dashboard
     <script type="text/javascript" language="javascript" src="https://cdn.datatables.net/1.13.4/js/jquery.dataTables.min.js"></script>
     <script type="text/javascript" language="javascript" src="https://cdn.datatables.net/1.13.4/js/dataTables.bootstrap5.min.js"></script>
     <script type="text/javascript" language="javascript" src="../resources/demo.js"></script>
-    <script type="text/javascript" class="init">
+    <script type="text/javascript" class="init"></script>
 {% endblock content %}

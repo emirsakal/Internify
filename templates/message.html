@@ -2,76 +2,52 @@
 {% load static %}
 
 {% block content %}
-      <section class="home-section">
-            <div class="home-content offset-md-1" style="position: relative; top:5%;">
-                <div class="wraper bootstrap snippets bootdeys bootdey">
-                    <div class="row">
-                    <!-- Left sidebar -->
-                    <div class="col-md-3">
-                        <a href="{% url 'sendmessage' %}" class="btn btn-success btn-block"><i class="fa fa-pencil-square-o"></i> New Message</a>
-                        <br><br>
-                        <div class="panel panel-default p-0 m-t-20">
-                            <div class="panel-body p-0">
-                                <div class="list-group no-border mail-list">
-                                    <a href="{% url 'inbox' %}" class="list-group-item active"><i class="fa fa-inbox"></i> Incoming Messages <b>(8)</b></a>
-                                    <a href="#" class="list-group-item"><i class="fa fa-envelope"></i> Unread <b>(2)</b></a>
-                                    <a href="#" class="list-group-item"><i class="fa fa-paper-plane-o"></i> Outgoing Messages <b>(20)</b></a>
-                                </div>
-                            </div>
-                        </div>
-                    </div>
-                    <!-- End Left sidebar -->
-
-                    <!-- Right Sidebar -->
-                    <div class="col-md-9">
-                        <div class="row">
-                            <div class="col-lg-12">
-                                <div class="btn-toolbar" role="toolbar">
-                                  <div div class="btn-group" >
-                                    <h3 class="title"><i class="fa fa-envelope-o"></i> Message</h3>
-                                  </div>
-                                  <div class="btn-group">
-                                </div>
-                              </div>
-                        </div>
-                        <!-- End row -->
-                        <div class = "col-md-12 offset-md-0 mt-3">
-                        <div class="col-lg-11">
-                            <div class="card p-4">
-                                <header class = "mb-3" style="text-align: start;">
-                                    <a><h2 class="fw-bolder mb-1" style="color : black;">Job Opportunuties</h2></a>
-                                    <p class ="lead">by Kristin Surhupi Benli</p>
-                                    <hr>
-                                    <p class="lead">Lorem ipsum dolor sit amet, consectetur adipiscing elit. Curabitur non mi molestie, vehicula metus sit amet, elementum tortor. Vestibulum ante ipsum primis in faucibus orci luctus et ultrices posuere cubilia curae; Nunc laoreet mollis vehicula. Praesent sagittis est ac nisi ultrices posuere. Phasellus felis magna, pharetra vitae varius eu, iaculis et elit. Mauris sollicitudin vulputate sapien, nec accumsan turpis feugiat quis. Sed vitae tincidunt dolor. Mauris maximus metus ut arcu elementum sagittis. Suspendisse sit amet erat hendrerit, maximus sem vel, pharetra nisl. Donec porta odio in enim accumsan, in ultricies neque venenatis. In consectetur varius augue, ut mattis justo iaculis nec.</p>
-                                    <a href="#" class="btn btn-danger" style="float: right;"><i class='bx bx-upload'></i> Answer</a>
-                                </header>
-                            </div>
-                            </div>
-                        </div>
-                        <div class="panel panel-default col-md-11 mt-4">
-                            <div class="panel-body">
-                                <form>
-                                  <div class="card p-4" style="background:rgba(229, 229, 229, 0.615)">
-                                    <div class="mb-3">
-                                      <label for="exampleFormControlInput1" class="form-label" style="font-weight: 500;">Receiver</label>
-                                      <input class="form-control" type="text" value="Kristin Surhupi Benli" readonly> <!-- Buraya database'den sender'ın bilgisi gelmeli. -->
-                                    </div>
-                                    <div class="mb-3">
-                                      <label for="exampleFormControlInput1" class="form-label" style="font-weight: 500;">Subject</label>
-                                      <input class="form-control" type="text" value="r/ Job Opportunuties" readonly> <!-- Buraya database'den gönderilen mesajın subject'i gelmeli. -->
-                                    </div>
-                                    <div class="mb-3">
-                                      <label for="exampleFormControlTextarea1" class="form-label" style="font-weight: 500;">Message</label>
-                                      <textarea class="form-control" id="exampleFormControlTextarea1" rows="10"></textarea>
-                                    </div>
-                                    <div><a href="/inbox" class="btn btn-success btn-block" style="float: right; width: 20%;"><i class="fa fa-pencil-square-o"></i> SEND MESSAGE</a></div>
-                                </form>
-                            </div>
-                        </div>
-                        <br>
-                    </div>
-                </div>
-            </div>
+<link rel="stylesheet" href="{% static 'css/sidebar.css' %}">
+<head>
+</head>
+<body>
+    <link href="https://maxcdn.bootstrapcdn.com/font-awesome/4.3.0/css/font-awesome.min.css" rel="stylesheet">
+    <div class="home offset-md-1" style="margin-top:4%;">
+        <link href="https://maxcdn.bootstrapcdn.com/font-awesome/4.3.0/css/font-awesome.min.css" rel="stylesheet">
+        <div class="row">
+          <div class="col-md-5">
+            <h1 class="title text"><i class="fa fa-envelope-o"></i> Message</h1>
+          </div>
+          <div class="col-md-5">
+            <a href="/inbox/send-message" class="btn btn-success btn-block" style="font-size: 20px; width:40%; float:right;"><i class='fa fa-pencil-square-o'></i> New Message</a>
+          </div>
         </div>
-    </section>
+        <div class="col-lg-10" style="margin-top:2%;">
+            <div class="card p-4" style="box-shadow: rgba(14, 30, 37, 0.12) 0px 2px 4px 0px, rgba(14, 30, 37, 0.32) 0px 2px 16px 0px;">
+                <header class = "text mb-3" style="text-align: start;">
+                    <a><h2 class="fw-bolder mb-1">Job Opportunuties</h2></a>
+                    <p class ="lead">by Kristin Surhupi Benli</p>
+                    <hr>
+                    <p class="lead">Lorem ipsum dolor sit amet, consectetur adipiscing elit. Curabitur non mi molestie, vehicula metus sit amet, elementum tortor. Vestibulum ante ipsum primis in faucibus orci luctus et ultrices posuere cubilia curae; Nunc laoreet mollis vehicula. Praesent sagittis est ac nisi ultrices posuere. Phasellus felis magna, pharetra vitae varius eu, iaculis et elit. Mauris sollicitudin vulputate sapien, nec accumsan turpis feugiat quis. Sed vitae tincidunt dolor. Mauris maximus metus ut arcu elementum sagittis. Suspendisse sit amet erat hendrerit, maximus sem vel, pharetra nisl. Donec porta odio in enim accumsan, in ultricies neque venenatis. In consectetur varius augue, ut mattis justo iaculis nec.</p>
+                    <p class="lead">Lorem ipsum dolor sit amet, consectetur adipiscing elit. Curabitur non mi molestie, vehicula metus sit amet, elementum tortor. Vestibulum ante ipsum primis in faucibus orci luctus et ultrices posuere cubilia curae; Nunc laoreet mollis vehicula. Praesent sagittis est ac nisi ultrices posuere. Phasellus felis magna, pharetra vitae varius eu, iaculis et elit. Mauris sollicitudin vulputate sapien, nec accumsan turpis feugiat quis. Sed vitae tincidunt dolor. Mauris maximus metus ut arcu elementum sagittis. Suspendisse sit amet erat hendrerit, maximus sem vel, pharetra nisl. Donec porta odio in enim accumsan, in ultricies neque venenatis. In consectetur varius augue, ut mattis justo iaculis nec.</p>
+                </header>
+            </div>
+            <div class="panel-body" style="margin-top:2%;">
+                <form>
+                    <div class="card p-4" style="box-shadow: rgba(14, 30, 37, 0.12) 0px 2px 4px 0px, rgba(14, 30, 37, 0.32) 0px 2px 16px 0px;">
+                        <div class="text mb-3">
+                            <label for="exampleFormControlInput1" class="form-label" style="font-weight: 500;">Receiver</label>
+                            <input class="form-control text" type="text" value="Kristin Surhupi Benli" style="background-color: var(--primary-color-light);" readonly> <!-- Buraya database'den sender'ın bilgisi gelmeli. -->
+                        </div>
+                        <div class="text mb-3">
+                            <label for="exampleFormControlInput1" class="form-label" style="font-weight: 500;">Subject</label>
+                            <input class="form-control text" type="text" value="r/ Job Opportunuties" style="background-color: var(--primary-color-light);" readonly> <!-- Buraya database'den gönderilen mesajın subject'i gelmeli. -->
+                        </div>
+                        <div class="text mb-3">
+                            <label for="exampleFormControlTextarea1" class="form-label" style="font-weight: 500;">Message</label>
+                            <textarea class="form-control text" id="exampleFormControlTextarea1" style="background-color: var(--primary-color-light);" rows="10"></textarea>
+                        </div>
+                        <a href="/inbox" class="btn btn-success btn-block" style="font-size: 20px; width: 100%;"><i class='fa fa-pencil-square-o'></i> Send Message</a>
+                    </div>
+                </form>
+            </div>
+            <br>
+        </div>
+    </div>
+</body>
 {% endblock content %}
