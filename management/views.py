@@ -59,14 +59,14 @@ def internshipform(request):
             coordinator = InternshipCoordinator.objects.filter(department=student.department)
             staff = CareerCenterEmployee.objects.get(employee_id=1)
             if len(coordinator) > 0:
-                application = Application.objects.create(coordinator=coordinator[0], student=student, employee=staff, status='W')
+                application = Application.objects.create(coordinator=coordinator[0], student=student, employee=staff, status='W', type='I')
                 application.save()
                 
                 document = Document.objects.create(document=request.FILES['internship_form'], application=application)
                 document.save()
                 return redirect(reverse('internshipform'))
     
-    applications = Application.objects.filter(student=student).order_by('-date_created')
+    applications = Application.objects.filter(student=student, type='I').order_by('-date_created')
     
     context = {
         'applications': applications
@@ -75,7 +75,28 @@ def internshipform(request):
     return render(request, "student/internshipform.html", context)
 
 def officialletter(request):
-    return render(request, "student/officialletter.html")
+    user = request.user
+    student = Student.objects.get(user=user)
+    
+    if request.method == 'POST':
+        if 'transcript' in request.FILES:
+            coordinator = InternshipCoordinator.objects.filter(department=student.department)
+            staff = CareerCenterEmployee.objects.get(employee_id=1)
+            if len(coordinator) > 0:
+                application = Application.objects.create(coordinator=coordinator[0], student=student, employee=staff, status='W', type='L')
+                application.save()
+                
+                document = Document.objects.create(document=request.FILES['transcript'], application=application)
+                document.save()
+                return redirect(reverse('officialletter'))
+    
+    applications = Application.objects.filter(student=student, type='L').order_by('-date_created')
+    
+    context = {
+        'applications': applications
+    }
+    
+    return render(request, "student/officialletter.html", context)
 
 def internshipopp(request):
     return render(request, "student/internshipopp.html")

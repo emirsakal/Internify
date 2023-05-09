@@ -118,11 +118,15 @@ class Application(BaseAbstractModel):
         ('R', 'Rejected'),
         ('A', 'Approved'),
     )
+    TYPE_CHOICES = (
+        ('L', 'Letter'),
+        ('I', 'Internship'),
+    )
     student = models.ForeignKey(Student, on_delete=CASCADE)
     coordinator = models.ForeignKey(InternshipCoordinator, on_delete=CASCADE)
     employee = models.ForeignKey(CareerCenterEmployee, on_delete=CASCADE)
     status = models.CharField(max_length=1, choices=STATUS_CHOICES)
-    
+    type = models.CharField(max_length=1, choices=TYPE_CHOICES, default='I')
     def __str__(self):
         return f'{self.id} | {self.status}'
 
