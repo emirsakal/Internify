@@ -6,7 +6,7 @@ class AuthRequiredMiddleware:
 		self.get_response = get_response
 
 	def __call__(self, request):
-		if not request.user.is_authenticated and request.path != '/login/' and request.path != '/login/staff':
+		if not request.user.is_authenticated and request.path != '/login/' and request.path != '/login/staff' and not request.path.startswith('/admin/'):
 			return redirect('/login/')
 		response = self.get_response(request)
 		return response

@@ -1,4 +1,5 @@
 {% extends "layout.html" %}
+{% load l10n %}
 {% load static %}
 
 {% block page_title %}
@@ -29,7 +30,7 @@ Official Letter
         <div class="col-lg-12">
           <div class="card p-4">
             <header class = "mb-4" style="text-align: start;">
-              <form enctype="multipart/form-data" action="{% url 'internshipform' %}" method="POST">
+              <form enctype="multipart/form-data" action="{% url 'officialletter' %}" method="POST">
               {% csrf_token %}
               <a>
                 <h3 class="fw-bolder mb-1 text">Official Letter Application</h3>
@@ -42,7 +43,7 @@ Official Letter
                 <label for="upload" class="btn btn-outline-primary me-2" tabindex="0" style="border: 2px solid var(--purple-text-color); background-color: var(--primary-color-light); font-size: 20px; float:right; color: var(--purple-text-color);">
                   <span class="d-none d-sm-block">Upload Documentation</span>
                   <i class="bx bx-upload d-block d-sm-none"></i>
-                  <input type="file" id="upload" class="account-file-input" required hidden name='internship_form' style="border: 2px solid var(--purple-text-color); background-color: var(--primary-color-light); font-size: 20px; float:right;" />
+                  <input type="file" id="upload" class="account-file-input" required hidden name='transcript' style="border: 2px solid var(--purple-text-color); background-color: var(--primary-color-light); font-size: 20px; float:right;" />
                 </label>
               </form>
              </header>
@@ -54,7 +55,9 @@ Official Letter
                   {% if applications.count > 0 %}
                   <thead>
                     <tr>
+                      <th class="text" style="font-weight: bold;">ID</th>
                       <th class="text" style="font-weight: bold;">Date</th>
+                      <th class="text" style="font-weight: bold;">Time Created</th>
                       <th class="text" style="font-weight: bold;">Internship Coordinator</th>
                       <th class="text" style="font-weight: bold;">Order Status</th>
                     </tr>
@@ -62,7 +65,9 @@ Official Letter
                   <tbody> 
                       {% for application in applications %}
                         <tr>
+                          <td class="text" style="font-weight: bold; font-family:Arial, Helvetica, sans-serif;">{{application.id}}</td>
                           <td class="text" style="font-weight: bold; font-family:Arial, Helvetica, sans-serif;">{{application.date_created|date:"d-m-Y" }}</td>
+                          <td class="text" style="font-weight: bold; font-family:Arial, Helvetica, sans-serif;">{{application.date_created|time:"H:i:s" }}</td>
                           <td class="text" style="font-weight: bold; font-family:Arial, Helvetica, sans-serif;">{{application.coordinator.user.first_name}} {{application.coordinator.user.last_name}}</td>
                           {% if application.status == 'W' %}
                             <td>
