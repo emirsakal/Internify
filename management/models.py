@@ -76,6 +76,9 @@ class User(AbstractBaseUser, PermissionsMixin):
 
     def has_module_perms(self, app_label):
         return True
+    
+    def get_full_name(self):
+        return f'{self.first_name} {self.last_name}'
 
 class Message(BaseAbstractModel):
     title = models.CharField(max_length=255)
