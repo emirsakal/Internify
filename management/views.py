@@ -1,21 +1,47 @@
 from django.shortcuts import render, redirect
 from django.urls import reverse
-from .forms import StudentLoginForm, StaffLoginForm
 from django.contrib import messages
 from django.contrib.auth import login, authenticate, logout
-from django.contrib.auth.models import Group
 from django.contrib.auth.decorators import login_required
-from .models import User, Student, InternshipCoordinator, CareerCenterEmployee, Application, Document
-from django.http import HttpResponse
+from django.db.models import Q
 
-import os
+from .models import Student, InternshipCoordinator, CareerCenterEmployee, Application, Document, Message, User
+from .forms import StudentLoginForm, StaffLoginForm
 
 @login_required
 def index(request):
     return render(request, "index.html")
 
 def inbox(request):
-    return render(request, "inbox.html")
+    user = request.user
+    if request.method == "POST":
+        email = request.POST['email']
+        title = request.POST['title']
+        content = request.POST['content']
+        
+        user_arr = User.objects.filter(email=email)
+        
+        if len(user_arr) <= 0:
+            messages.warning(request,"User not found!")
+            return redirect(reverse('sendmessage'))
+        
+        user = user_arr[0]
+        
+        if user.email == request.user.email:
+            messages.warning(request,"You can not send message to yourself.")
+            return redirect(reverse('sendmessage'))
+        message = Message.objects.create(title=title, content=content, receiver=user, sender=request.user)
+        message.save()
+        
+        messages.success(request,"message sent successfully!")
+        return render(request, "inbox.html")
+    
+    emails = Message.objects.filter(Q(sender=request.user) | Q(receiver=request.user))
+    
+    context = {
+        'emails': emails
+    }
+    return render(request, "inbox.html", context)
 
 def sendmessage(request):
     return render(request, "sendmessage.html")

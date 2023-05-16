@@ -1,40 +1,60 @@
 {% extends "layout.html" %}
 {% load static %}
 
-{% block content %}
+{% block page_title %}
+send message
+{% endblock page_title %}
+
+{% block css_files %}
 <style>
   body {
     overflow: hidden;
     margin-top:9%;
   }
 </style>
+{% endblock css_files %}
+
+{% block content %}
 <div class="home offset-md-1" style="margin-top:4%;">
-  <link href="https://maxcdn.bootstrapcdn.com/font-awesome/4.3.0/css/font-awesome.min.css" rel="stylesheet">
+  <div class="row">
+    <div class="col-lg-10">
+      {% if messages %}
+        {% for message in messages %}
+            {% if message.tags == "info" %}
+            <div class="alert alert-danger" style="margin-top:20px; width: 100%;">{{ message }}</div>
+            {% else %}
+            <div class="alert alert-{{ message.tags }}" style="margin-top:20px; width: 100%;">{{ message }}</div>
+            {% endif %}
+        {% endfor %}
+      {% endif %}
+    </div>
+  </div>
   <div class="row">
     <div class="col-md-5">
       <h1 class="title text"><i class="fa fa-envelope-o"></i> Send Message</h1>
     </div>
     <div class="col-md-5">
-      <a href="/inbox/send-message" class="btn btn-success btn-block" style="font-size: 20px; width:40%; float:right;"><i class='fa fa-pencil-square-o'></i> New Message</a>
+      <a href="{% url 'inbox' %}" class="btn btn-success btn-block" style="font-size: 20px; width:40%; float:right;"><i class='bx bx-chat icon'></i> Inbox</a>
     </div>
   </div>
   <div class="col-md-10" style="margin-top:2%">
     <div class="panel-body">
-        <form>
+        <form action="{% url 'inbox' %}" method="POST">
+          {% csrf_token %}
           <div class="card p-4 text">
             <div class="mb-3">
               <label for="exampleFormControlInput1" class="form-label" style="font-weight: 500;">Receiver</label>
-              <input type="email" class="form-control text" id="exampleFormControlInput1" placeholder="name@hotmail.com" style="background-color: var(--primary-color-light); ">
+              <input name="email" type="email" class="form-control text" id="exampleFormControlInput1" required placeholder="name@hotmail.com" style="background-color: var(--primary-color-light); ">
             </div>
             <div class="mb-3">
               <label for="exampleFormControlInput1" class="form-label" style="font-weight: 500;">Subject</label>
-              <input type="email" class="form-control text" id="exampleFormControlInput1" style="background-color: var(--primary-color-light);">
+              <input name="title" type="text" class="form-control text" id="exampleFormControlInput1" required style="background-color: var(--primary-color-light);">
             </div>
             <div class="mb-3">
               <label for="exampleFormControlTextarea1" class="form-label" style="font-weight: 500;">Message</label>
-              <textarea class="form-control text" id="exampleFormControlTextarea1" rows="14" style="background-color: var(--primary-color-light);"></textarea>
+              <textarea name="content" class="form-control text" id="exampleFormControlTextarea1" required rows="14" style="background-color: var(--primary-color-light);"></textarea>
             </div>
-            <a href="/inbox" class="btn btn-success btn-block" style="font-size: 20px; width: 100%;"><i class='fa fa-pencil-square-o'></i> Send Message</a>
+            <button type="submit" class="btn btn-success btn-block" style="font-size: 20px; width: 100%;"><i class='fa fa-pencil-square-o'></i> Send Message</button>
           </div>
         </form>
     </div>

@@ -14,6 +14,19 @@
 {% block content %}
 <div class="home offset-md-1" style="margin-top:4%;">
   <div class="row">
+    <div class="col-lg-10">
+      {% if messages %}
+        {% for message in messages %}
+            {% if message.tags == "info" %}
+              <div class="alert alert-danger" style="margin-top:20px; width: 100%;">{{ message }}</div>
+            {% else %}
+              <div class="alert alert-{{ message.tags }}" style="margin-top:20px; width: 100%;">{{ message }}</div>
+            {% endif %}
+        {% endfor %}
+      {% endif %}
+    </div>
+  </div>
+  <div class="row">
     <div class="col-md-5">
       <h1 class="title text"><i class="fa fa-envelope-o"></i> Incoming Messages</h1>
     </div>
@@ -23,19 +36,25 @@
   </div>
   <div class="col-md-10" style="margin-top:2%;">
     <table class="table table-hover mails" style="background-color: var(--primary-color-light);">
-      {% if message.count > 0 %}
+      {% if emails.count > 0 %}
       <thead class="text">
         <td>#</td>
         <th>SENDER</th>
+        <th>RECEIVER</th>
         <th>SUBJECT</th>
         <th>DATE</th>
       </thead>
       <tbody class="text">
-        {% for message in messages %}
+        {% for message in emails %}
           <tr>
             <td>{{forloop.counter}}</td>
             <td>
-              <a href="{% url 'message' %}" style="text-decoration: none; color: var(--text-color)">
+              <a href="{% url 'message' %}/{{message.id}}" style="text-decoration: none; color: var(--text-color)">
+                {{message.sender.get_full_name}}
+              </a>
+            </td>
+            <td>
+              <a href="{% url 'message' %}/{{message.id}}" style="text-decoration: none; color: var(--text-color)">
                 {{message.receiver.get_full_name}}
               </a>
             </td>
