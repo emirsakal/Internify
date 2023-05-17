@@ -67,7 +67,7 @@
                         <tr>
                           <td class="text" style="font-weight: bold; font-family:Arial, Helvetica, sans-serif;">{{application.id}}</td>
                           <td class="text" style="font-weight: bold; font-family:Arial, Helvetica, sans-serif;">{{application.date_created|date:"d-m-Y" }}</td>
-                          <td class="text" style="font-weight: bold; font-family:Arial, Helvetica, sans-serif;">{{application.date_created|time:"H:i:s" }}</td>
+                          <td class="text" style="font-weight: bold; font-family:Arial, Helvetica, sans-serif;">{{application.date_created|date:"h:i A"}}</td>
                           <td class="text" style="font-weight: bold; font-family:Arial, Helvetica, sans-serif;">{{application.coordinator.user.first_name}} {{application.coordinator.user.last_name}}</td>
                           {% if application.status == 'W' %}
                             <td>

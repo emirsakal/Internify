@@ -34,7 +34,7 @@ def inbox(request):
         messages.success(request,"message sent successfully!")
         return redirect(reverse('inbox'))
     
-    emails = Message.objects.filter((Q(sender=request.user) | Q(receiver=request.user)) & Q(parent=None))
+    emails = Message.objects.filter((Q(sender=request.user) | Q(receiver=request.user)) & Q(parent=None)).order_by('-date_created')
     
     context = {
         'emails': emails
@@ -56,7 +56,7 @@ def message(request, id):
         child = Message.objects.create(title=title, content=content, receiver=receiver, sender=request.user, parent=parent)
         child.save()
         
-        return redirect(reverse('message', args=parent.id))
+        return redirect(f'/inbox/message/{parent.id}/')
 
     children = Message.objects.filter(parent=parent)
     
@@ -156,10 +156,38 @@ def sgkef(request):
 # TEACHER
 
 def applicationform(request):
-    return render(request, "teacher/applicationform.html")
+    user = request.user
+    
+    coordinator = InternshipCoordinator.objects.filter(user=user)
+    
+    if len(coordinator) != 1:
+        messages.warning('invalid user')
+        return render(request, "teacher/applicationform.html")    
+    
+    applications =  Application.objects.filter(coordinator=coordinator[0], type='I')
+    
+    context = {
+        "applications": applications
+    }
+    
+    return render(request, "teacher/applicationform.html", context)
 
 def offletters(request):
-    return render(request, "teacher/offletters.html")
+    user = request.user
+    
+    coordinator = InternshipCoordinator.objects.filter(user=user)
+    
+    if len(coordinator) != 1:
+        messages.warning('invalid user')
+        return render(request, "teacher/applicationform.html")    
+    
+    applications =  Application.objects.filter(coordinator=coordinator[0], type='L')
+    
+    context = {
+        "applications": applications
+    }
+    
+    return render(request, "teacher/offletters.html", context)
 
 def detail(request):
     return render(request, "detail.html")
