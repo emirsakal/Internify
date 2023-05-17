@@ -1,6 +1,7 @@
 from django.db import models
 from django.contrib.auth.models import AbstractBaseUser, BaseUserManager, PermissionsMixin
-from django.db.models import CASCADE
+from django.db.models import CASCADE, SET_NULL
+from django.urls import reverse
 
 class BaseAbstractModel(models.Model):
     is_visible = models.BooleanField(default=True, verbose_name='Visibility')
@@ -85,9 +86,12 @@ class Message(BaseAbstractModel):
     content = models.TextField()    
     sender = models.ForeignKey(User, on_delete=CASCADE, related_name='sender')
     receiver = models.ForeignKey(User, on_delete=CASCADE, related_name='receiver')
-    
+    parent = models.ForeignKey('self', on_delete=SET_NULL, null=True, related_name='parentnode')
     def __str__(self):
         return f'{self.title} | {self.sender.email}'
+    
+    def get_absolute_url(self):
+        return reverse('message', args=[str(self.id)])
 
 class Student(BaseAbstractModel):
     student_id = models.CharField(max_length=20, primary_key=True, unique=True)

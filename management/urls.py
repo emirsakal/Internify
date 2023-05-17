@@ -6,7 +6,7 @@ urlpatterns = [
     path('home/', views.index, name="index"),
     path('inbox/', views.inbox, name = "inbox"),
     path('inbox/send-message', views.sendmessage, name = "sendmessage"),
-    path('inbox/message', views.message, name = "message"), 
+    path('inbox/message/<int:id>/', views.message, name = "message"), 
     path('profile/', views.profile, name = "profile"),
 
     # STUDENT URLS

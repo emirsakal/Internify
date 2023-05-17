@@ -49,12 +49,12 @@
           <tr>
             <td>{{forloop.counter}}</td>
             <td>
-              <a href="{% url 'message' %}/{{message.id}}" style="text-decoration: none; color: var(--text-color)">
+              <a href="{{message.get_absolute_url}}" style="text-decoration: none; color: var(--text-color)">
                 {{message.sender.get_full_name}}
               </a>
             </td>
             <td>
-              <a href="{% url 'message' %}/{{message.id}}" style="text-decoration: none; color: var(--text-color)">
+              <a href="{% url 'inbox' %}message/{{message.id}}/" style="text-decoration: none; color: var(--text-color)">
                 {{message.receiver.get_full_name}}
               </a>
             </td>

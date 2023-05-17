@@ -2,13 +2,11 @@ from django.shortcuts import render, redirect
 from django.urls import reverse
 from django.contrib import messages
 from django.contrib.auth import login, authenticate, logout
-from django.contrib.auth.decorators import login_required
 from django.db.models import Q
 
 from .models import Student, InternshipCoordinator, CareerCenterEmployee, Application, Document, Message, User
 from .forms import StudentLoginForm, StaffLoginForm
 
-@login_required
 def index(request):
     return render(request, "index.html")
 
@@ -30,13 +28,13 @@ def inbox(request):
         if user.email == request.user.email:
             messages.warning(request,"You can not send message to yourself.")
             return redirect(reverse('sendmessage'))
-        message = Message.objects.create(title=title, content=content, receiver=user, sender=request.user)
+        message = Message.objects.create(title=title, content=content, receiver=user, sender=request.user, parent=None)
         message.save()
         
         messages.success(request,"message sent successfully!")
-        return render(request, "inbox.html")
+        return redirect(reverse('inbox'))
     
-    emails = Message.objects.filter(Q(sender=request.user) | Q(receiver=request.user))
+    emails = Message.objects.filter((Q(sender=request.user) | Q(receiver=request.user)) & Q(parent=None))
     
     context = {
         'emails': emails
@@ -46,8 +44,30 @@ def inbox(request):
 def sendmessage(request):
     return render(request, "sendmessage.html")
 
-def message(request):
-    return render(request, "message.html")
+def message(request, id):
+    parent = Message.objects.get(pk=id)
+    
+    if request.method == "POST":
+        email = request.POST['email']
+        title = request.POST['title']
+        content = request.POST['content']
+        
+        receiver = User.objects.get(email=email)
+        child = Message.objects.create(title=title, content=content, receiver=receiver, sender=request.user, parent=parent)
+        child.save()
+        
+        return redirect(reverse('message', args=parent.id))
+
+    children = Message.objects.filter(parent=parent)
+    
+    context = {
+        'email': parent
+    }
+    
+    if len(children) > 0:
+        context['children'] = children
+
+    return render(request, "message.html", context)
 
 def profile(request):
     user = request.user
@@ -67,7 +87,7 @@ def profile(request):
         return render(request, "profile.html", context)
     elif user.groups.filter(name='Coordinator').exists():
         coordinator = InternshipCoordinator.objects.get(user=user)
-        print(coordinator)
+
         if coordinator:
             context['coordinator'] = coordinator
         return render(request, "profile.html", context)
