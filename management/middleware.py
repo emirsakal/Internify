@@ -9,4 +9,5 @@ class AuthRequiredMiddleware:
 		if not request.user.is_authenticated and request.path != '/login/' and request.path != '/login/staff' and not request.path.startswith('/admin/'):
 			return redirect('/login/')
 		response = self.get_response(request)
+		response['Content-Security-Policy'] = "frame-ancestors 'self' http://localhost"
 		return response

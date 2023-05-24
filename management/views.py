@@ -3,6 +3,7 @@ from django.urls import reverse
 from django.contrib import messages
 from django.contrib.auth import login, authenticate, logout
 from django.db.models import Q
+from django.views.decorators.clickjacking import xframe_options_sameorigin
 
 from .models import Student, InternshipCoordinator, CareerCenterEmployee, Application, Document, Message, User
 from .forms import StudentLoginForm, StaffLoginForm
@@ -154,7 +155,7 @@ def sgkef(request):
 
 
 # TEACHER
-
+@xframe_options_sameorigin
 def applicationform(request):
     user = request.user
     
@@ -166,8 +167,11 @@ def applicationform(request):
     
     applications =  Application.objects.filter(coordinator=coordinator[0], type='I')
     
+    documents = Document.objects.filter(application__coordinator=coordinator[0], application__type='I')
+    
     context = {
-        "applications": applications
+        "applications": applications,
+        "documents": documents
     }
     
     return render(request, "teacher/applicationform.html", context)

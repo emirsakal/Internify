@@ -53,7 +53,7 @@ MIDDLEWARE = [
     "django.middleware.csrf.CsrfViewMiddleware",
     "django.contrib.auth.middleware.AuthenticationMiddleware",
     "django.contrib.messages.middleware.MessageMiddleware",
-    "django.middleware.clickjacking.XFrameOptionsMiddleware",
+    
     "management.middleware.AuthRequiredMiddleware"
 ]
 
@@ -139,6 +139,8 @@ CRISPY_TEMPLATE_PACK = "bootstrap5"
 
 AUTH_USER_MODEL = "management.User"
 
+X_FRAME_OPTIONS = "SAMEORIGIN"
+XS_SHARING_ALLOWED_METHODS = ['POST','GET','OPTIONS', 'PUT', 'DELETE']
 
 MEDIA_ROOT = BASE_DIR / 'uploads'
 MEDIA_URL = '/files/'

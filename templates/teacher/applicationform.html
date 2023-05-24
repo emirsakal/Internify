@@ -61,9 +61,11 @@ Internship Applications
                       <td>{{application.date_created|date:"d-m-Y"}}</td>
                       <td>{{application.date_created|date:"h:i A"}}</td>
                       <td>
-                        <a type="button" class="btn btn-outline-primary btn-sm" data-bs-toggle="modal" data-bs-target="#pdfModal" data-file="" style="background-color: #e7e7ff;">
-                          <span style="color: #696CFF;">Review</span>
-                        </a>
+                        {% for document in documents %}
+                          <button type="button" id="btn-modal" class="btn btn-outline-primary btn-sm" data-bs-toggle="modal" data-bs-target="#pdfModal" data-file="{% if application.id == document.application.id %}{{document.document.url}}{% endif %}" style="background-color: #e7e7ff;">
+                            <span style="color: #696CFF;">Review</span>
+                          </button>
+                        {% endfor %}
                       </td>
                     </tr>
                     {% endfor %}
@@ -138,6 +140,13 @@ Internship Applications
         if ($('#tableBody').children().length > 0 ) {
           $('#example').DataTable();
         }
+        
+        $('#btn-modal').click(function() {
+          var fileValue = $('[data-file]').data('file')
+          console.log(fileValue);
+          $('iframe').attr('src', fileValue);
+        });
+        
       });
     </script>
     <script src="{% static 'js/sidebar.js' %}"></script>
