@@ -34,7 +34,7 @@
       <a href="{% url 'sendmessage' %}" class="btn btn-success btn-block" style="font-size: 20px; width:40%; float:right;"><i class='fa fa-pencil-square-o'></i> New Message</a>
     </div>
   </div>
-  <div class="col-md-10" style="margin-top:2%;">
+  <div class="col-md-10" style="margin-top:2%; max-height: 600px; overflow-y:scroll;">
     <table class="table table-hover mails" style="background-color: var(--primary-color-light);">
       {% if emails.count > 0 %}
       <thead class="text">
