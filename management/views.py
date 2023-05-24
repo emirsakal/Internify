@@ -52,7 +52,7 @@ def inbox(request):
 		messages.success(request,"message sent successfully!")
 		return redirect(reverse('inbox'))
 	
-	emails = Message.objects.filter((Q(sender=request.user) | Q(receiver=request.user)) & Q(parent=None)).order_by('-date_created')
+	emails = Message.objects.filter((Q(sender=request.user) | Q(receiver=request.user)) & Q(parent=None)).order_by('-date_updated')
 	
 	context = {
 		'emails': emails
@@ -170,8 +170,8 @@ def internshipopp(request):
 		job = request.POST['job']
 		start_date = request.POST['startdate']
 		end_date = request.POST['enddate']
-		internship = Internship.objects.create(company=company, job=job, start_date=start_date, end_date=end_date)
-
+		url = request.POST['url']
+		internship = Internship.objects.create(company=company, job=job, start_date=start_date, end_date=end_date, url=url)
 		if 'province' in request.POST:
 			province = Province.objects.get(name=request.POST['province'])
 			internship.province = province
