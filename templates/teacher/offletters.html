@@ -84,6 +84,50 @@ Official Letters
             </div>
             </div>
         </div>
+
+		<div class="modal fade" id="approveModal" aria-hidden="true" aria-labelledby="answerModal" tabindex="-1">
+			<div class="modal-dialog modal-xl modal-dialog-centered">
+			  <div class="modal-content">
+				  <form action="{% url 'offletters' %}" method="POST" enctype="multipart/form-data">
+						<div class="modal-header">
+						  <h5 class="modal-title" id="pdfModalLabel">Official Letter</h5>
+						  <button type="button" class="btn-close" data-bs-dismiss="modal" aria-label="Close"></button>
+						</div>
+						
+					  <div class="modal-body">
+						  <div class="panel panel-default col-md-12 mt-4">
+							  <div class="panel-body">
+								  {% csrf_token %}
+								  <div class="card p-4" style="background:rgba(229, 229, 229, 0.615)">
+									  <div class="mb-3">
+										  <label for="exampleFormControlInput1" class="form-label" style="font-weight: 500;">Receiver</label>
+										  <input name='receiver' class="form-control" type="text" value="" readonly>
+									  </div>
+						  
+									  <div class="mb-3">
+											<label for="exampleFormControlInput1" class="form-label" style="font-weight: 500;">Subject</label>
+											<input name='title' class="form-control" type="text" value="Official Letter Status" readonly>
+										</div>
+
+									  <div class="mb-3">
+										  <label for="exampleFormControlInput1" class="form-label" style="font-weight: 500;">Document</label>
+										  <input name='letter' class="form-control" type="file" required>
+									  </div>
+									  <input type="hidden" name="status" value="approved">
+									  <input type="hidden" name="application" value="">
+								  
+									</div>
+							  </div>
+							</div>
+					  </div>
+					  <div class="modal-footer">
+						  <button type="submit" class="btn btn-primary" href="{% url 'offletters' %}">Send Message</a>
+					  </div>
+				  </form>
+			  </div>
+			</div>
+	  </div>
+
         <!-- Modal -->
         <div class="modal fade" id="pdfModal" aria-hidden="true" aria-labelledby="pdfModalLabel" tabindex="-1">
           <div class="modal-dialog modal-xl modal-dialog-centered">
@@ -97,12 +141,7 @@ Official Letters
               </div>
               <div class="modal-footer">
 				<button type="button" class="btn btn-secondary" data-bs-dismiss="modal">Close</button>
-				<form action="{% url 'offletters' %}" method="POST" class="application-status">
-					{% csrf_token %}
-					<input type="hidden" name="status" value="approved">
-					<input type="hidden" name="application" value="">
-					<button type="submit" class="btn btn-success application-status" data-bs-dismiss="modal">Approve</button>
-				</form>
+				<button class="btn btn-success application-status" data-bs-toggle="modal" data-bs-dismiss="modal" data-bs-target="#approveModal">Approve</button>
               <button class="btn btn-danger" data-bs-toggle="modal" data-bs-dismiss="modal" data-bs-target="#answerModal">Reject</button>
             </div>
             </div>
@@ -167,10 +206,6 @@ Official Letters
 			console.log(clicked_id, clicked_name, clicked_email);
 			$('iframe').attr('src', $(this).data('file'));
 			$('input[name="receiver"]').val(clicked_email);
-		});
-
-
-		$('.application-status').click(function() {
 			$('input[name="application"]').val(clicked_id);
 		});
       });

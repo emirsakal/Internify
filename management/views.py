@@ -22,7 +22,11 @@ from .models import (
 from .forms import StudentLoginForm, StaffLoginForm
 
 def index(request):
-	return render(request, "index.html")
+	announcements = Announcement.objects.all().order_by('-date_created')[:3]
+	context = {
+		'announcements': announcements
+	}
+	return render(request, "index.html", context)
 
 def inbox(request):
 	user = request.user
@@ -310,7 +314,17 @@ def offletters(request):
 		application = Application.objects.get(pk=id)
 		if status == 'approved':
 			application.status = 'A'
-		elif status == 'rejected' and 'receiver' in request.POST and 'title' in request.POST and 'content' in request.POST:
+			document = Document.objects.create(document=request.FILES['letter'], application=application)
+			document.save()
+
+			message = Message.objects.create(sender=user, 
+				    receiver=application.student.user, 
+					title=request.POST['title'], 
+					content='Your application for internship letter has been approved. You can download your letter from link below\n' + request.build_absolute_uri(document.document.url), 
+					parent=None)
+			message.save()
+
+		elif status == 'rejected':
 			application.status = 'R'
 
 			receiver = request.POST['receiver']
@@ -320,6 +334,7 @@ def offletters(request):
 			message.save()
 
 		application.save()
+		return redirect(reverse('offletters'))
 
 	coordinator = InternshipCoordinator.objects.filter(user=user)
 	
