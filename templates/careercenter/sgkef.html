@@ -58,8 +58,8 @@ Dashboard
 								<td>{{application.date_created|date:"d-m-Y"}}</td>
 								<td>{{application.date_created|date:"h:i A"}}</td>
 								<td>
-									<button type="button" data-file="{% for document in documents %}{% if application.id == document.application.id %}{{document.document.url}}{% endif %}{% endfor %}" class="btn btn-outline-primary btn-sm btn-modal" data-bs-toggle="modal" data-bs-target="#pdfModal" style="background-color: #e7e7ff;">
-										<span style="color: #696CFF;">Review</span>
+									<button type="button" data-file="{% for document in documents %}{% if application.id == document.application.id %}{{document.document.url}}{% endif %}{% endfor %}" class="btn btn-outline-primary btn-sm btn-modal" data-bs-toggle="modal" data-bs-target="#pdfModal" style="font-size:medium;">
+										<span>Review</span>
 									</button>
 								</td>
 							</tr>
