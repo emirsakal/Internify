@@ -151,10 +151,17 @@ class Announcement(BaseAbstractModel):
     def __str__(self):
         return self.title
 
+class Province(BaseAbstractModel):
+	name = models.CharField(max_length=255)
+	
+	def __str__(self):
+		return self.name
+
 class Internship(BaseAbstractModel):
-    title = models.CharField(max_length=255)
     job = models.CharField(max_length=255)
     company = models.CharField(max_length=255)
+    logo = models.ImageField(upload_to='logos', null=True, blank=True)
+    province = models.ForeignKey(Province, on_delete=SET_NULL, null=True)
     start_date = models.DateField(null=True, blank=True)
     end_date = models.DateField(null=True, blank=True)
     department = models.ForeignKey(Department, on_delete=SET_NULL, null=True)
@@ -162,4 +169,4 @@ class Internship(BaseAbstractModel):
     url = models.URLField()
 
     def __str__(self):
-        return f'{self.title} | {self.company}'
+        return f'{self.job} | {self.company}'

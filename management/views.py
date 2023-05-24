@@ -5,7 +5,7 @@ from django.contrib.auth import login, authenticate, logout
 from django.db.models import Q
 from django.views.decorators.clickjacking import xframe_options_sameorigin
 
-from .models import Student, InternshipCoordinator, CareerCenterEmployee, Application, Document, Message, User
+from .models import Student, InternshipCoordinator, CareerCenterEmployee, Application, Document, Message, User, Internship, Announcement
 from .forms import StudentLoginForm, StaffLoginForm
 
 def index(request):
@@ -146,7 +146,15 @@ def officialletter(request):
 	return render(request, "student/officialletter.html", context)
 
 def internshipopp(request):
-	return render(request, "student/internshipopp.html")
+	user = request.user
+
+	if user.groups.all()[0].name == 'Student':
+		student = Student.objects.get(user=user)
+		internships = Internship.objects.filter(faculty=student.faculty).order_by('-date_created')[:10]
+		return render(request, "student/internshipopp.html", {'internships':internships})
+	
+	internships = Internship.objects.all().order_by('-date_created')[:10]
+	return render(request, "student/internshipopp.html", {'internships':internships})
 
 # CAREER CENTER
 
@@ -298,3 +306,6 @@ def logoutUser(request):
 	messages.success(request,"You logged out succesfully.")
 	
 	return redirect("login")
+
+def addInternship(request):
+	pass

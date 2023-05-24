@@ -3,84 +3,71 @@
 
 {% block page_title %}Opportunities{% endblock page_title %}
 
-{% block content %}
-
+{% block css_files %}
 <style>
-  body {
-      overflow: hidden;
-      margin-top:9%;
-    }
+	body {
+		overflow: hidden;
+		margin-top:9%;
+	}
 </style>
+{% endblock css_files %}
+
+{% block content %}
     <div class="home" style="margin-top:7%; margin-left:12%;">
-      <link href="https://maxcdn.bootstrapcdn.com/font-awesome/4.3.0/css/font-awesome.min.css" rel="stylesheet">
       <div class="row">
         <!-- Left sidebar -->
         <div class="col-md-9">
           <h3 class="title text" style="float:left; margin-bottom:30px;"><i class="fa fa-envelope-o"></i> Internship Opportunities</h3>
           {% for group in request.user.groups.all %}
-            {% if group.name == 'CareerCenter' %}
-              <a href="/cc-internship-opportunities/add-internship" class="btn btn-success btn-block" style="border: 2px solid #696CFF; background-color: var(--primary-color-light); font-size: 20px; float:right;"><i class="fa fa-pencil-square-o" style="color:#696CFF"></i><span style="color:#696CFF;"> Add Internship</span></a>
+            {% if group.name == 'Staff' %}
+              	<a href="{% url 'addinternship' %}" class="btn btn-success btn-block" style="border: 2px solid #696CFF; background-color: var(--primary-color-light); font-size: 20px; float:right;"><i class="fa fa-pencil-square-o" style="color:#696CFF"></i><span style="color:#696CFF;"> Add Internship</span></a>
             {% endif %}
           {% endfor %}
           <table class="table" style="width:100%; background-color: var(--primary-color-light); border:1px solid var(--text-color); box-shadow: rgba(0, 0, 0, 0.15) 1.95px 1.95px 2.6px;">
-            <thead class="text" style="font-size: 1.5rem;">
-              <tr>
-                <th style="font-weight:bold;">Company</th>
-                <th style="font-weight:bold;">Department</th>
-                <th style="font-weight:bold;">Province</th>
-                <th style="font-weight:bold; text-align:center;">Detail</th>
-              </tr>
-            </thead>
-            <tbody style="font-size: 1.4rem;">
-              <tr class="text">
-                <td><a title="Microsoft, Public domain, via Wikimedia Commons" href="https://commons.wikimedia.org/wiki/File:Microsoft_logo.svg"><img width="34" alt="Microsoft logo" src="https://upload.wikimedia.org/wikipedia/commons/thumb/4/44/Microsoft_logo.svg/512px-Microsoft_logo.svg.png"></a> Microsoft</td>
-                <td>Backend</td>
-                <td>Istanbul</td>
-                <td style ="text-align: center;"><a href="#" class="btn btn-outline-primary"><span style="font-weight: bold; font-family: Arial, Helvetica, sans-serif;">Apply</span></a></td>
-              </tr>
-              <tr class="text">
-                <td><a title="Original:  Rob Janoff, Public domain, via Wikimedia Commons" href="https://commons.wikimedia.org/wiki/File:Apple_logo_black.svg"><img width="34" alt="Apple logo black" src="https://upload.wikimedia.org/wikipedia/commons/thumb/f/fa/Apple_logo_black.svg/256px-Apple_logo_black.svg.png"></a></a> Apple</td>
-                <td>Mobile</td>
-                <td>Bursa</td>
-                <td style ="text-align: center;"><a href="#" class="btn btn-outline-primary"><span style="font-weight: bold; font-family: Arial, Helvetica, sans-serif;">Apply</span></a></td>
-              </tr>
-              <tr class="text">
-                <td><a title="Microsoft, Public domain, via Wikimedia Commons" href="https://commons.wikimedia.org/wiki/File:Microsoft_logo.svg"><img width="34" alt="Microsoft logo" src="https://upload.wikimedia.org/wikipedia/commons/thumb/4/44/Microsoft_logo.svg/512px-Microsoft_logo.svg.png"></a> Microsoft</td>
-                <td>Backend</td>
-                <td>Istanbul</td>
-                <td style ="text-align: center;"><a href="#" class="btn btn-outline-primary"><span style="font-weight: bold; font-family: Arial, Helvetica, sans-serif;">Apply</span></a></td>
-              </tr>
-              <tr class="text">
-                <td><a title="Original:  Rob Janoff, Public domain, via Wikimedia Commons" href="https://commons.wikimedia.org/wiki/File:Apple_logo_black.svg"><img width="34" alt="Apple logo black" src="https://upload.wikimedia.org/wikipedia/commons/thumb/f/fa/Apple_logo_black.svg/256px-Apple_logo_black.svg.png"></a></a> Apple</td>
-                <td>Frontend</td>
-                <td>İzmir</td>
-                <td style ="text-align: center;"><a href="#" class="btn btn-outline-primary"><span style="font-weight: bold; font-family: Arial, Helvetica, sans-serif;">Apply</span></a></td>
-              </tr>
-              <tr class="text">
-                <td><a title="Microsoft, Public domain, via Wikimedia Commons" href="https://commons.wikimedia.org/wiki/File:Microsoft_logo.svg"><img width="34" alt="Microsoft logo" src="https://upload.wikimedia.org/wikipedia/commons/thumb/4/44/Microsoft_logo.svg/512px-Microsoft_logo.svg.png"></a> Microsoft</td>
-                <td>Mobile</td>
-                <td>Istanbul</td>
-                <td style ="text-align: center;"><a href="#" class="btn btn-outline-primary"><span style="font-weight: bold; font-family: Arial, Helvetica, sans-serif;">Apply</span></a></td>
-              </tr>
-              <tr class="text">
-                <td><a title="Original:  Rob Janoff, Public domain, via Wikimedia Commons" href="https://commons.wikimedia.org/wiki/File:Apple_logo_black.svg"><img width="34" alt="Apple logo black" src="https://upload.wikimedia.org/wikipedia/commons/thumb/f/fa/Apple_logo_black.svg/256px-Apple_logo_black.svg.png"></a></a> Apple</td>
-                <td>GameDev</td>
-                <td>Ankara</td>
-                <td style ="text-align: center;"><a href="#" class="btn btn-outline-primary"><span style="font-weight: bold; font-family: Arial, Helvetica, sans-serif;">Apply</span></a></td>
-              </tr>
-              <tr class="text">
-                <td><a title="Microsoft, Public domain, via Wikimedia Commons" href="https://commons.wikimedia.org/wiki/File:Microsoft_logo.svg"><img width="34" alt="Microsoft logo" src="https://upload.wikimedia.org/wikipedia/commons/thumb/4/44/Microsoft_logo.svg/512px-Microsoft_logo.svg.png"></a> Microsoft</td>
-                <td>Designer</td>
-                <td>Istanbul</td>
-                <td style ="text-align: center;"><a href="#" class="btn btn-outline-primary"><span style="font-weight: bold; font-family: Arial, Helvetica, sans-serif;">Apply</span></a></td>
-              </tr>
-              <tr class="text">
-                <td><a title="Original:  Rob Janoff, Public domain, via Wikimedia Commons" href="https://commons.wikimedia.org/wiki/File:Apple_logo_black.svg"><img width="34" alt="Apple logo black" src="https://upload.wikimedia.org/wikipedia/commons/thumb/f/fa/Apple_logo_black.svg/256px-Apple_logo_black.svg.png"></a></a> Apple</td>
-                <td>Backend</td>
-                <td>Çanakkale</td>
-                <td style ="text-align: center;"><a href="#" class="btn btn-outline-primary"><span style="font-weight: bold; font-family: Arial, Helvetica, sans-serif;">Apply</span></a></td>
-              </tr>
-            </tbody>
+            {% if internships.count > 0 %}
+				<thead class="text" style="font-size: 1.5rem;">
+					<tr>
+						<th>Company</th>
+						<th>Job</th>
+						<th>Province</th>
+						<th>Start Date</th>
+						<th>End Date</th>
+						<th style="text-align:center;">Detail</th>
+					</tr>
+				</thead>
+				<tbody style="font-size: 1.4rem;">
+					{% for internship in internships %}
+						<tr class="text">
+							<td>
+								<a title="{{internship.title}}" href="#" style="text-decoration: none;">
+									<img width="34" alt="{{internship.company}}" src="
+									{% if internship.logo %}
+										{{internship.logo.url}}
+									{% else %}
+										{% static 'assets/img/internship.jpg' %}
+									{% endif %}
+									">
+								</a>
+								{{internship.company}}
+							</td>
+							<td>{{internship.job}}</td>
+							<td>{{internship.province.name}}</td>
+							<td>{{internship.start_date|date:"d-m-Y"}}</td>
+							<td>{{internship.end_date|date:"d-m-Y"}}</td>
+							<td style ="text-align: center;">
+								<a href="{{internship.url}}" target="_blank" class="btn btn-outline-primary" style="text-decoration: none;">
+									<span style="font-weight: bold; font-family: Arial, Helvetica, sans-serif;">Apply</span>
+								</a>
+							</td>
+						</tr>
+					{% endfor %}
+				</tbody>
+			{% else %}
+				<tr>
+					<td style="text-align:center; font-weight:bold;">There is no internship opportunity.</td>
+				</tr>
+			{% endif %}
+			
           </table>
           </div>
         </div>
