@@ -81,6 +81,12 @@
                                 ACCEPTED
                               </span>
                             </td>
+							{% elif application.status == 'Z' %}
+                            <td>
+                              <span style="color: lightgreen; font-weight: bold; font-family: Arial, Helvetica, sans-serif;">
+                                ARCHIEVED
+                              </span>
+                            </td>
                           {% else %}
                             <td>
                               <span style="color: lightcoral; font-weight: bold; font-family: Arial, Helvetica, sans-serif;">

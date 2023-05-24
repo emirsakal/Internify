@@ -218,17 +218,19 @@ def sgkef(request):
 
 		application = Application.objects.get(pk=id)
 		title = request.POST['title']
-		if status == 'archieved':
+		if status == 'archived':
 			application.status = 'Z'
 
 			file = request.FILES['insurance']
 			document = Document.objects.create(document=file, application=application)
 			document.save()
 
+			url = request.build_absolute_uri(document.document.url)
+			
 			message = Message.objects.create(sender=user, 
 				    receiver=application.student.user, 
 					title=title,
-					content=f'Your application has been approved by University. You can download your insurance from link below\n{document.document.url}',
+					content=f'Your application has been approved by University. You can download your insurance from link below\n{url}',
 					parent=None,
 					)
 			message.save()
