@@ -143,3 +143,23 @@ class Document(BaseAbstractModel):
     
     def __str__(self):
         return f'{self.application.id} | {self.application.status}'
+
+class Announcement(BaseAbstractModel):
+    title = models.CharField(max_length=255)
+    content = models.TextField()
+    
+    def __str__(self):
+        return self.title
+
+class Internship(BaseAbstractModel):
+    title = models.CharField(max_length=255)
+    job = models.CharField(max_length=255)
+    company = models.CharField(max_length=255)
+    start_date = models.DateField(null=True, blank=True)
+    end_date = models.DateField(null=True, blank=True)
+    department = models.ForeignKey(Department, on_delete=SET_NULL, null=True)
+    faculty = models.ForeignKey(Faculty, on_delete=SET_NULL, null=True)
+    url = models.URLField()
+
+    def __str__(self):
+        return f'{self.title} | {self.company}'
