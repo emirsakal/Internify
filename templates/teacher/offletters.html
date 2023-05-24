@@ -68,8 +68,8 @@ Official Letters
                       <td>{{application.date_created|date:"h:i A"}}</td>
                       <td>
 						<button type="button" class="btn btn-outline-primary btn-sm btn-modal" data-bs-toggle="modal" data-bs-target="#pdfModal" 
-						data-file="{% for document in documents %}{% if application.id == document.application.id %}{{document.document.url}}{% endif %}{% endfor %}" style="background-color: #e7e7ff;">
-                            <span style="color: #696CFF;">Review</span>
+						data-file="{% for document in documents %}{% if application.id == document.application.id %}{{document.document.url}}{% endif %}{% endfor %}" style="font-size:medium">
+                            <span>Review</span>
 						</button>
                       </td>
                     </tr>
