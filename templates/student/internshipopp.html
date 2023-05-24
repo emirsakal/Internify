@@ -20,7 +20,7 @@
           <h3 class="title text" style="float:left; margin-bottom:30px;"><i class="fa fa-envelope-o"></i> Internship Opportunities</h3>
           {% for group in request.user.groups.all %}
             {% if group.name == 'Staff' %}
-              	<button type="button" class="btn btn-success btn-block" data-bs-toggle="modal" data-bs-target="#internshipModal" style="border: 2px solid #696CFF; background-color: var(--primary-color-light); font-size: 20px; float:right;"><i class="fa fa-pencil-square-o" style="color:#696CFF"></i><span style="color:#696CFF;"> Add Internship</span></button>
+              	<button type="button" class="btn btn-success btn-block" data-bs-toggle="modal" data-bs-target="#internshipModal" style="font-size: 20px; float:right;"><i class="fa fa-pencil-square-o"></i><span> Add Internship</span></button>
             {% endif %}
           {% endfor %}
           <table class="table" style="width:100%; background-color: var(--primary-color-light); border:1px solid var(--text-color); box-shadow: rgba(0, 0, 0, 0.15) 1.95px 1.95px 2.6px;">
