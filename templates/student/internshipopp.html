@@ -13,14 +13,14 @@
 {% endblock css_files %}
 
 {% block content %}
-    <div class="home" style="margin-top:7%; margin-left:12%;">
+    <div class="home offset-md-1" style="margin-top:7%; margin-left:12%; overflow: hidden;">
       <div class="row">
         <!-- Left sidebar -->
         <div class="col-md-9">
           <h3 class="title text" style="float:left; margin-bottom:30px;"><i class="fa fa-envelope-o"></i> Internship Opportunities</h3>
           {% for group in request.user.groups.all %}
             {% if group.name == 'Staff' %}
-              	<a href="{% url 'addinternship' %}" class="btn btn-success btn-block" style="border: 2px solid #696CFF; background-color: var(--primary-color-light); font-size: 20px; float:right;"><i class="fa fa-pencil-square-o" style="color:#696CFF"></i><span style="color:#696CFF;"> Add Internship</span></a>
+              	<button type="button" class="btn btn-success btn-block" data-bs-toggle="modal" data-bs-target="#internshipModal" style="border: 2px solid #696CFF; background-color: var(--primary-color-light); font-size: 20px; float:right;"><i class="fa fa-pencil-square-o" style="color:#696CFF"></i><span style="color:#696CFF;"> Add Internship</span></button>
             {% endif %}
           {% endfor %}
           <table class="table" style="width:100%; background-color: var(--primary-color-light); border:1px solid var(--text-color); box-shadow: rgba(0, 0, 0, 0.15) 1.95px 1.95px 2.6px;">
@@ -69,10 +69,97 @@
 			{% endif %}
 			
           </table>
+
+		  <!-- Modal -->
+		  <div class="modal fade" id="internshipModal" aria-hidden="true" aria-labelledby="answerModal" tabindex="-1">
+			<div class="modal-dialog modal-xl modal-dialog-centered">
+				 <div class="modal-content">
+					<form action="{% url 'internshipopp' %}" enctype="multipart/form-data" method="POST" class="application-status">
+						<div class="modal-header">
+							  <h5 class="modal-title" id="pdfModalLabel">Add Internship</h5>
+							  <button type="button" class="btn-close" data-bs-dismiss="modal" aria-label="Close"></button>
+						</div>
+	
+						<div class="modal-body">
+							<div class="panel panel-default col-md-12">
+								<div class="panel-body">
+									{% csrf_token %}
+									<div class="card p-4">
+										<div class="mb-3">
+											<label for="exampleFormControlInput1" class="form-label" style="font-weight: 500;">Company</label>
+											<input class="form-control" type="text" name="company" value="" required>
+										</div>
+										
+										<div class="mb-3">
+											<label for="exampleFormControlInput1" class="form-label" style="font-weight: 500;">Job</label>
+											<input class="form-control" type="text" name="job" value="" required>
+										</div>
+										
+										<div class="mb-3">
+											<label for="exampleFormControlInput1" class="form-label" style="font-weight: 500;">Province</label>
+											<select class="form-select form-select-md mb-3" name="province" aria-label=".form-select-md example" required>
+												<option disabled selected>Select province</option>
+												{% for province in provinces %}
+													<option value="{{province.name}}">{{province.name}}</option>
+												{% endfor %}
+											</select>
+										</div>
+
+										<div class="mb-3">
+											<label for="exampleFormControlInput1" class="form-label" style="font-weight: 500;">Logo</label>
+											<input class="form-control" type="file" name="logo">
+										</div>
+
+										<div class="mb-3">
+											<label for="exampleFormControlInput1" class="form-label" style="font-weight: 500;">Start Date</label>
+											<input class="form-control" type="date" name="startdate" required>
+										</div>
+
+										<div class="mb-3">
+											<label for="exampleFormControlInput1" class="form-label" style="font-weight: 500;">End Date</label>
+											<input class="form-control" type="date"name="enddate" required>
+										</div>
+
+										<div class="mb-3">
+											<label for="exampleFormControlInput1" class="form-label" style="font-weight: 500;">URL for application</label>
+											<input class="form-control" type="text" name="url" required>
+										</div>
+
+										<div class="mb-3">
+											<label for="exampleFormControlInput1" class="form-label" style="font-weight: 500;">Faculty</label>
+											<select class="form-select form-select-md mb-3" name="faculty" aria-label=".form-select-md example">
+												<option disabled selected>Select faculty</option>
+												{% for faculty in faculties %}
+													<option value="{{faculty.name}}">{{faculty.name}}</option>
+												{% endfor %}
+											</select>
+										</div>
+
+										<div class="mb-3">
+											<label for="exampleFormControlInput1" class="form-label" style="font-weight: 500;">Department</label>
+											<select class="form-select form-select-md mb-3" name="department" aria-label=".form-select-md example">
+												<option disabled selected>Select department</option>
+												{% for department in departments %}
+													<option value="{{department.name}}">{{department.name}}</option>
+												{% endfor %}
+											</select>
+										</div>
+									</div>
+								</div>
+							</div>
+						</div>
+	
+						<div class="modal-footer">
+							<button type="submit" class="btn btn-primary col-md-12">SUBMIT</a>
+						</div>
+					</form>
+				</div>
+			</div>
+		</div>
           </div>
         </div>
       </div>
-    </div>
+</div>
 </body>
 
 {% endblock content %}

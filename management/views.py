@@ -5,7 +5,20 @@ from django.contrib.auth import login, authenticate, logout
 from django.db.models import Q
 from django.views.decorators.clickjacking import xframe_options_sameorigin
 
-from .models import Student, InternshipCoordinator, CareerCenterEmployee, Application, Document, Message, User, Internship, Announcement
+from .models import (
+    	Student,
+		InternshipCoordinator,
+		CareerCenterEmployee,
+		Application,
+		Document,
+		Message,
+		User,
+		Internship,
+		Announcement,
+		Province,
+		Faculty,
+		Department
+	)
 from .forms import StudentLoginForm, StaffLoginForm
 
 def index(request):
@@ -148,13 +161,50 @@ def officialletter(request):
 def internshipopp(request):
 	user = request.user
 
+	if request.method == 'POST':
+		company = request.POST['company']
+		job = request.POST['job']
+		start_date = request.POST['startdate']
+		end_date = request.POST['enddate']
+		internship = Internship.objects.create(company=company, job=job, start_date=start_date, end_date=end_date)
+
+		if 'province' in request.POST:
+			province = Province.objects.get(name=request.POST['province'])
+			internship.province = province
+		
+		if 'faculty' in request.POST:
+			faculty = Faculty.objects.get(name=request.POST['faculty'])
+			internship.faculty = faculty
+		
+		if 'department' in request.POST:
+			department = Department.objects.get(name=request.POST['department'])
+			internship.department = department
+		
+		if 'logo' in request.FILES:
+			logo = request.FILES['logo']
+			internship.logo = logo
+
+		internship.save()
+		return redirect(reverse('internshipopp'))
+
 	if user.groups.all()[0].name == 'Student':
 		student = Student.objects.get(user=user)
-		internships = Internship.objects.filter(faculty=student.faculty).order_by('-date_created')[:10]
+		internships = Internship.objects.filter(faculty=student.faculty).order_by('-date_created')[:20]
 		return render(request, "student/internshipopp.html", {'internships':internships})
 	
-	internships = Internship.objects.all().order_by('-date_created')[:10]
-	return render(request, "student/internshipopp.html", {'internships':internships})
+	
+	provinces = Province.objects.all().order_by('name')
+	internships = Internship.objects.all().order_by('-date_created')[:20]
+	faculties = Faculty.objects.all()
+	departments = Department.objects.all()
+
+	context = {
+		'provinces': provinces,
+		'internships': internships,
+		'faculties': faculties,
+		'departments': departments,
+	}
+	return render(request, "student/internshipopp.html", context)
 
 # CAREER CENTER
 
@@ -306,6 +356,3 @@ def logoutUser(request):
 	messages.success(request,"You logged out succesfully.")
 	
 	return redirect("login")
-
-def addInternship(request):
-	pass

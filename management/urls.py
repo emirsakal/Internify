@@ -17,7 +17,6 @@ urlpatterns = [
 
     # CAREER CENTER URLS
     path('sgk-ef/', views.sgkef, name = "sgkef"),
-    path('add-internship/', views.addInternship, name = "addinternship"),
 
     # TEACHER URLS
     path('staff/application-form', views.applicationform, name="applicationform"),
