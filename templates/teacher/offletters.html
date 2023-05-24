@@ -51,6 +51,7 @@ Official Letters
                       <th>#</th>
                       <th>ID</th>
                       <th>Name</th>
+					  <th>Email</th>
                       <th>Date</th>
                       <th>Time</th>
                       <th>File</th>
@@ -58,16 +59,18 @@ Official Letters
                   </thead>
                   <tbody id="tableBody" class="text">
                     {% for application in applications %}
-                    <tr>
+                    <tr data-application="{{application.id}}">
                       <td>{{forloop.counter}}</td>
                       <td>{{application.student.student_id}}</td>
                       <td>{{application.student.user.get_full_name}}</td>
-                      <td>{{application.date_created|date:"d-m-Y"}}</td>
+                      <td>{{application.student.user.email}}</td>
+					  <td>{{application.date_created|date:"d-m-Y"}}</td>
                       <td>{{application.date_created|date:"h:i A"}}</td>
                       <td>
-                        <a type="button" class="btn btn-outline-primary btn-sm" data-bs-toggle="modal" data-bs-target="#pdfModal" data-file="" style="background-color: #e7e7ff;">
-                          <span style="color: #696CFF;">Review</span>
-                        </a>
+						<button type="button" class="btn btn-outline-primary btn-sm btn-modal" data-bs-toggle="modal" data-bs-target="#pdfModal" 
+						data-file="{% for document in documents %}{% if application.id == document.application.id %}{{document.document.url}}{% endif %}{% endfor %}" style="background-color: #e7e7ff;">
+                            <span style="color: #696CFF;">Review</span>
+						</button>
                       </td>
                     </tr>
                     {% endfor %}
@@ -93,45 +96,54 @@ Official Letters
                 <iframe src="{% static 'assets/dbms_project.pdf' %}" width="100%" height="600"></iframe>
               </div>
               <div class="modal-footer">
-                <button type="button" class="btn btn-secondary" data-bs-dismiss="modal">Close</button>
-                <button type="button" class="btn btn-success" data-bs-dismiss="modal">Apply</button>
-                <button class="btn btn-danger" data-bs-toggle="modal" data-bs-dismiss="modal" data-bs-target="#answerModal">Deny</button>
-              </div>
+				<button type="button" class="btn btn-secondary" data-bs-dismiss="modal">Close</button>
+				<form action="{% url 'offletters' %}" method="POST" class="application-status">
+					{% csrf_token %}
+					<input type="hidden" name="status" value="approved">
+					<input type="hidden" name="application" value="">
+					<button type="submit" class="btn btn-success application-status" data-bs-dismiss="modal">Approve</button>
+				</form>
+              <button class="btn btn-danger" data-bs-toggle="modal" data-bs-dismiss="modal" data-bs-target="#answerModal">Reject</button>
+            </div>
             </div>
           </div>
         </div>
         <div class="modal fade" id="answerModal" aria-hidden="true" aria-labelledby="answerModal" tabindex="-1">
           <div class="modal-dialog modal-xl modal-dialog-centered">
             <div class="modal-content">
-              <div class="modal-header">
-                <h5 class="modal-title" id="pdfModalLabel">Answer</h5>
-                <button type="button" class="btn-close" data-bs-dismiss="modal" aria-label="Close"></button>
-              </div>
-              <div class="modal-body">
-                <div class="panel panel-default col-md-12 mt-4">
-                  <div class="panel-body">
-                      <form>
-                        <div class="card p-4" style="background:rgba(229, 229, 229, 0.615)">
-                          <div class="mb-3">
-                            <label for="exampleFormControlInput1" class="form-label" style="font-weight: 500;">Receiver</label>
-                            <input class="form-control" type="text" value="Kristin Surhupi Benli" readonly> <!-- Buraya database'den sender'ın bilgisi gelmeli. -->
-                          </div>
-                          <div class="mb-3">
-                            <label for="exampleFormControlInput1" class="form-label" style="font-weight: 500;">Subject</label>
-                            <input class="form-control" type="text" value="r/ Job Opportunuties" readonly> <!-- Buraya database'den gönderilen mesajın subject'i gelmeli. -->
-                          </div>
-                          <div class="mb-3">
-                            <label for="exampleFormControlTextarea1" class="form-label" style="font-weight: 500;">Message</label>
-                            <textarea class="form-control" id="exampleFormControlTextarea1" rows="10"></textarea>
-                          </div>
-                      </form>
-                  </div>
-                </div>
-              </div>
-              <div class="modal-footer">
-                <a class="btn btn-primary" href="/official-letters">Send Message</a>
-              </div>
-            </div>
+				<form action="{% url 'offletters' %}" method="POST" class="application-status">
+				<div class="modal-header">
+				  <h5 class="modal-title" id="pdfModalLabel">Answer</h5>
+				  <button type="button" class="btn-close" data-bs-dismiss="modal" aria-label="Close"></button>
+				</div>
+				<div class="modal-body">
+				  <div class="panel panel-default col-md-12 mt-4">
+					<div class="panel-body">
+						
+							{% csrf_token %}
+						  <div class="card p-4" style="background:rgba(229, 229, 229, 0.615)">
+							<div class="mb-3">
+							  <label for="exampleFormControlInput1" class="form-label" style="font-weight: 500;">Receiver</label>
+							  <input class="form-control" type="text" name="receiver" value="" readonly>
+							</div>
+							<div class="mb-3">
+							  <label for="exampleFormControlInput1" class="form-label" style="font-weight: 500;">Subject</label>
+							  <input class="form-control" type="text" name="title" value="Official Letter Status" readonly>
+							</div>
+							<div class="mb-3">
+							  <label for="exampleFormControlTextarea1" class="form-label" style="font-weight: 500;">Message</label>
+							  <textarea class="form-control" name="content" id="exampleFormControlTextarea1" rows="10"></textarea>
+							</div>
+							<input type="hidden" name="status" value="rejected">
+							<input type="hidden" name="application" value="">
+						</div>
+					</div>
+				</div>
+				<div class="modal-footer">
+					<button type="submit" class="btn btn-primary application-status">Send Message</a>
+				</div>
+				</form>
+			  </div>
           </div>
         </div>
       </div>
@@ -139,10 +151,29 @@ Official Letters
   </div>
   <script type="text/javascript" class="init">
     $(document).ready(function () {
-      if ($('#tableBody').children().length > 0 ) {
-        $('#example').DataTable();
-      }
-    });
+		var clicked_id = null;
+		var clicked_name = null;
+		var clicked_email = null;
+
+        if ($('#tableBody').children().length > 0 ) {
+          $('#example').DataTable();
+        }
+
+		$('.btn-modal').click(function() {
+			clicked_id = $(this).parent().parent().attr('data-application');
+			clicked_name = $(this).parent().parent().children().eq(2).text();
+			clicked_email = $(this).parent().parent().children().eq(3).text();
+
+			console.log(clicked_id, clicked_name, clicked_email);
+			$('iframe').attr('src', $(this).data('file'));
+			$('input[name="receiver"]').val(clicked_email);
+		});
+
+
+		$('.application-status').click(function() {
+			$('input[name="application"]').val(clicked_id);
+		});
+      });
   </script>
   <script src="{% static 'js/sidebar.js' %}"></script>
   <script type="text/javascript" src="/media/js/site.js?_=e9941f271f8b970b156847cf7274c719" data-domain="datatables.net" data-api="https://plausible.sprymedia.co.uk/api/event"></script>
