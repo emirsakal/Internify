@@ -209,7 +209,52 @@ def internshipopp(request):
 # CAREER CENTER
 
 def sgkef(request):
-	return render(request, "careercenter/sgkef.html")
+	user = request.user
+	employee = CareerCenterEmployee.objects.get(user=user)
+
+	if request.method == 'POST':
+		id = request.POST['application']
+		status = request.POST['status']
+
+		application = Application.objects.get(pk=id)
+		title = request.POST['title']
+		if status == 'archieved':
+			application.status = 'Z'
+
+			file = request.FILES['insurance']
+			document = Document.objects.create(document=file, application=application)
+			document.save()
+
+			message = Message.objects.create(sender=user, 
+				    receiver=application.student.user, 
+					title=title,
+					content=f'Your application has been approved by University. You can download your insurance from link below\n{document.document.url}',
+					parent=None,
+					)
+			message.save()
+	
+		elif status == 'rejected':
+			content = request.POST['content']
+			message = Message.objects.create(sender=user, 
+				    receiver=application.student.user, 
+					title=title,
+					content=content,
+					parent=None,
+					)
+			message.save()
+			application.status = 'R'
+		application.save()
+
+		return redirect(reverse('sgkef'))
+
+	applications = Application.objects.filter(type='I', employee=employee, status='A').order_by('-date_created')
+	documents = Document.objects.filter(application__employee=employee, application__type='I', application__status='A')
+	
+	context = {
+		'applications': applications,
+		'documents': documents,
+	}
+	return render(request, "careercenter/sgkef.html", context)
 
 
 # TEACHER
@@ -220,7 +265,7 @@ def applicationform(request):
 	if request.method == 'POST':
 		id = request.POST['application']
 		status = request.POST['status']
-		print(request.POST)
+
 		application = Application.objects.get(pk=id)
 		if status == 'approved':
 			application.status = 'A'
@@ -234,6 +279,7 @@ def applicationform(request):
 			message.save()
 
 		application.save()
+		return redirect(reverse('applicationform'))
 
 	coordinator = InternshipCoordinator.objects.filter(user=user)
 	

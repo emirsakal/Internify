@@ -124,6 +124,7 @@ class Application(BaseAbstractModel):
         ('W', 'Waiting'),
         ('R', 'Rejected'),
         ('A', 'Approved'),
+        ('Z', 'Archived'),
     )
     TYPE_CHOICES = (
         ('L', 'Letter'),
