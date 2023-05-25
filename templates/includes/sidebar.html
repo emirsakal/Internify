@@ -181,25 +181,6 @@ body.dark .sidebar header .toggle{
     margin-top: 40px;
 }
 
-.sidebar li.search-box{
-    border-radius: 6px;
-    background-color: var(--primary-color-light);
-    cursor: pointer;
-    transition: var(--tran-05);
-}
-
-.sidebar li.search-box input{
-    height: 100%;
-    width: 100%;
-    outline: none;
-    border: none;
-    background-color: var(--primary-color-light);
-    color: var(--text-color);
-    border-radius: 6px;
-    font-size: 17px;
-    font-weight: 500;
-    transition: var(--tran-05);
-}
 .sidebar li a{
     list-style: none;
     height: 100%;
@@ -381,11 +362,6 @@ img.color-change {
         <div class="menu-bar">
             <div class="menu">
 
-				<li class="search-box">
-                    <i class='bx bx-search icon'></i>
-                    <input type="text" placeholder="Search...">
-                </li>
-
                 <li class="nav-link">
                     <a href="{% url 'index' %}">
                         <i class='bx bx-home-alt icon' ></i>
@@ -509,7 +485,6 @@ img.color-change {
         const body = document.querySelector('body');
         const sidebar = body.querySelector('nav');
         const toggle = body.querySelector(".toggle");
-        const searchBtn = body.querySelector(".search-box");
         const modeSwitch = body.querySelector(".toggle-switch");
         const modeText = body.querySelector(".mode-text");
         const myImage = document.getElementById('my-image');
@@ -543,10 +518,6 @@ img.color-change {
         } else {
             localStorage.setItem('sidebar-closed', 'false');
         }
-        });
-
-        searchBtn.addEventListener("click", () =>{
-        sidebar.classList.remove("close");
         });
 
         modeSwitch.addEventListener("click", () =>{
