@@ -59,40 +59,60 @@ Official Letter
                       <th class="text" style="font-weight: bold;">Date</th>
                       <th class="text" style="font-weight: bold;">Time Created</th>
                       <th class="text" style="font-weight: bold;">Internship Coordinator</th>
-                      <th class="text" style="font-weight: bold;">Order Status</th>
+                      <th class="text" style="font-weight: bold;">Status</th>
+					  <th class="text" style="font-weight: bold;">Uploaded</th>
+					  <th class="text" style="font-weight: bold;">Result</th>
                     </tr>
                   </thead>
-                  <tbody> 
+				  <tbody> 
                       {% for application in applications %}
+					 
                         <tr>
                           <td class="text" style="font-weight: bold; font-family:Arial, Helvetica, sans-serif;">{{application.id}}</td>
                           <td class="text" style="font-weight: bold; font-family:Arial, Helvetica, sans-serif;">{{application.date_created|date:"d-m-Y" }}</td>
                           <td class="text" style="font-weight: bold; font-family:Arial, Helvetica, sans-serif;">{{application.date_created|date:"h:i A"}}</td>
                           <td class="text" style="font-weight: bold; font-family:Arial, Helvetica, sans-serif;">{{application.coordinator.user.first_name}} {{application.coordinator.user.last_name}}</td>
-                          {% if application.status == 'W' %}
+                          
+						  {% if application.status == 'W' %}
                             <td>
                               <span style="color: lightskyblue; font-weight: bold; font-family: Arial, Helvetica, sans-serif;">
                                 WAITING
                               </span>
                             </td>
+							<td>
+								<a href="{% for document in documents %}{% if document.application.id == application.id and document.type == 'S' %}{{document.document.url}}{% endif %}{% endfor %}" target="_blank" class="text" style="text-decoration: none;"><span ><i class='bx bx-show'></i></span></a>
+							</td>
+							<td></td>
                           {% elif application.status == 'A' %}
                             <td>
                               <span style="color: lightgreen; font-weight: bold; font-family: Arial, Helvetica, sans-serif;">
                                 ACCEPTED
                               </span>
                             </td>
-                          {% else %}
+							<td>
+								<a href="{% for document in documents %}{% if document.application.id == application.id and document.type == 'S' %}{{document.document.url}}{% endif %}{% endfor %}" target="_blank" class="text" style="text-decoration: none;"><span ><i class='bx bx-show'></i></span></a>
+							</td>
+							<td>
+								<a href="{% for document in documents %}{% if document.application.id == application.id and document.type == 'G' %}{{document.document.url}}{% endif %}{% endfor %}" target="_blank" class="text" download style="text-decoration: none;"><span ><i class='bx bxs-download'></i></span></a>
+							</td>
+						{% else %}
                             <td>
                               <span style="color: lightcoral; font-weight: bold; font-family: Arial, Helvetica, sans-serif;">
                                 REJECTED
                               </span>
                             </td>
+							<td>
+								<a href="{% for document in documents %}{% if document.application.id == application.id and document.type == 'S'%}{{document.document.url}}{% endif %}{% endfor %}" target="_blank" class="text" style="text-decoration: none;"><span ><i class='bx bx-show'></i></span></a>
+							</td>
+							<td></td>
                           {% endif %}
                         </tr>
-                      {% endfor %}
+						{% endfor %}
+					</tbody>
                     {% else %}
+					<tr>
                       <p class='text-center text-white'>No records!</p>
-                    </tbody>
+                    </tr>
                     {% endif %}
                 </table>
               </header>

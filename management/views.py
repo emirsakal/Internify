@@ -5,6 +5,8 @@ from django.contrib.auth import login, authenticate, logout
 from django.db.models import Q
 from django.views.decorators.clickjacking import xframe_options_sameorigin
 
+from .create_doc import create_letter
+
 from .models import (
     	Student,
 		InternshipCoordinator,
@@ -150,14 +152,15 @@ def officialletter(request):
 				application = Application.objects.create(coordinator=coordinator[0], student=student, employee=staff, status='W', type='L')
 				application.save()
 				
-				document = Document.objects.create(document=request.FILES['transcript'], application=application)
+				document = Document.objects.create(document=request.FILES['transcript'], application=application, type='S')
 				document.save()
 				return redirect(reverse('officialletter'))
 	
 	applications = Application.objects.filter(student=student, type='L').order_by('-date_created')
-	
+	documents = Document.objects.filter(application__in=applications)
 	context = {
-		'applications': applications
+		'applications': applications,
+		'documents': documents
 	}
 	
 	return render(request, "student/officialletter.html", context)
@@ -314,13 +317,35 @@ def offletters(request):
 		application = Application.objects.get(pk=id)
 		if status == 'approved':
 			application.status = 'A'
-			document = Document.objects.create(document=request.FILES['letter'], application=application)
+			internship = request.POST['internship']
+			student = application.student
+			
+			ch = ''
+			if internship == '1':
+				ch = 's'
+				internship = '2'
+			elif internship == '2':
+				internship = '1'
+
+			data = {
+				'student': student.user.get_full_name(),
+				'faculty': student.faculty.name,
+				'department': student.department.name,
+				'date':	application.date_created.strftime('%d.%m.%Y'),
+				'staff': user.get_full_name(),
+				'internship': internship,
+				'count': ch,
+			}
+			
+			file = create_letter(data, student.student_id)
+
+			document = Document.objects.create(document='\\files\\'+ file, application=application, type='G')
 			document.save()
 
 			message = Message.objects.create(sender=user, 
-				    receiver=application.student.user, 
+				    receiver=student.user, 
 					title=request.POST['title'], 
-					content='Your application for internship letter has been approved. You can download your letter from link below\n' + request.build_absolute_uri(document.document.url), 
+					content='Your application for internship letter has been approved. You can download your letter official letters page\n',
 					parent=None)
 			message.save()
 

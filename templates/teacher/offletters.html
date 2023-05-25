@@ -97,25 +97,26 @@ Official Letters
 					  <div class="modal-body">
 						  <div class="panel panel-default col-md-12 mt-4">
 							  <div class="panel-body">
-								  {% csrf_token %}
-								  <div class="card p-4" style="background:rgba(229, 229, 229, 0.615)">
-									  <div class="mb-3">
-										  <label for="exampleFormControlInput1" class="form-label" style="font-weight: 500;">Receiver</label>
-										  <input name='receiver' class="form-control" type="text" value="" readonly>
-									  </div>
+								  	{% csrf_token %}
+								  	<div class="card p-4" style="background:rgba(229, 229, 229, 0.615)">
+										<div class="mb-3">
+											<label for="exampleFormControlInput1" class="form-label" style="font-weight: 500;">Receiver</label>
+											<input name='receiver' class="form-control" type="text" value="" readonly>
+										</div>
 						  
-									  <div class="mb-3">
-											<label for="exampleFormControlInput1" class="form-label" style="font-weight: 500;">Subject</label>
-											<input name='title' class="form-control" type="text" value="Official Letter Status" readonly>
+										<input name='title' class="form-control" type="hidden" value="Official Letter Status" readonly>
+									  	
+										<div class="mb-3">
+											<label for="exampleFormControlInput1" class="form-label" style="font-weight: 500;">Internship</label>
+											<select class="form-select form-select-md mb-3" name="internship" aria-label=".form-select-md example" required>
+												<option disabled selected>Select Internship</option>
+												<option value="1">1st Internship</option>
+												<option value="2">2nd Internship</option>
+											</select>
 										</div>
 
-									  <div class="mb-3">
-										  <label for="exampleFormControlInput1" class="form-label" style="font-weight: 500;">Document</label>
-										  <input name='letter' class="form-control" type="file" required>
-									  </div>
-									  <input type="hidden" name="status" value="approved">
-									  <input type="hidden" name="application" value="">
-								  
+										<input type="hidden" name="status" value="approved">
+										<input type="hidden" name="application" value="">
 									</div>
 							  </div>
 							</div>

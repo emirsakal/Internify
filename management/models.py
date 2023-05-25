@@ -139,9 +139,13 @@ class Application(BaseAbstractModel):
         return f'{self.id} | {self.status}'
 
 class Document(BaseAbstractModel):
+    TYPE_CHOICES = (
+        ('S', 'Sent'),
+        ('G', 'Got'),
+    )
     document = models.FileField(upload_to='files')
     application = models.ForeignKey(Application, on_delete=CASCADE)
-    
+    type = models.CharField(max_length=1, choices=TYPE_CHOICES, null=True, blank=True)
     def __str__(self):
         return f'{self.application.id} | {self.application.status}'
 
@@ -153,10 +157,10 @@ class Announcement(BaseAbstractModel):
         return self.title
 
 class Province(BaseAbstractModel):
-	name = models.CharField(max_length=255)
-	
-	def __str__(self):
-		return self.name
+    name = models.CharField(max_length=255)
+    
+    def __str__(self):
+        return self.name
 
 class Internship(BaseAbstractModel):
     job = models.CharField(max_length=255)
