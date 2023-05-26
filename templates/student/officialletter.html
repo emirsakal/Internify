@@ -55,7 +55,7 @@ Official Letter
                   {% if applications.count > 0 %}
                   <thead>
                     <tr>
-                      <th class="text" style="font-weight: bold;">ID</th>
+                      <th class="text" style="font-weight: bold;">#</th>
                       <th class="text" style="font-weight: bold;">Date</th>
                       <th class="text" style="font-weight: bold;">Time Created</th>
                       <th class="text" style="font-weight: bold;">Internship Coordinator</th>
@@ -68,7 +68,7 @@ Official Letter
                       {% for application in applications %}
 					 
                         <tr>
-                          <td class="text" style="font-weight: bold; font-family:Arial, Helvetica, sans-serif;">{{application.id}}</td>
+                          <td class="text" style="font-weight: bold; font-family:Arial, Helvetica, sans-serif;">{{forloop.counter}}</td>
                           <td class="text" style="font-weight: bold; font-family:Arial, Helvetica, sans-serif;">{{application.date_created|date:"d-m-Y" }}</td>
                           <td class="text" style="font-weight: bold; font-family:Arial, Helvetica, sans-serif;">{{application.date_created|date:"h:i A"}}</td>
                           <td class="text" style="font-weight: bold; font-family:Arial, Helvetica, sans-serif;">{{application.coordinator.user.first_name}} {{application.coordinator.user.last_name}}</td>
@@ -107,8 +107,8 @@ Official Letter
 							<td>
 								{% for document in documents %}
 									{% if document.application.id == application.id and document.type == 'G' %}
-										<a href="{{document.document.url}}" target="_blank" class="text" style="text-decoration: none;">
-											<span><i class='bx bx-show'></i></span>
+										<a download href="{{document.document.url}}" target="_blank" class="text" style="text-decoration: none;">
+											<i class='bx bxs-cloud-download'></i>
 										</a>
 									{% endif %}
 								{% endfor %}
