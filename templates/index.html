@@ -49,6 +49,7 @@
 
   <!-- box-shadow: rgba(14, 30, 37, 0.12) 0px 2px 4px 0px, rgba(14, 30, 37, 0.32) 0px 2px 16px 0px; -->
   <body>
+	{% include 'includes/sidebar.html' with unread_messages=unread_messages %}
       <div class="home" style="margin-top:2%;">
         <div class="col-lg-10">
           {% if messages %}
@@ -98,9 +99,11 @@
                 <hr style="border:1px solid var(--text-color); box-shadow: 0px 5px var(--text-color);">
 				{% if announcements.count > 0 %}
 					{% for announcement in announcements %}
-						<div class="card p-4" style="margin-top:10px; border: 1px solid var(--text-color); box-shadow: 5px 5px var(--text-color);">
+						<div class="card p-4 text" style="margin-top:10px; border: 1px solid var(--text-color); box-shadow: 5px 5px var(--text-color);">
 							<h4 class="text">{{announcement.title}}</h4>
-							<p class="text">{{announcement.content|linebreaks}}</p>
+							<p class="text">
+								{{announcement.content|linebreaks}}
+							</p>
 							<p class="text fst-italic mb-2" style="text-align: end;">{{announcement.date_created|date:"d-m-Y"}}</p>
 						</div>
 					{% endfor %}

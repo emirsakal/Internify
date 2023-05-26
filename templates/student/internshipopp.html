@@ -13,7 +13,8 @@
 {% endblock css_files %}
 
 {% block content %}
-    <div class="home offset-md-1" style="margin-top:7%; margin-left:12%; overflow: hidden;">
+{% include 'includes/sidebar.html' with unread_messages=unread_messages %}
+	<div class="home offset-md-1" style="margin-top:7%; margin-left:12%; overflow: hidden;">
       <div class="row">
         <!-- Left sidebar -->
         <div class="col-md-9">
@@ -64,7 +65,7 @@
 				</tbody>
 			{% else %}
 				<tr>
-					<td style="text-align:center; font-weight:bold;">There is no internship opportunity.</td>
+					<td style="text-align:center;" class="text">There is no internship opportunity.</td>
 				</tr>
 			{% endif %}
 			

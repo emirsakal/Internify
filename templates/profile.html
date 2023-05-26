@@ -6,6 +6,7 @@ Profile
 {% endblock page_title %}
 
 {% block content %}
+{% include 'includes/sidebar.html' with unread_messages=unread_messages %}
 <body style="overflow: hidden;">
     <div class="home offset-md-1" style="margin-left:30px; margin-top:8%;">
       <div class="content-wrapper"> 

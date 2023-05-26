@@ -12,6 +12,7 @@
 {% endblock css_files %}
 
 {% block content %}
+{% include 'includes/sidebar.html' with unread_messages=unread_messages %}
 <div class="home offset-md-1" style="margin-top:4%;">
   <div class="row">
     <div class="col-lg-10">
@@ -69,7 +70,7 @@
       </tbody>
       {% else %}
         <th>
-          <p class='text-center text-white'>No records!</p>
+          <p class='text-center text'>No records!</p>
         </th>
       {% endif %}
     </table>

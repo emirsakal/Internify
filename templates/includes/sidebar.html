@@ -431,9 +431,17 @@ img.color-change {
 
                 <!-- EVERY CLASS LINKS (INBOX - PROFILE - LOGOUT) -->
                 <li class="nav-link">
-                    <a href="/inbox">
+                    <a href="{% url 'inbox' %}"  class="position-relative">
                         <i class='bx bx-chat icon' ></i>
-                        <span class="text nav-text">Inbox</span>
+                        <span class="text nav-text">Inbox 
+							{% if unread_messages > 0 %}
+								<span class="position-absolute top-50 translate-middle badge rounded-pill bg-danger" style="left:85%;">
+									{{unread_messages}}
+									<span class="visually-hidden">unread messages</span>
+								</span>
+							{% endif %}
+						</span>
+						
                     </a>
                 </li>
             </div>

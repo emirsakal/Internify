@@ -31,6 +31,7 @@ Dashboard
 {% endblock css_files %}
 
 {% block content %}
+{% include 'includes/sidebar.html' with unread_messages=unread_messages %}
 <div class="home offset-md-1" style="overflow:hidden;">
 	<div class="col-md-10" style="margin-top:6%;">
 		<div class="fw-container">
@@ -38,7 +39,7 @@ Dashboard
 				<div class="content">
 					<div class="row">
 						<header class="mb-4" style="text-align: start;">
-							<h1 class="page_title text" style="float: left;">SGK-EF</h1>
+							<h1 class="page_title text" style="float: left;">SGK Entry</h1>
 						</header>
 					</div>
 				</div>
@@ -88,7 +89,7 @@ Dashboard
 						</tbody>
 						{% else %}
 						<tr>
-							<td style="text-align:center; font-weight:bold;">No applications found!</td>
+							<td style="text-align:center;" class="text">No applications found!</td>
 						</tr>
 						{% endif %}
 					</table>

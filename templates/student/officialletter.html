@@ -23,7 +23,8 @@ Official Letter
       width: 19%;
     }
   </style>
-  <!-- Page Content -->
+	{% include 'includes/sidebar.html' with unread_messages=unread_messages %}
+	<!-- Page Content -->
   <div class="home" style="margin-left:11%; margin-top:5%;">
     <div class="float-container">
       <div class="float-child-left">
@@ -135,7 +136,7 @@ Official Letter
 					</tbody>
                     {% else %}
 					<tr>
-                      <p class='text-center text-white'>No records!</p>
+                      <p class='text-center text'>No records!</p>
                     </tr>
                     {% endif %}
                 </table>

@@ -25,8 +25,11 @@ from .forms import StudentLoginForm, StaffLoginForm
 
 def index(request):
 	announcements = Announcement.objects.all().order_by('-date_created')[:3]
+	unread_messages = Message.objects.filter(receiver=request.user, is_read=False).count()
+
 	context = {
-		'announcements': announcements
+		'announcements': announcements,
+		'unread_messages': unread_messages
 	}
 	return render(request, "index.html", context)
 
@@ -55,9 +58,11 @@ def inbox(request):
 		return redirect(reverse('inbox'))
 	
 	emails = Message.objects.filter((Q(sender=request.user) | Q(receiver=request.user)) & Q(parent=None)).order_by('-date_created')
-	
+	unread_messages = Message.objects.filter(receiver=request.user, is_read=False).count()
+
 	context = {
 		'emails': emails,
+		'unread_messages': unread_messages
 	}
 	return render(request, "inbox.html", context)
 
@@ -86,7 +91,9 @@ def message(request, id):
 			child.save()
 		parent.save()
 
+	unread_messages = Message.objects.filter(receiver=request.user, is_read=False).count()
 	context = {
+		'unread_messages': unread_messages,
 		'email': parent
 	}
 	
@@ -103,7 +110,10 @@ def profile(request):
 			user.save()
 		return redirect(reverse('profile'))
 	
-	context = {}
+	unread_messages = Message.objects.filter(receiver=request.user, is_read=False).count()
+	context = {
+		'unread_messages': unread_messages
+	}
 	
 	if user.groups.filter(name='Student').exists():
 		student = Student.objects.get(user=user)
@@ -118,7 +128,7 @@ def profile(request):
 			context['coordinator'] = coordinator
 		return render(request, "profile.html", context)
 
-	return render(request, "profile.html")
+	return render(request, "profile.html", context)
 
 # STUDENT
 
@@ -140,10 +150,11 @@ def internshipform(request):
 	
 	applications = Application.objects.filter(student=student, type='I').order_by('-date_created')
 	documents = Document.objects.filter(application__in=applications)
-
+	unread_messages = Message.objects.filter(receiver=request.user, is_read=False).count()
 	context = {
 		'applications': applications,
-		'documents': documents
+		'documents': documents,
+		'unread_messages': unread_messages
 	}
 	
 	return render(request, "student/internshipform.html", context)
@@ -166,9 +177,11 @@ def officialletter(request):
 	
 	applications = Application.objects.filter(student=student, type='L').order_by('-date_created')
 	documents = Document.objects.filter(application__in=applications)
+	unread_messages = Message.objects.filter(receiver=request.user, is_read=False).count()
 	context = {
 		'applications': applications,
-		'documents': documents
+		'documents': documents,
+		'unread_messages': unread_messages
 	}
 	
 	return render(request, "student/officialletter.html", context)
@@ -212,12 +225,13 @@ def internshipopp(request):
 	internships = Internship.objects.all().order_by('-date_created')[:20]
 	faculties = Faculty.objects.all()
 	departments = Department.objects.all()
-
+	unread_messages = Message.objects.filter(receiver=request.user, is_read=False).count()
 	context = {
 		'provinces': provinces,
 		'internships': internships,
 		'faculties': faculties,
 		'departments': departments,
+		'unread_messages': unread_messages
 	}
 	return render(request, "student/internshipopp.html", context)
 
@@ -266,10 +280,11 @@ def sgkef(request):
 
 	applications = Application.objects.filter(type='I', employee=employee, status='P').order_by('-date_created')
 	documents = Document.objects.filter(application__employee=employee, application__type='I', application__status='P')
-	
+	unread_messages = Message.objects.filter(receiver=request.user, is_read=False).count()
 	context = {
 		'applications': applications,
 		'documents': documents,
+		'unread_messages': unread_messages
 	}
 	return render(request, "careercenter/sgkef.html", context)
 
@@ -306,10 +321,11 @@ def applicationform(request):
 	
 	applications =  Application.objects.filter(coordinator=coordinator[0], type='I', status='W').order_by('-date_created')    
 	documents = Document.objects.filter(application__coordinator=coordinator[0], application__type='I')
-	
+	unread_messages = Message.objects.filter(receiver=request.user, is_read=False).count()
 	context = {
 		"applications": applications,
-		"documents": documents
+		"documents": documents,
+		"unread_messages": unread_messages
 	}
 	
 	return render(request, "teacher/applicationform.html", context)
@@ -377,10 +393,11 @@ def offletters(request):
 	
 	applications =  Application.objects.filter(coordinator=coordinator[0], type='L', status='W').order_by('-date_created')
 	documents = Document.objects.filter(application__coordinator=coordinator[0], application__type='L')
-	
+	unread_messages = Message.objects.filter(receiver=request.user, is_read=False).count()
 	context = {
 		"applications": applications,
-		"documents": documents
+		"documents": documents,
+		"unread_messages": unread_messages
 	}
 	
 	return render(request, "teacher/offletters.html", context)

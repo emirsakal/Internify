@@ -26,6 +26,7 @@
 {% endblock css_files %}
 
 {% block content %}
+{% include 'includes/sidebar.html' with unread_messages=unread_messages %}
 <div class="home" style="margin-left:11%; margin-top:5%;">
 	<div class="float-container">
 		<div class="float-child-left">
@@ -176,7 +177,7 @@
 									{% endfor %}
 								</tbody>
 								{% else %}
-								<p class='text-center text-white'>No records!</p>
+								<p class='text-center text'>No records!</p>
 								{% endif %}
 							</table>
 						</header>

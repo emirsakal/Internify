@@ -32,7 +32,8 @@ Official Letters
 {% endblock page_title %}
 
 {% block content %}
-  <div class="home offset-md-1" style="overflow:hidden;">
+{% include 'includes/sidebar.html' with unread_messages=unread_messages %}
+<div class="home offset-md-1" style="overflow:hidden;">
     <div class="col-md-10" style="margin-top:6%;">
         <div class="fw-container">
         <div class="fw-body">
