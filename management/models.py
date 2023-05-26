@@ -123,8 +123,8 @@ class Application(BaseAbstractModel):
     STATUS_CHOICES = (
         ('W', 'Waiting'),
         ('R', 'Rejected'),
-        ('A', 'Approved'),
-        ('Z', 'Archived'),
+        ('P', 'Pending'),
+        ('A', 'Accepted'),
     )
     TYPE_CHOICES = (
         ('L', 'Letter'),
@@ -146,6 +146,7 @@ class Document(BaseAbstractModel):
     document = models.FileField(upload_to='files')
     application = models.ForeignKey(Application, on_delete=CASCADE)
     type = models.CharField(max_length=1, choices=TYPE_CHOICES, null=True, blank=True)
+    counter = models.IntegerField(default=0, null=True, blank=True)
     def __str__(self):
         return f'{self.application.id} | {self.application.status}'
 

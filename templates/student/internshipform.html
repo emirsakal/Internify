@@ -4,119 +4,201 @@
 
 {% block page_title %}Internship Application{% endblock page_title %}
 
-{% block content %}
+{% block css_files %}
 <style>
-  body {
-    overflow:hidden;
-  }
-  .float-child-left {
-    width: 59%;
-    float: left;
-    padding: 20px;
-  }
-  
-  .float-child-right {
-    margin-top:20px;
-    margin-left:1%;
-    float: left;
-    width: 40%;
-  }
-</style>
-<!-- Page Content -->
+	body {
+		overflow: hidden;
+	}
 
-  <div class="home" style="margin-left:11%; margin-top:5%;">
-    <div class="float-container">
-      <div class="float-child-left">
-        <div class="col-lg-12">
-          <div class="card p-4">
-            <header class = "mb-4" style="text-align: start;">
-              <form enctype="multipart/form-data" action="{% url 'internshipform' %}" method="POST">
-              {% csrf_token %}
-              <a>
-                <h3 class="fw-bolder mb-1 text">Internship Application Form</h3>
-              </a>
-              <p class="text lead">Download the document and upload it by filling in all the required fields. If the information is missing, your document will not be approved.</p>
-              <button type="submit" class="btn btn-outline-primary" style="float:right;">
-                <span class="d-none d-sm-block"> Apply</span>
-              </button>
-              
-                <label for="upload" class="btn btn-outline-primary me-2" tabindex="0" style="float:right;">
-                  <span class="d-none d-sm-block">Upload Documentation</span>
-                  <i class="bx bx-upload d-block d-sm-none"></i>
-                  <input type="file" id="upload" class="account-file-input" required hidden name='internship_form' style="border: 2px solid var(--purple-text-color); background-color: var(--primary-color-light); font-size: 20px; float:right;" />
-                </label>
-              </form>
-             </header>
-          </div>
-          <div class="col-lg-12">
-            <div class="card p-4" style="margin-top:40px; max-height: 400px; overflow-y: scroll;">
-              <header class = "mb-2" style="text-align: start;">
-                <table id="example" class="table table-striped" style="width:100%; margin-bottom: auto;">
-                  {% if applications.count > 0 %}
-                  <thead>
-                    <tr>
-                      <th class="text" style="font-weight: bold;">ID</th>
-                      <th class="text" style="font-weight: bold;">Date</th>
-                      <th class="text" style="font-weight: bold;">Time Modified</th>
-                      <th class="text" style="font-weight: bold;">Internship Coordinator</th>
-                      <th class="text" style="font-weight: bold;">Order Status</th>
-                    </tr>
-                  </thead>
-                  <tbody> 
-                      {% for application in applications %}
-                        <tr>
-                          <td class="text" style="font-weight: bold; font-family:Arial, Helvetica, sans-serif;">{{application.id}}</td>
-                          <td class="text" style="font-weight: bold; font-family:Arial, Helvetica, sans-serif;">{{application.date_created|date:"d-m-Y" }}</td>
-                          <td class="text" style="font-weight: bold; font-family:Arial, Helvetica, sans-serif;">{{application.date_created|date:"h:i A"}}</td>
-                          <td class="text" style="font-weight: bold; font-family:Arial, Helvetica, sans-serif;">{{application.coordinator.user.first_name}} {{application.coordinator.user.last_name}}</td>
-                          {% if application.status == 'W' %}
-                            <td>
-                              <span style="color: lightskyblue; font-weight: bold; font-family: Arial, Helvetica, sans-serif;">
-                                WAITING
-                              </span>
-                            </td>
-                          {% elif application.status == 'A' %}
-                            <td>
-                              <span style="color: lightgreen; font-weight: bold; font-family: Arial, Helvetica, sans-serif;">
-                                ACCEPTED
-                              </span>
-                            </td>
-							{% elif application.status == 'Z' %}
-                            <td>
-                              <span style="color: lightgreen; font-weight: bold; font-family: Arial, Helvetica, sans-serif;">
-                                ARCHIEVED
-                              </span>
-                            </td>
-                          {% else %}
-                            <td>
-                              <span style="color: lightcoral; font-weight: bold; font-family: Arial, Helvetica, sans-serif;">
-                                REJECTED
-                              </span>
-                            </td>
-                          {% endif %}
-                        </tr>
-                      {% endfor %}
-					</tbody>
-					{% else %}
-                      <p class='text-center text-white'>No records!</p>
-                    {% endif %}
-                </table>
-              </header>
-            </div>
-          </div>
-        </div>
-      </div>
-      <div class="float-child-right">
-        <div class="col-lg-5">
-          <div class="card p-4">
-            <header class = "mb-2" style="text-align: center;">
-              <a><h3 class="fw-bolder mb-1 text" >Internship Application Form</h3></a>
-              <i class="bx bx-detail text" style="font-size: 12em;"></i>
-              <a href="/static/assets/internship-form.pdf" class="btn btn-outline-primary" style="width:100%; margin-bottom:20px; margin-top:18px;"><i class="bx bx-download"></i><span> Download</span></a>
-            </header>
-          </div>
-        </div>
-      </div>
-    </div>
-  </div>
+	.float-child-left {
+		width: 59%;
+		float: left;
+		padding: 20px;
+	}
+
+	.float-child-right {
+		margin-top: 20px;
+		margin-left: 1%;
+		float: left;
+		width: 40%;
+	}
+</style>
+{% endblock css_files %}
+
+{% block content %}
+<div class="home" style="margin-left:11%; margin-top:5%;">
+	<div class="float-container">
+		<div class="float-child-left">
+			<div class="col-lg-12">
+				<div class="card p-4">
+					<header class="mb-4" style="text-align: start;">
+						<form enctype="multipart/form-data" action="{% url 'internshipform' %}" method="POST">
+							{% csrf_token %}
+							
+							<h3 class="fw-bolder mb-1 text">Internship Application Form</h3>
+							
+							<p class="text lead">Download the document and upload it by filling in all the required
+								fields. If the information is missing, your document will not be approved.</p>
+
+							<div class="mt-4 mb-3">
+								<label for="formFile" class="form-label text">Internship Form</label>
+								<input class="form-control" name="internship_form" type="file" id="formFile" required>
+							</div>
+							  
+							<div class="mb-3">
+								<label for="formFile" class="form-label text">Transcript</label>
+								<input class="form-control" name="transcript" type="file" id="formFile" required>
+							</div>
+
+							<button type="submit" class="btn btn-outline-primary" style="float:right;">
+								<span class="d-none d-sm-block"> Apply</span>
+							</button>
+						</form>
+					</header>
+				</div>
+				<div class="col-lg-12">
+					<div class="card p-4" style="margin-top:40px; max-height: 400px; overflow-y: scroll;">
+						<header class="mb-2" style="text-align: start;">
+							<table id="example" class="table table-striped" style="width:100%; margin-bottom: auto;">
+								{% if applications.count > 0 %}
+								<thead>
+									<tr>
+										<th class="text" style="font-weight: bold;">#</th>
+										<th class="text" style="font-weight: bold;">Date</th>
+										<th class="text" style="font-weight: bold;">Time Created</th>
+										<th class="text" style="font-weight: bold;">Internship Coordinator</th>
+										<th class="text" style="font-weight: bold;">Status</th>
+										<th class="text" style="font-weight: bold;">Uploaded</th>
+										<th class="text" style="font-weight: bold;">Result</th>
+									</tr>
+								</thead>
+								<tbody>
+									{% for application in applications %}
+									<tr>
+										<td class="text"
+											style="font-weight: bold; font-family:Arial, Helvetica, sans-serif;">
+											{{forloop.counter}}</td>
+										<td class="text"
+											style="font-weight: bold; font-family:Arial, Helvetica, sans-serif;">
+											{{application.date_created|date:"d-m-Y" }}</td>
+										<td class="text"
+											style="font-weight: bold; font-family:Arial, Helvetica, sans-serif;">
+											{{application.date_created|date:"h:i A"}}</td>
+										<td class="text"
+											style="font-weight: bold; font-family:Arial, Helvetica, sans-serif;">
+											{{application.coordinator.user.get_full_name}}
+										</td>
+
+										{% if application.status == 'W' %}
+											<td>
+												<span
+													style="color: lightskyblue; font-weight: bold; font-family: Arial, Helvetica, sans-serif;">
+													WAITING
+												</span>
+											</td>
+											<td>
+												{% for document in documents %}
+													{% if document.application.id == application.id and document.type == 'S' %}
+														<a href="{{document.document.url}}" target="_blank" class="text" style="text-decoration: none;">
+															<span>
+																<i class='bx bx-show'></i>
+															</span>
+														</a>
+													{% endif %}
+												{% endfor %}
+											</td>
+											<td></td>
+										{% elif application.status == 'A' %}
+											<td>
+												<span
+													style="color: lightgreen; font-weight: bold; font-family: Arial, Helvetica, sans-serif;">
+													ACCEPTED
+												</span>
+											</td>
+										
+											<td>
+												{% for document in documents %}
+													{% if document.application.id == application.id and document.type == 'S' %}
+														<a href="{{document.document.url}}" target="_blank" class="text" style="text-decoration: none;">
+															<span><i class='bx bx-show'></i></span>
+														</a>
+													{% endif %}
+												{% endfor %}
+											</td>
+
+											<td>
+												{% for document in documents %}
+													{% if document.application.id == application.id and document.type == 'G' %}
+														<a download href="{{document.document.url}}" target="_blank" class="text" style="text-decoration: none;">
+															<i class='bx bxs-cloud-download'></i>
+														</a>
+													{% endif %}
+												{% endfor %}
+											</td>
+										{% elif application.status == 'P' %}
+											<td>
+												<span
+													style="color: var(--purple-text-color); font-weight: bold; font-family: Arial, Helvetica, sans-serif;">
+													PENDING
+												</span>
+											</td>
+										
+											<td>
+												{% for document in documents %}
+													{% if document.application.id == application.id and document.type == 'S' %}
+														<a href="{{document.document.url}}" target="_blank" class="text" style="text-decoration: none;">
+															<span><i class='bx bx-show'></i></span>
+														</a>
+													{% endif %}
+												{% endfor %}
+											</td>
+
+											<td></td>
+										{% else %}
+											<td>
+												<span
+													style="color: lightcoral; font-weight: bold; font-family: Arial, Helvetica, sans-serif;">
+													REJECTED
+												</span>
+											</td>
+											<td>
+												{% for document in documents %}
+													{% if document.application.id == application.id and document.type == 'S' %}
+														<a href="{{document.document.url}}" target="_blank" class="text" style="text-decoration: none;">
+															<span><i class='bx bx-show'></i></span>
+														</a>
+													{% endif %}
+												{% endfor %}
+											</td>
+											<td></td>
+										{% endif %}
+									</tr>
+									{% endfor %}
+								</tbody>
+								{% else %}
+								<p class='text-center text-white'>No records!</p>
+								{% endif %}
+							</table>
+						</header>
+					</div>
+				</div>
+			</div>
+		</div>
+		<div class="float-child-right">
+			<div class="col-lg-5">
+				<div class="card p-4">
+					<header class="mb-2" style="text-align: center;">
+						<a>
+							<h3 class="fw-bolder mb-1 text">Internship Application Form</h3>
+						</a>
+						<i class="bx bx-detail text" style="font-size: 12em;"></i>
+						<a  download target="_blank" href="/static/assets/internship-form.pdf" class="btn btn-outline-primary"
+							style="width:100%; margin-bottom:20px; margin-top:18px;"><i
+								class="bx bx-download"></i><span> Download</span></a>
+					</header>
+				</div>
+			</div>
+		</div>
+	</div>
+</div>
 {% endblock content %}

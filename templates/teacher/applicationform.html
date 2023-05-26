@@ -63,10 +63,19 @@ Internship Applications
                       <td>{{application.date_created|date:"d-m-Y"}}</td>
                       <td>{{application.date_created|date:"h:i A"}}</td>
                       <td>
-						<button type="button" class="btn btn-outline-primary btn-sm btn-modal" data-bs-toggle="modal" data-bs-target="#pdfModal" 
-						data-file="{% for document in documents %}{% if application.id == document.application.id %}{{document.document.url}}{% endif %}{% endfor %}" style="font-size:medium">
-                            <span>Review</span>
-						</button>
+						{% for document in documents %}
+							{% if application.id == document.application.id %}
+								<button type="button" class="btn btn-outline-primary btn-sm btn-modal" data-bs-toggle="modal" data-bs-target="#pdfModal" data-file="{{document.document.url}}" style="font-size:medium">
+									<span>
+										{% if document.counter == 1 %}
+											<i class='bx bx-file'></i> Form
+										{% elif document.counter == 2 %}
+											<i class='bx bxs-file-pdf'></i> Transcript
+										{% endif %}
+									</span>
+								</button>
+							{% endif %}
+						{% endfor %}
                       </td>
                     </tr>
                     {% endfor %}
@@ -95,7 +104,7 @@ Internship Applications
 				<button type="button" class="btn btn-secondary" data-bs-dismiss="modal">Close</button>
 				<form action="{% url 'applicationform' %}" method="POST" class="application-status">
 					{% csrf_token %}
-					<input type="hidden" name="status" value="approved">
+					<input type="hidden" name="status" value="pending">
 					<input type="hidden" name="application" value="">
 					<button type="submit" class="btn btn-success application-status" data-bs-dismiss="modal">Approve</button>
 				</form>

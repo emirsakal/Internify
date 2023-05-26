@@ -121,21 +121,23 @@ def internshipform(request):
 	student = Student.objects.get(user=user)
 	
 	if request.method == 'POST':
-		if 'internship_form' in request.FILES:
+		if 'internship_form' in request.FILES and 'transcript' in request.FILES:
 			coordinator = InternshipCoordinator.objects.filter(department=student.department)
 			staff = CareerCenterEmployee.objects.get(employee_id=1)
 			if len(coordinator) > 0:
 				application = Application.objects.create(coordinator=coordinator[0], student=student, employee=staff, status='W', type='I')
 				application.save()
 				
-				document = Document.objects.create(document=request.FILES['internship_form'], application=application)
-				document.save()
+				Document.objects.create(document=request.FILES['internship_form'], application=application, type='S', counter=1).save()
+				Document.objects.create(document=request.FILES['transcript'], application=application, type='S', counter=2).save()
 				return redirect(reverse('internshipform'))
 	
 	applications = Application.objects.filter(student=student, type='I').order_by('-date_created')
-	
+	documents = Document.objects.filter(application__in=applications)
+
 	context = {
-		'applications': applications
+		'applications': applications,
+		'documents': documents
 	}
 	
 	return render(request, "student/internshipform.html", context)
@@ -225,11 +227,11 @@ def sgkef(request):
 
 		application = Application.objects.get(pk=id)
 		title = request.POST['title']
-		if status == 'archived':
-			application.status = 'Z'
+		if status == 'accepted':
+			application.status = 'A'
 
 			file = request.FILES['insurance']
-			document = Document.objects.create(document=file, application=application)
+			document = Document.objects.create(document=file, application=application, type='G')
 			document.save()
 
 			url = request.build_absolute_uri(document.document.url)
@@ -237,7 +239,7 @@ def sgkef(request):
 			message = Message.objects.create(sender=user, 
 				    receiver=application.student.user, 
 					title=title,
-					content=f'Your application has been approved by University. You can download your insurance from link below\n{url}',
+					content=f'Your application has been approved by University. You can download your insurance from application page\n',
 					parent=None,
 					)
 			message.save()
@@ -256,8 +258,8 @@ def sgkef(request):
 
 		return redirect(reverse('sgkef'))
 
-	applications = Application.objects.filter(type='I', employee=employee, status='A').order_by('-date_created')
-	documents = Document.objects.filter(application__employee=employee, application__type='I', application__status='A')
+	applications = Application.objects.filter(type='I', employee=employee, status='P').order_by('-date_created')
+	documents = Document.objects.filter(application__employee=employee, application__type='I', application__status='P')
 	
 	context = {
 		'applications': applications,
@@ -276,8 +278,8 @@ def applicationform(request):
 		status = request.POST['status']
 
 		application = Application.objects.get(pk=id)
-		if status == 'approved':
-			application.status = 'A'
+		if status == 'pending':
+			application.status = 'P'
 		elif status == 'rejected' and 'receiver' in request.POST and 'title' in request.POST and 'content' in request.POST:
 			application.status = 'R'
 
