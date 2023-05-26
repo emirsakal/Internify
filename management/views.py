@@ -54,10 +54,10 @@ def inbox(request):
 		messages.success(request,"message sent successfully!")
 		return redirect(reverse('inbox'))
 	
-	emails = Message.objects.filter((Q(sender=request.user) | Q(receiver=request.user)) & Q(parent=None)).order_by('-date_updated')
+	emails = Message.objects.filter((Q(sender=request.user) | Q(receiver=request.user)) & Q(parent=None)).order_by('-date_created')
 	
 	context = {
-		'emails': emails
+		'emails': emails,
 	}
 	return render(request, "inbox.html", context)
 
@@ -79,7 +79,13 @@ def message(request, id):
 		return redirect(f'/inbox/message/{parent.id}/')
 
 	children = Message.objects.filter(parent=parent)
-	
+	if parent.receiver == request.user:
+		parent.is_read = True
+		for child in children:
+			child.is_read = True
+			child.save()
+		parent.save()
+
 	context = {
 		'email': parent
 	}

@@ -54,11 +54,15 @@
               </a>
             </td>
             <td>
-              <a href="{% url 'inbox' %}message/{{message.id}}/" style="text-decoration: none; color: var(--text-color)">
+              <a href="{{message.get_absolute_url}}" style="text-decoration: none; color: var(--text-color)">
                 {{message.receiver.get_full_name}}
               </a>
             </td>
-            <td>{{message.title}}</td>
+            <td>
+				{% if message.receiver == request.user and message.is_read == False %}
+					<span class="badge text-bg-secondary">new</span>
+				{% endif %} {{message.title}}
+			</td>
             <td class="text-right fst-italic">{{message.date_created|date:"h:i A"}}</td>
           </tr>
         {% endfor %}

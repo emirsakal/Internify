@@ -87,6 +87,12 @@ class Message(BaseAbstractModel):
     sender = models.ForeignKey(User, on_delete=CASCADE, related_name='sender')
     receiver = models.ForeignKey(User, on_delete=CASCADE, related_name='receiver')
     parent = models.ForeignKey('self', on_delete=SET_NULL, null=True, related_name='parentnode')
+    is_read = models.BooleanField(default=False)
+    
+    def mark_as_read(self):
+        self.is_read = True
+        self.save()
+
     def __str__(self):
         return f'{self.title} | {self.sender.email}'
     
