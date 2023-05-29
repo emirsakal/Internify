@@ -75,6 +75,10 @@ def sendmessage(request):
 def message(request, id):
 	parent = Message.objects.get(pk=id)
 	
+	if parent.sender != request.user and parent.receiver != request.user:
+		messages.warning(request,"You can not view this message.")
+		return redirect(reverse('inbox'))
+	
 	if request.method == "POST":
 		email = request.POST['email']
 		title = request.POST['title']
