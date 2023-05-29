@@ -25,53 +25,6 @@
 				{% endif %}
 			{% endfor %}
 
-			{% comment %}<table class="table" style="width:100%; background-color: var(--primary-color-light); border:1px solid var(--text-color); box-shadow: rgba(0, 0, 0, 0.15) 1.95px 1.95px 2.6px;">
-				{% if internships.count > 0 %}
-					<thead class="text" style="font-size: 1.5rem;">
-						<tr>
-							<th>Company</th>
-							<th>Job</th>
-							<th>Province</th>
-							<th>Start Date</th>
-							<th>End Date</th>
-							<th style="text-align:center;">Detail</th>
-						</tr>
-					</thead>
-					<tbody style="font-size: 1.4rem;">
-						{% for internship in internships %}
-							<tr class="text">
-								<td>
-									<a title="{{internship.title}}" href="#" style="text-decoration: none;">
-										<img width="34" alt="{{internship.company}}" src="
-										{% if internship.logo %}
-											{{internship.logo.url}}
-										{% else %}
-											{% static 'assets/img/internship.jpg' %}
-										{% endif %}
-										">
-									</a>
-									{{internship.company}}
-								</td>
-								<td>{{internship.job}}</td>
-								<td>{{internship.province.name}}</td>
-								<td>{{internship.start_date|date:"d-m-Y"}}</td>
-								<td>{{internship.end_date|date:"d-m-Y"}}</td>
-								<td style ="text-align: center;">
-									<a href="{{internship.url}}" target="_blank" class="btn btn-outline-primary" style="text-decoration: none;">
-										<span style="font-weight: bold; font-family: Arial, Helvetica, sans-serif;">Apply</span>
-									</a>
-								</td>
-							</tr>
-						{% endfor %}
-					</tbody>
-				{% else %}
-					<tr>
-						<td style="text-align:center;" class="text">There is no internship opportunity.</td>
-					</tr>
-				{% endif %}
-				
-			</table>{% endcomment %}
-
 			<!-- Modal -->
 			<div class="modal fade" id="internshipModal" aria-hidden="true" aria-labelledby="answerModal" tabindex="-1">
 				<div class="modal-dialog modal-xl modal-dialog-centered">
@@ -136,16 +89,6 @@
 													{% endfor %}
 												</select>
 											</div>
-
-											<div class="mb-3">
-												<label for="exampleFormControlInput1" class="form-label" style="font-weight: 500;">Department</label>
-												<select class="form-select form-select-md mb-3" name="department" aria-label=".form-select-md example">
-													<option disabled selected>Select department</option>
-													{% for department in departments %}
-														<option value="{{department.name}}">{{department.name}}</option>
-													{% endfor %}
-												</select>
-											</div>
 										</div>
 									</div>
 								</div>
@@ -164,7 +107,7 @@
 						  {% if internships.count > 0 %}
 							  {% for internship in internships %}
 								  <div class="col-md-5">
-									  <div class="card mb-3 text-end" style="max-width: 100%;">
+									  <div class="card mb-3 text-end text" style="max-width: 100%;">
 										  <div class="row g-0">
 											<div class="col-md-3 d-flex justify-content-center align-items-center">
 											  <img src="{% if internship.logo %}{{internship.logo.url}}{% else %}{% static 'assets/img/internship.jpg' %}{% endif %}" class="img-fluid rounded-start" style="max-width:50%;" alt="{{internship.title}}">
@@ -173,7 +116,7 @@
 											  <div class="card-body">
 												<h5 class="card-title text-start">{{internship.job}}</h5>
 												<p class="card-text text-start">Internship at {{internship.company}} company in {{internship.province.name}}</p>
-												<p class="card-text text-start "><small class="text-muted">{{internship.start_date|date:"d/m/Y"}} - {{internship.end_date|date:"d/m/Y"}}</small></p>
+												<p class="card-text text-start"><small class="text">{{internship.start_date|date:"d/m/Y"}} - {{internship.end_date|date:"d/m/Y"}}</small></p>
 												<a href="{{internship.url}}" class="btn btn-primary">Apply</a>
 											  </div>
 											</div>

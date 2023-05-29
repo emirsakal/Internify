@@ -51,8 +51,8 @@
                     {% csrf_token %}
                     <div class="card p-4" style="box-shadow: rgba(14, 30, 37, 0.12) 0px 2px 4px 0px, rgba(14, 30, 37, 0.32) 0px 2px 16px 0px;">
                         <div class="text mb-3">
-                            <label for="exampleFormControlInput1" class="form-label" style="font-weight: 500;">Sender</label>
-                            <input class="form-control text" type="email" value="{{email.receiver.email}}" style="background-color: var(--primary-color-light);" name="email" readonly>
+                            <label for="exampleFormControlInput1" class="form-label" style="font-weight: 500;">Receiver</label>
+                            <input class="form-control text" type="email" value="{% if request.user == email.receiver %}{{email.sender.email}}{% else %}{{email.receiver.email}}{% endif %}" style="background-color: var(--primary-color-light);" name="email" readonly>
                         </div>
                         <div class="text mb-3">
                             <label for="exampleFormControlInput1" class="form-label" style="font-weight: 500;">Subject</label>

@@ -43,7 +43,8 @@
         <th>SENDER</th>
         <th>RECEIVER</th>
         <th>SUBJECT</th>
-        <th>DATE</th>
+        <th>TIME</th>
+		<th>DATE</th>
       </thead>
       <tbody class="text">
         {% for message in emails %}
@@ -65,6 +66,7 @@
 				{% endif %} {{message.title}}
 			</td>
             <td class="text-right fst-italic">{{message.date_created|date:"h:i A"}}</td>
+			<td class="text-right fst-italic">{{message.date_created|date:"d-m-Y"}}</td>
           </tr>
         {% endfor %}
       </tbody>

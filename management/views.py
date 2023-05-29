@@ -4,6 +4,9 @@ from django.contrib import messages
 from django.contrib.auth import login, authenticate, logout
 from django.db.models import Q
 from django.views.decorators.clickjacking import xframe_options_sameorigin
+from django.conf import settings
+from datetime import datetime
+import pytz
 
 from .create_doc import create_letter
 
@@ -79,17 +82,21 @@ def message(request, id):
 		
 		receiver = User.objects.get(email=email)
 		child = Message.objects.create(title=title, content=content, receiver=receiver, sender=request.user, parent=parent)
+		parent.date_created = datetime.utcnow().replace(tzinfo=pytz.utc)
+		parent.save()
 		child.save()
 		
-		return redirect(f'/inbox/message/{parent.id}/')
+		return redirect(reverse('inbox'))
 
 	children = Message.objects.filter(parent=parent)
 	if parent.receiver == request.user:
 		parent.is_read = True
-		for child in children:
+		parent.save()
+	
+	for child in children:
+		if child.receiver == request.user:
 			child.is_read = True
 			child.save()
-		parent.save()
 
 	unread_messages = Message.objects.filter(receiver=request.user, is_read=False).count()
 	context = {
@@ -204,10 +211,6 @@ def internshipopp(request):
 			faculty = Faculty.objects.get(name=request.POST['faculty'])
 			internship.faculty = faculty
 		
-		if 'department' in request.POST:
-			department = Department.objects.get(name=request.POST['department'])
-			internship.department = department
-		
 		if 'logo' in request.FILES:
 			logo = request.FILES['logo']
 			internship.logo = logo
@@ -224,13 +227,11 @@ def internshipopp(request):
 	provinces = Province.objects.all().order_by('name')
 	internships = Internship.objects.all().order_by('-date_created')[:20]
 	faculties = Faculty.objects.all()
-	departments = Department.objects.all()
 	unread_messages = Message.objects.filter(receiver=request.user, is_read=False).count()
 	context = {
 		'provinces': provinces,
 		'internships': internships,
 		'faculties': faculties,
-		'departments': departments,
 		'unread_messages': unread_messages
 	}
 	return render(request, "student/internshipopp.html", context)
