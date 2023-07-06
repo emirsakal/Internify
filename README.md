@@ -4,12 +4,12 @@ Internify is a comprehensive online platform designed to assist students in find
 Link: [internify.pythonanywhere.com](https://internify.pythonanywhere.com/)
 
 # Account Info
-You can try the website with using E-mail and password below. (For student login from student side and for others login from staff side.)
+You can try the website with using E-mail and Password below. (For student login from student side and for others login from staff side.)
 
 E-mail : student@hotmail.com
 Password : 1234
 
-E-mail : teacher@hotmail.com 
+E-mail : teacher@hotmail.com
 Password : 1234
 
 E-mail : careercenter@hotmail.com
